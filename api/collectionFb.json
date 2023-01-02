@@ -1,0 +1,1524 @@
+{
+	"info": {
+		"_postman_id": "b72886bb-68ed-4344-9caa-ce0bba111d09",
+		"name": "Social Network V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14616877"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "add_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "video",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{myDomain}}/post/add_post?token={{token}}&described=TuanPA Post&status=hạnh phúc",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"post",
+								"add_post"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "described",
+									"value": "TuanPA Post"
+								},
+								{
+									"key": "status",
+									"value": "hạnh phúc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/post/get_post?token={{token}}&id=5fcdf1880054254eac0e253e",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"post",
+								"get_post"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "id",
+									"value": "5fcdf1880054254eac0e253e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_post",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [
+										"/C:/Users/caova/Desktop/imagejpg.jpg",
+										"/C:/Users/caova/Desktop/imagepng - Copy - Copy.png"
+									],
+									"disabled": true
+								},
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/C:/Users/caova/Pictures/Camera Roll/WIN_20201020_15_11_15_Pro.mp4",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{myDomain}}/post/edit_post?token={{token}}&id=5fd33d0f2386553b4c181d0d&described=Xin chào các bạn&status=hạnh phúc&image_del=[\"5fd33f6b2bd9691f705e7326\", \"5fd33f6b2bd9691f705e7326\"]",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"post",
+								"edit_post"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"description": "Token (bắt buộc)"
+								},
+								{
+									"key": "id",
+									"value": "5fd33d0f2386553b4c181d0d",
+									"description": "Id của bài viết (bắt buộc)"
+								},
+								{
+									"key": "described",
+									"value": "Xin chào các bạn"
+								},
+								{
+									"key": "status",
+									"value": "hạnh phúc"
+								},
+								{
+									"key": "image_del",
+									"value": "[\"5fd33f6b2bd9691f705e7326\", \"5fd33f6b2bd9691f705e7326\"]",
+									"description": "Mảng các id ảnh cần xóa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/delete_post?token={{token}}&id=5fcdeaaa85d03444b8d011ba",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"delete_post"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "id",
+									"value": "5fcdeaaa85d03444b8d011ba"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_posts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_list_posts?last_id=0&index=0&count=20",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_list_posts"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"disabled": true
+								},
+								{
+									"key": "last_id",
+									"value": "0"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_videos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_list_videos?token={{token}}&last_id=0&index=0&count=20",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_list_videos"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "last_id",
+									"value": "0"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "report_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/report_post?token={{token}}&id=5fcdf1880054254eac0e253e&subject=Ngôn từ gây thù ghét&details=Thành phần tôn giáo",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"report_post"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "id",
+									"value": "5fcdf1880054254eac0e253e"
+								},
+								{
+									"key": "subject",
+									"value": "Ngôn từ gây thù ghét"
+								},
+								{
+									"key": "details",
+									"value": "Thành phần tôn giáo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check_new_item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/check_new_item?last_id=5fc36b7cd80bf825601ba16c&category_id=0",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"check_new_item"
+							],
+							"query": [
+								{
+									"key": "last_id",
+									"value": "5fc36b7cd80bf825601ba16c"
+								},
+								{
+									"key": "category_id",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_posts_in_profile",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "set_comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/comment/set_comment?token={{token}}&id=5fcdf1880054254eac0e253e&comment=Test comment 6&index=0&count=20",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"comment",
+								"set_comment"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "id",
+									"value": "5fcdf1880054254eac0e253e"
+								},
+								{
+									"key": "comment",
+									"value": "Test comment 6"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_comment?token={{token}}&id=5fcdf1880054254eac0e253e&index=0&count=20",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_comment"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "id",
+									"value": "5fcdf1880054254eac0e253e"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like",
+			"item": [
+				{
+					"name": "like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/like/like?token={{token}}&id=5fcde5e3e2096e44e8637727",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"like",
+								"like"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "id",
+									"value": "5fcde5e3e2096e44e8637727"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friend",
+			"item": [
+				{
+					"name": "get_requested_friends",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{myDomain}}/friend/get_requested_friends?token={{token}}&index=0&count=10",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"friend",
+								"get_requested_friends"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_suggested_friends",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{myDomain}}/friend/get_list_suggested_friends?token={{token}}&index=30&count=5",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"friend",
+								"get_list_suggested_friends"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "index",
+									"value": "30"
+								},
+								{
+									"key": "count",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_request_friend",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{myDomain}}/friend/set_request_friend?token={{token}}&user_id=6383a7b7da8a5bde839c58cc",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"friend",
+								"set_request_friend"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "user_id",
+									"value": "6383a7b7da8a5bde839c58cc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_accept_friend",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"user_id\" : \"5fcadc49eb6dab2094ebf067\",\n  \"is_accept\": 0\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/friend/set_accept_friend?token={{token}}&user_id=63769fb5b12a3711253a974e&is_accept=1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"friend",
+								"set_accept_friend"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "user_id",
+									"value": "63769fb5b12a3711253a974e"
+								},
+								{
+									"key": "is_accept",
+									"value": "1",
+									"description": "0 là từ chối, 1 là đồng ý"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_user_friends",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{myDomain}}/friend/get_user_friends?token={{token}}&user_id=63769fb5b12a3711253a974e&page=1",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"friend",
+								"get_user_friends"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "user_id",
+									"value": "63769fb5b12a3711253a974e"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "count",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_blocks",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_list_blocks?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0&index=0&count=5",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_list_blocks"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_block",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/set_block?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0&user_id=5fcadc4feb6dab2094ebf068&type=0",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"set_block"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0"
+								},
+								{
+									"key": "user_id",
+									"value": "5fcadc4feb6dab2094ebf068"
+								},
+								{
+									"key": "type",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "signup",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/auth/signup?phonenumber=0011223379&password=123456s",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							],
+							"query": [
+								{
+									"key": "phonenumber",
+									"value": "0011223379"
+								},
+								{
+									"key": "password",
+									"value": "123456s"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/auth/login?phonenumber=0968030599&password=111111",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "phonenumber",
+									"value": "0968030599"
+								},
+								{
+									"key": "password",
+									"value": "111111"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_verify_code",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_verify_code?phonenumber=0011223355",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_verify_code"
+							],
+							"query": [
+								{
+									"key": "phonenumber",
+									"value": "0011223355"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check_verify_code",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/auth/check_verify_code?phonenumber=0981813595&code_verify=7331",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"auth",
+								"check_verify_code"
+							],
+							"query": [
+								{
+									"key": "phonenumber",
+									"value": "0981813595"
+								},
+								{
+									"key": "code_verify",
+									"value": "7331"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change_password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/change_password?token={{token}}&password=1234567&new_password=abcxyz",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"change_password"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"description": "Password hiện tại"
+								},
+								{
+									"key": "new_password",
+									"value": "abcxyz",
+									"description": "Password mới"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_devtoken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/auth/set_devtoken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0&devtype=IOS&devtoken=123456",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"auth",
+								"set_devtoken"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0"
+								},
+								{
+									"key": "devtype",
+									"value": "IOS"
+								},
+								{
+									"key": "devtoken",
+									"value": "123456"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check_new_version",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/check_new_version?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0&last_update=0.9",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"check_new_version"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2FkYzQ5ZWI2ZGFiMjA5NGViZjA2NyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTJUMDI6NDM6MDMuNjg4WiIsImlhdCI6MTYwNzc0MDk4MywiZXhwIjoxNjA3ODI3MzgzfQ.mz3F_spaVpxsWhEXNsk0bvDkzZd7YJwNoLxlXXwFCF0"
+								},
+								{
+									"key": "last_update",
+									"value": "0.9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change_info_after_signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Nam Anh Le/Pictures/000e56ff-990.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/change_info_after_signup?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzY5ZmI1YjEyYTM3MTEyNTNhOTc0ZSIsImRhdGVMb2dpbiI6IjIwMjItMTEtMTlUMjM6MTM6MjguNjUwWiIsImlhdCI6MTY2ODg5OTYwOCwiZXhwIjoxNjY4OTg2MDA4fQ.SdDbY8yeQzZLPBozEwCd_NCzTtNuxbOOXCxRkEq1gYk&username=Phạm Quang Thanh",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"change_info_after_signup"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzY5ZmI1YjEyYTM3MTEyNTNhOTc0ZSIsImRhdGVMb2dpbiI6IjIwMjItMTEtMTlUMjM6MTM6MjguNjUwWiIsImlhdCI6MTY2ODg5OTYwOCwiZXhwIjoxNjY4OTg2MDA4fQ.SdDbY8yeQzZLPBozEwCd_NCzTtNuxbOOXCxRkEq1gYk"
+								},
+								{
+									"key": "username",
+									"value": "Phạm Quang Thanh"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register_token_notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{localhost}}/auth/noti"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "ddd"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "search_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{myDomain}}/search/search?token={{token}}&index=0&count=5&keyword=0988210499",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"search",
+								"search"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "5"
+								},
+								{
+									"key": "keyword",
+									"value": "0988210499"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_saved_search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_saved_search?token={{token}}&index=0&count=1",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_saved_search"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "index",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_saved_search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/del_saved_search?token={{token}}&all=1&search_id=5fd3a5573ec55246f71e4c1c",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"del_saved_search"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "all",
+									"value": "1"
+								},
+								{
+									"key": "search_id",
+									"value": "5fd3a5573ec55246f71e4c1c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get_user_info",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/user/get_user_info?token={{token}}&user_id=6378a606b12a3711253a9750",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"user",
+								"get_user_info"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "user_id",
+									"value": "6378a606b12a3711253a9750"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_user_info",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/Users/tuanpham/Desktop/avatar_huy.jpeg"
+								},
+								{
+									"key": "cover_image",
+									"type": "file",
+									"src": "y_6fryvUL/area.png"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "Mai Mạnh Huy",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{myDomain}}/user/set_user_info?token={{token}}&username=Mai Mạnh Huy",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"user",
+								"set_user_info"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "description",
+									"value": "Contributor of project",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "1223 Láng",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "Hà nội",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "Vietnam",
+									"disabled": true
+								},
+								{
+									"key": "link",
+									"value": "helloWorld.com",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "Mai Mạnh Huy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_push_settings",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/get_push_settings?token={{token}}",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"get_push_settings"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_push_settings",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/set_push_settings?token={{token}}&like_comment=1",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"set_push_settings"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "like_comment",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "get_conversation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/chat/get_conversation?token={{token}}&partner_id=63890456155fd44230a0837d&indexLast=-1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"chat",
+								"get_conversation"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "partner_id",
+									"value": "63890456155fd44230a0837d"
+								},
+								{
+									"key": "indexLast",
+									"value": "-1"
+								},
+								{
+									"key": "count",
+									"value": "100",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_conversation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{myDomain}}/chat/get_list_conversation?token={{token}}&page=1",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"chat",
+								"get_list_conversation"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "count",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_read_message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/chat/set_read_message?token={{token}}&partner_id=63769fb5b12a3711253a974e",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"chat",
+								"set_read_message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "partner_id",
+									"value": "63769fb5b12a3711253a974e"
+								},
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/delete_message?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYmE0MWQ5NjU5ZDdjMTFiZDNlMWYzMyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTFUMDU6NTE6MTAuNTM2WiIsImlhdCI6MTYwNzY2NTg3MCwiZXhwIjoxNjA3NzUyMjcwfQ.OJS3IZ43eQg77a43X1VHg_lT68sstZ-KMBIBdmswo2A&message_id=2&conversation_id=2",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"delete_message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYmE0MWQ5NjU5ZDdjMTFiZDNlMWYzMyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTFUMDU6NTE6MTAuNTM2WiIsImlhdCI6MTYwNzY2NTg3MCwiZXhwIjoxNjA3NzUyMjcwfQ.OJS3IZ43eQg77a43X1VHg_lT68sstZ-KMBIBdmswo2A"
+								},
+								{
+									"key": "message_id",
+									"value": "2"
+								},
+								{
+									"key": "conversation_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_conversation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/delete_conversation?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYmE0MWQ5NjU5ZDdjMTFiZDNlMWYzMyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTFUMDU6NTE6MTAuNTM2WiIsImlhdCI6MTYwNzY2NTg3MCwiZXhwIjoxNjA3NzUyMjcwfQ.OJS3IZ43eQg77a43X1VHg_lT68sstZ-KMBIBdmswo2A&conversation_id=2",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"delete_conversation"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYmE0MWQ5NjU5ZDdjMTFiZDNlMWYzMyIsImRhdGVMb2dpbiI6IjIwMjAtMTItMTFUMDU6NTE6MTAuNTM2WiIsImlhdCI6MTYwNzY2NTg3MCwiZXhwIjoxNjA3NzUyMjcwfQ.OJS3IZ43eQg77a43X1VHg_lT68sstZ-KMBIBdmswo2A"
+								},
+								{
+									"key": "conversation_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_dialog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{myDomain}}/chat/add_dialog?token={{token}}&partner_id=63890456155fd44230a0837d&message=blaaa",
+							"host": [
+								"{{myDomain}}"
+							],
+							"path": [
+								"chat",
+								"add_dialog"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "partner_id",
+									"value": "63890456155fd44230a0837d"
+								},
+								{
+									"key": "message",
+									"value": "blaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token Notification",
+			"item": [
+				{
+					"name": "register_token_notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/notification/token-notification?token={{token}}&tokenFCM=f_QFv86eQzqRIM-P7o9vas:APA91bHkmKwL6QKYBb3zE4WkeDuOYi29ShvvKhSCgzNLhKhr1pbtnPrg4G2aTH-vcN08RnTtHjdcQ4HF5oA0_G5Dcah-m0ZakuOYnGHT-Xo",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"notification",
+								"token-notification"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "tokenFCM",
+									"value": "f_QFv86eQzqRIM-P7o9vas:APA91bHkmKwL6QKYBb3zE4WkeDuOYi29ShvvKhSCgzNLhKhr1pbtnPrg4G2aTH-vcN08RnTtHjdcQ4HF5oA0_G5Dcah-m0ZakuOYnGHT-Xo"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
