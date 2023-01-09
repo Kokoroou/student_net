@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const SignUp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   static const String _title = '_Name_App';
   static const primaryColor = Color.fromARGB(255, 255, 132, 167);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: Scaffold(
         
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         //     title: const Text(_title),
         //     backgroundColor: primaryColor,
         // ),
-        body: const MyStatefulWidget(),
+        body: MyStatefulWidget(),
       ),
     );
   }
