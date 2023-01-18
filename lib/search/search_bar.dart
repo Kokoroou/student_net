@@ -180,35 +180,77 @@ class Search extends SearchDelegate {
     //show when someone searched for something
     var icon = Icon(Icons.history);
     if (query.isEmpty) {
-      icon = Icon(Icons.history); 
-    }
-    else icon = Icon(Icons.build);
-    var suggestionList = recentQuery; 
-    if (query.isEmpty || query.length == 0){
+      icon = Icon(Icons.history);
+    } else
+      icon = Icon(Icons.build);
+    var suggestionList = recentQuery;
+    if (query.isEmpty || query.length == 0) {
       suggestionList = recentQuery;
-    }
-    else{
+    } else {
       suggestionList = cities.where((p) => p.startsWith(query)).toList();
     }
 
     return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        onTap: () {
-          showResults(context);
-        },
-        leading: icon ,
-        title: RichText(
-          text: TextSpan(
-              text: suggestionList[index].substring(0, query.length),
-              style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold),
-              children: [
-                TextSpan(
-                    text: suggestionList[index]..substring(query.length),
-                    style: const TextStyle(color: Colors.grey))
-              ]),
-        ),
-      ),
+      itemBuilder: (BuildContext context, int index) {
+        return Column(
+          children: [
+            Container(
+                height: index > 0 ? 0 : 50,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: const Text('Tìm kiếm gần đây',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14)))),
+                    // Expanded(
+                    //   child: Padding(
+                    //       padding: const EdgeInsets.all(10),
+                    //       child: Text('Lịch sử tìm kiếm',
+                    //           textAlign: TextAlign.right,
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 14,
+                    //               color: Colors.grey))),
+                    // ),
+                    Expanded(
+                        child: InkWell(
+                            onTap: () {
+                              print('hiện thị lịch sử tìm kiếm ');
+                            },
+                            child: const Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text('Lịch sử tìm kiếm',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey))),)),
+                  ],
+                )),
+            ListTile(
+              onTap: () {
+                showResults(context);
+              },
+              leading: icon,
+              title: RichText(
+                text: TextSpan(
+                    text: suggestionList[index].substring(0, query.length),
+                    style: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                    children: [
+                      TextSpan(
+                          text: suggestionList[index]..substring(query.length),
+                          style: const TextStyle(color: Colors.grey))
+                    ]),
+              ),
+            ),
+          ],
+        );
+      },
       itemCount: suggestionList.length,
     );
   }
