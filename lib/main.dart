@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'auth/login.dart';
+import "search/search_bar.dart";
 
 void main() {
-  runApp(const LogIn());
+  runApp(const Example());
 }
 
 // class MyApp extends StatelessWidget {
