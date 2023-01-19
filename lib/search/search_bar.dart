@@ -164,12 +164,6 @@ class Search extends SearchDelegate {
                     "I just wrote something", "a"),
                 feedBox(avatarUrl[0], "Doctor code", "6 min",
                     "I just wrote something", "a"),
-                // feedBox("https://i.stack.imgur.com/1bdFx.png", "Joseph Joestar", "6 min",
-                //     "It's pretty good I like it", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2022/7/10/photo-1-1657418311569526788524.jpg"),
-                // feedBox("a", "Giorno giovana", "Yesterday",
-                //     "I'm Giorno Giovana and I have a Dream", "a"),
-                // feedBox("a", "Giorno giovana", "Yesterday",
-                //     "I'm Giorno Giovana and I have a Dream", "a"),
               ],
             ),
           ),
@@ -281,6 +275,7 @@ class Search extends SearchDelegate {
             ListTile(
               onTap: () {
                 showResults(context);
+                addFirst(query);
               },
               leading: icon,
               title: RichText(

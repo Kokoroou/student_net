@@ -20,8 +20,12 @@ class HistorySearch extends StatelessWidget {
             child: Stack(
           children: <Widget>[
             Column(children: <Widget>[
-              History(),
-              History(),
+              Container(
+                height: 20,
+                color: Colors.blue,
+              ),
+              MyListPage(),
+              MyListPage(),
             ]),
           ],
         )));
@@ -31,27 +35,29 @@ class HistorySearch extends StatelessWidget {
 class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return ListView(
       children: <Widget>[
-        Column(
-          children: <Widget>[
-            Container(
-              height: 40,
-              color: Colors.white,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Ngày 7 tháng 8 năm 2020',
-                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+        Container(
+          height: 40,
+          color: Colors.deepOrange,
+          child: Center(
+            child: Text(
+              'Ngày 7 tháng 8 năm 2020',
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            MyListPage(),
-          ],
-        )
+          ),
+        ),
+        MyListPage(),
+        Container(
+          height: 40,
+          color: Colors.deepOrange,
+          child: Center(
+            child: Text(
+              'Footer',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -75,12 +81,11 @@ class _MyListPageState extends State<MyListPage> {
       itemCount: data.length,
       itemBuilder: ((context, index) {
         return Card(
-            color: Color.fromARGB(255, 201, 198, 198),
+            color: Colors.orange,
             child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
                   title: Text(data[index]),
-                  leading: Icon(Icons.search),
                   trailing: Container(
                     width: 20,
                     child: Row(
@@ -91,8 +96,7 @@ class _MyListPageState extends State<MyListPage> {
                                 setState(() {
                                   data.removeAt(index);
                                 });
-                              },
-                              icon: Icon(Icons.delete)),
+                              }, icon: Icon(Icons.delete)),
                         ),
                       ],
                     ),
