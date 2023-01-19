@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'auth/login.dart';
 import "search/search_bar.dart";
+import "search/saved_search.dart";
 
 void main() {
-  runApp(const Example());
+  // runApp(const Example());
+  runApp(const HistorySearch());
+
 }
 
 // class MyApp extends StatelessWidget {

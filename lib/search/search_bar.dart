@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'result..dart';
+import 'result.dart';
 /* 
 This file only contain the search bar 
 */
@@ -140,39 +140,83 @@ class Search extends SearchDelegate {
       "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1525879000488-bff3b1c387cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
     ];
+    int hasResult = 0;
+    if (hasResult == 1) {
+      return Scaffold(
+        //let's add the  bg color
+        backgroundColor: Color.fromARGB(255, 153, 151, 151),
 
-    return Scaffold(
-      //let's add the  bg color
-      backgroundColor: Color.fromARGB(255, 153, 151, 151),
-
-      //Now let's work on the body
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //Now let's create the news feed
-              //first we will make the custom container of the feed
-              //Ok let's test our widget
-              feedBox(avatarUrl[0], "Doctor code", "6 min",
-                  "I just wrote something", "a"),
-              feedBox(avatarUrl[0], "Doctor code", "6 min",
-                  "I just wrote something", "a"),
-              feedBox(avatarUrl[0], "Doctor code", "6 min",
-                  "I just wrote something", "a"),
-              // feedBox("https://i.stack.imgur.com/1bdFx.png", "Joseph Joestar", "6 min",
-              //     "It's pretty good I like it", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2022/7/10/photo-1-1657418311569526788524.jpg"),
-              // feedBox("a", "Giorno giovana", "Yesterday",
-              //     "I'm Giorno Giovana and I have a Dream", "a"),
-              // feedBox("a", "Giorno giovana", "Yesterday",
-              //     "I'm Giorno Giovana and I have a Dream", "a"),
-            ],
+        //Now let's work on the body
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //Now let's create the news feed
+                //first we will make the custom container of the feed
+                //Ok let's test our widget
+                feedBox(avatarUrl[0], "Doctor code", "6 min",
+                    "I just wrote something", "a"),
+                feedBox(avatarUrl[0], "Doctor code", "6 min",
+                    "I just wrote something", "a"),
+                feedBox(avatarUrl[0], "Doctor code", "6 min",
+                    "I just wrote something", "a"),
+                // feedBox("https://i.stack.imgur.com/1bdFx.png", "Joseph Joestar", "6 min",
+                //     "It's pretty good I like it", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2022/7/10/photo-1-1657418311569526788524.jpg"),
+                // feedBox("a", "Giorno giovana", "Yesterday",
+                //     "I'm Giorno Giovana and I have a Dream", "a"),
+                // feedBox("a", "Giorno giovana", "Yesterday",
+                //     "I'm Giorno Giovana and I have a Dream", "a"),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(
+          backgroundColor: Colors.grey,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 50,
+
+                    child: Column(
+                      children: [
+                        Icon(Icons.cloud_off),
+                        Text('Không có kết nối mạng',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: 
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                  ),
+                  onPressed: () {},
+                  child: Text('Thử lại'),
+                )),
+              ),
+            ],
+          ));
+    }
   }
 
   @override
@@ -218,17 +262,18 @@ class Search extends SearchDelegate {
                     // ),
                     Expanded(
                         child: InkWell(
-                            onTap: () {
-                              print('hiện thị lịch sử tìm kiếm ');
-                            },
-                            child: const Padding(
+                      onTap: () {
+                        print('hiện thị lịch sử tìm kiếm ');
+                      },
+                      child: const Padding(
                           padding: const EdgeInsets.all(10),
                           child: Text('Lịch sử tìm kiếm',
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
-                                  color: Colors.grey))),)),
+                                  color: Colors.grey))),
+                    )),
                   ],
                 )),
             ListTile(
