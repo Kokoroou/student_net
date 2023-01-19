@@ -261,7 +261,7 @@ class Search extends SearchDelegate {
                     //               fontSize: 14,
                     //               color: Colors.grey))),
                     // ),
-                    Expanded(
+                    Container(
                         child: InkWell(
                       onTap: () {
                         print('hiện thị lịch sử tìm kiếm ');
