@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_net/search/saved_search.dart';
 
 
 Widget actionButton(IconData icon, String actionTitle, Color iconColor) {
@@ -122,4 +123,8 @@ Widget feedBox(String avatarUrl, String userName, String date,
       ),
     ),
   );
+}
+
+void navigateToHistorySearch(BuildContext context){
+  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HistorySearch()));
 }

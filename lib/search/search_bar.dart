@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'result.dart';
+import 'utils.dart';
+import 'saved_search.dart';
 /* 
 This file only contain the search bar 
 */
@@ -264,6 +265,7 @@ class Search extends SearchDelegate {
                         child: InkWell(
                       onTap: () {
                         print('hiện thị lịch sử tìm kiếm ');
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HistorySearch()));
                       },
                       child: const Padding(
                           padding: const EdgeInsets.all(10),

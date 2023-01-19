@@ -4,8 +4,9 @@ import "search/search_bar.dart";
 import "search/saved_search.dart";
 
 void main() {
-  // runApp(const Example());
-  runApp(const HistorySearch());
+  runApp(const Example());
+  // runApp(const LogIn());
+  // runApp(const HistorySearch());
 
 }
 
