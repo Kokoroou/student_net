@@ -41,7 +41,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController dateInput = TextEditingController();
   var gender = ['Male', 'FeMale', 'other'];
   String dropdownvalue = 'Male';  
-  Image icon = Image(
+  Image icon = const Image(
     image: AssetImage('favicon.png'),
     width: 100,
     height: 100,
