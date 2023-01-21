@@ -2,12 +2,30 @@ import 'package:flutter/material.dart';
 import 'auth/login.dart';
 import "search/search_bar.dart";
 import "search/saved_search.dart";
+import 'settings/main_home.dart';
+import 'settings/main_menu.dart';
+import 'package:flutter/material.dart';
+
 
 void main() {
+  // runApp(MyApp());
   runApp(const Example());
-  // runApp(const LogIn());
-  // runApp(const HistorySearch());
+}
 
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Facebook',
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: MainTab(),
+    );
+  }
 }
 
 // class MyApp extends StatelessWidget {
