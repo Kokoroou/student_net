@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_net/settings/change_name.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -132,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
   GestureDetector buildAccountOptions(BuildContext context, String name) {
     return GestureDetector(
       onTap: () {
-        print(name);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> EditNamePage()));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
