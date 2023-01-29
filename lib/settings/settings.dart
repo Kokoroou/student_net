@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_net/settings/change_name.dart';
+import 'package:student_net/settings/change_password.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -52,8 +53,8 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(
                 height: 10,
               ),
-              buildAccountOptions(context, "Change Name"),
-              buildAccountOptions(context, "Change Password"),
+              buildAccountOptions(context, "Change Name", EditNamePage()),
+              buildAccountOptions(context, "Change Password", EditPassPage()),
               SizedBox(
                 height: 40,
               ),
@@ -76,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(
                 height: 10,
               ),
-              buildAccountOptions(context, "Chặn"),
+              buildAccountOptions(context, "Chặn", EditNamePage()),
               SizedBox(
                 height: 40,
               ),
@@ -130,10 +131,10 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  GestureDetector buildAccountOptions(BuildContext context, String name) {
+  GestureDetector buildAccountOptions(BuildContext context, String name, var page) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> EditNamePage()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> page));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
