@@ -55,242 +55,259 @@ class _LoginPageState extends State<LoginPage> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            HexColor(Config.hexColor2),
+            HexColor(Config.hexColor1),
             HexColor(Config.hexColor4),
-            HexColor(Config.hexColor3),
           ],
         ),
       ),
       child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 5.2,
-              // decoration: const BoxDecoration(
-              //   gradient: LinearGradient(
-              //     begin: Alignment.topCenter,
-              //     end: Alignment.bottomCenter,
-              //     colors: [
-              //       Colors.black,
-              //       Colors.black,
-              //     ],
-              //   ),
-              //   borderRadius: BorderRadius.only(
-              //     bottomLeft: Radius.circular(100),
-              //     bottomRight: Radius.circular(100),
-              //   ),
-              // ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "assets/images/Logo.png",
-                      width: 250,
-                      fit: BoxFit.contain,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 100,
+                ),
+                child: Center(
+                  child: Text(
+                    "Student Network",
+                    style: TextStyle(
+                      color: Config.textColor1,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-            Card(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(
-                      left: 20,
-                      bottom: 30,
-                      top: 50,
-                    ),
-                    child: Text(
-                      "Login",
+              Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "phonenumber",
+                  "Số điện thoại",
+                  (onValidateVal) {
+                    if (onValidateVal.isEmpty) {
+                      return "Số điện thoại không được để trống.";
+                    }
+                  },
+                  (onSavedVal) {
+                    phonenumber = onSavedVal;
+                  },
+                  borderFocusColor: Colors.white,
+                  prefixIconColor: Colors.white,
+                  borderColor: Colors.white,
+                  textColor: Colors.white,
+                  hintColor: Colors.white.withOpacity(0.7),
+                  borderRadius: 10,
+                  showPrefixIcon: true,
+                  prefixIcon: Icon(Icons.phone),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: FormHelper.inputFieldWidget(
+                  context,
+                  "password",
+                  "Mật khẩu",
+                  (onValidateVal) {
+                    if (onValidateVal.isEmpty) {
+                      return "Mật khẩu không được để trống.";
+                    }
+                  },
+                  (onSavedVal) {
+                    password = onSavedVal;
+                  },
+                  borderFocusColor: Colors.white,
+                  prefixIconColor: Colors.white,
+                  borderColor: Colors.white,
+                  textColor: Colors.white,
+                  hintColor: Colors.white.withOpacity(0.7),
+                  borderRadius: 10,
+                  showPrefixIcon: true,
+                  prefixIcon: Icon(Icons.lock_outline_rounded),
+                  obscureText: hidePassword,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        hidePassword = !hidePassword;
+                      });
+                    },
+                    icon: Icon(
+                        hidePassword ? Icons.visibility_off : Icons.visibility),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 25, top: 10),
+                  child: RichText(
+                    text: TextSpan(
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        color: Colors.black,
+                        color: Colors.grey,
+                        fontSize: 14.0,
                       ),
-                    ),
-                  ),
-                  FormHelper.inputFieldWidget(
-                    context,
-                    "phonenumber",
-                    "Số điện thoại",
-                    (onValidateVal) {
-                      if (onValidateVal.isEmpty) {
-                        return "Số điện thoại không được để trống.";
-                      }
-                    },
-                    (onSavedVal) {
-                      phonenumber = onSavedVal;
-                    },
-                    borderFocusColor: Colors.black,
-                    prefixIconColor: Colors.black,
-                    borderColor: Colors.black,
-                    textColor: Colors.black,
-                    hintColor: Colors.black.withOpacity(0.7),
-                    borderRadius: 10,
-                    showPrefixIcon: true,
-                    prefixIcon: Icon(Icons.phone),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                    ),
-                    child: FormHelper.inputFieldWidget(
-                      context,
-                      "password",
-                      "Mật khẩu",
-                      (onValidateVal) {
-                        if (onValidateVal.isEmpty) {
-                          return "Mật khẩu không được để trống.";
-                        }
-                      },
-                      (onSavedVal) {
-                        password = onSavedVal;
-                      },
-                      borderFocusColor: Colors.black,
-                      prefixIconColor: Colors.black,
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      hintColor: Colors.black.withOpacity(0.7),
-                      borderRadius: 10,
-                      showPrefixIcon: true,
-                      prefixIcon: Icon(Icons.lock_outline_rounded),
-                      obscureText: hidePassword,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            hidePassword = !hidePassword;
-                          });
-                        },
-                        icon: Icon(hidePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility),
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 25, top: 10),
-                      child: RichText(
-                        text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Quên mật khẩu',
                           style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14.0,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
                           ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Quên mật khẩu',
-                              style: TextStyle(
-                                color: Colors.black,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Forget Password');
-                                },
-                            ),
-                          ],
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Forget Password');
+                            },
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: FormHelper.submitButton(
-                      'Đăng nhập',
-                      () {
-                        if (validateAndSave()) {
-                          setState(() {
-                            isAPICallProcess = true;
-                          });
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: FormHelper.submitButton(
+                  'Đăng nhập',
+                  () {
+                    if (validateAndSave()) {
+                      setState(() {
+                        isAPICallProcess = true;
+                      });
 
-                          LoginRequestModel model = LoginRequestModel(
-                              phonenumber: phonenumber!, password: password!);
+                      LoginRequestModel model = LoginRequestModel(
+                          phonenumber: phonenumber!, password: password!);
 
-                          APIService.login(model).then((response) {
-                            setState(() {
-                              isAPICallProcess = false;
-                            });
+                      APIService.login(model).then((response) {
+                        setState(() {
+                          isAPICallProcess = false;
+                        });
 
-                            if (response) {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/home', (route) => false);
-                            } else {
-                              FormHelper.showSimpleAlertDialog(
-                                  context,
-                                  Config.appName,
-                                  "Số điện thoại hoặc mật khẩu không hợp lệ!",
-                                  "OK", () {
-                                Navigator.pop(context);
-                              });
-                            }
+                        if (response) {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/home', (route) => false);
+                        } else {
+                          FormHelper.showSimpleAlertDialog(
+                              context,
+                              Config.appName,
+                              "Số điện thoại hoặc mật khẩu không hợp lệ!",
+                              "OK", () {
+                            Navigator.pop(context);
                           });
                         }
-                      },
-                      btnColor: HexColor('#283B71'),
-                      borderColor: Colors.black,
-                      txtColor: Colors.black,
-                      borderRadius: 10,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Text(
-                      'Hoặc',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 25, top: 10),
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14.0,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(text: "Không có tài khoản? "),
-                            TextSpan(
-                              text: 'Đăng ký',
-                              style: TextStyle(
-                                color: Colors.black,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.pushNamed(context, '/register');
-                                },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                      });
+                    }
+                  },
+                  btnColor: Colors.white,
+                  borderColor: Colors.white,
+                  txtColor: Config.textColor2,
+                  borderRadius: 10,
+                ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Text(
+                  'Hoặc',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 25, top: 10),
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: Config.textColor2,
+                        fontSize: 14.0,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(text: "Không có tài khoản? "),
+                        TextSpan(
+                          text: 'Đăng ký ngay',
+                          style: TextStyle(
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(context, '/register');
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ]
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: MediaQuery.of(context).size.height / 5.2,
+            // decoration: const BoxDecoration(
+            //   gradient: LinearGradient(
+            //     begin: Alignment.topCenter,
+            //     end: Alignment.bottomCenter,
+            //     colors: [
+            //       Colors.black,
+            //       Colors.black,
+            //     ],
+            //   ),
+            //   borderRadius: BorderRadius.only(
+            //     bottomLeft: Radius.circular(100),
+            //     bottomRight: Radius.circular(100),
+            //   ),
+            // ),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Align(
+            //         alignment: Alignment.center,
+            //         child: Image.asset(
+            //           "assets/images/Logo.png",
+            //           width: 250,
+            //           fit: BoxFit.contain,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // Card(
+            //   child: Column(
+            //     children: [
+            //       const Padding(
+            //         padding: EdgeInsets.only(
+            //           left: 20,
+            //           bottom: 30,
+            //           top: 50,
+            //         ),
+            //         child: Text(
+            //           "Login",
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.bold,
+            //             fontSize: 25,
+            //             color: Colors.black,
+            //           ),
+            //         ),
+            //       ),
+
+            //     ],
+            //   ),
+            // ),
             ),
-          ],
-        ),
       ),
     );
   }
