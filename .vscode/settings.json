@@ -1,6 +1,3 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/linux",
-    "args": [
-        "--no-sound-null-safety"
-       ]
+    "cmake.sourceDirectory": "${workspaceFolder}/linux"
 }
