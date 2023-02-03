@@ -3,8 +3,7 @@ import 'package:student_net/settings/settings.dart';
 
 import '../search/saved_search.dart';
 
-void main() => runApp(const Settings()); 
-
+void main() => runApp(const Settings());
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -95,15 +94,14 @@ class Settings extends StatelessWidget {
                   ),
                   onTap: () {
                     print('Settings Tapped');
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SettingsPage()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SettingsPage()));
                   },
                 ),
-                
                 ListTile(
                   leading: Icon(
                     Icons.logout,
                     color: Colors.grey,
-                    
                   ),
                   title: Text(
                     'Đăng xuất',
