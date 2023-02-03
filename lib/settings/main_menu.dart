@@ -56,7 +56,7 @@ class Settings extends StatelessWidget {
                 ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Colors.blueGrey,
-                    backgroundImage: AssetImage('images/user/sonam.jpg'),
+                    // backgroundImage: AssetImage('images/user/sonam.jpg'),
                   ),
                   title: Text(
                     'Kaito Kuroba',
@@ -93,7 +93,10 @@ class Settings extends StatelessWidget {
                     'Settings',
                     style: TextStyle(fontSize: 14),
                   ),
-                  onTap: () => {print('Settings Tapped')},
+                  onTap: () {
+                    print('Settings Tapped');
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SettingsPage()));
+                  },
                 ),
                 
                 ListTile(

@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_net/settings/block.dart';
 import 'package:student_net/settings/change_name.dart';
 import 'package:student_net/settings/change_password.dart';
+
+
+void main() => runApp(SettingsPage());
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,6 +13,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  List<bool> _status = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(
                 height: 10,
               ),
-              buildAccountOptions(context, "Chặn", EditNamePage()),
+              buildAccountOptions(context, "Chặn", BlockPage()),
               SizedBox(
                 height: 40,
               ),
@@ -100,16 +105,18 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(
                 height: 10,
               ),
-              buildNotificationOptions(context, "Thông báo đẩy"),
-              buildNotificationOptions(context, "Rung"),
-              buildNotificationOptions(context, "Đèn LED điện thoại"),
-              buildNotificationOptions(context, "Âm thanh"),
+              buildNotificationOptions(context, "Thông báo đẩy", 0),
+              buildNotificationOptions(context, "Rung", 1),
+              buildNotificationOptions(context, "Đèn LED điện thoại", 2),
+              buildNotificationOptions(context, "Âm thanh", 3),
             ],
           ),
         ));
   }
 
-  Row buildNotificationOptions(BuildContext context, String name) {
+  Row buildNotificationOptions(BuildContext context, String name, int index) {
+
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -123,9 +130,14 @@ class _SettingsPageState extends State<SettingsPage> {
         Transform.scale(
             scale: 0.7,
             child: CupertinoSwitch(
-                value: true,
+                value: _status[index],
                 onChanged: (bool val) {
                   print("change");
+                  print(val);
+                  setState(() {
+                    
+                  _status[index] = val;
+                  });
                 })),
       ],
     );

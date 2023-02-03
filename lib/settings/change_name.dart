@@ -1,5 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:js';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class EditNamePage extends StatefulWidget {
@@ -8,8 +10,6 @@ class EditNamePage extends StatefulWidget {
 }
 
 class _EditNamePageStage extends State<EditNamePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +41,12 @@ class _EditNamePageStage extends State<EditNamePage> {
           const SizedBox(
             height: 24,
           ),
-          TextFieldWidget(label: "", ho: "Kuroba", ten_dem: "", ten: "Kaito", onChanged: (name) {}),
+          TextFieldWidget(
+              label: "",
+              ho: "Kuroba",
+              ten_dem: "",
+              ten: "Kaito",
+              onChanged: (name) {}),
         ],
       ),
     );
@@ -170,6 +175,62 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     super.dispose();
   }
 
+  Future<http.Response> _LogIn(String phoneNumber, String password) {
+    return http.post(
+      Uri.parse('http://184.169.213.180:3000/it4788/auth/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'phonenumber': "0123456789",
+        'password': "012345",
+      }),
+    );
+  }
+
+  Future<http.Response> Change_name(String ho, String tendem, String ten) {
+    print(_LogIn("", "").toString());
+    print("Có run");
+    return http.post(
+      Uri.parse("http://184.169.213.180:3000/it4788/user/set_user_info/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'token':
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTVUMDk6MjU6MzMuMjExWiIsImlhdCI6MTY3Mzc3NDczMywiZXhwIjoxNjgzNzc0NzMyfQ.j8P2ZexzzoA1rfF6jbax1siP9cpodnv0NHM_RzH4l7E",
+        "username": ho
+      }),
+    );
+  }
+  login() async {
+    var response = await http.post(
+      Uri.parse('http://184.169.213.180:3000/it4788/auth/login/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'phonenumber': "0123456789",
+        'password': "012345",
+      }),
+    );
+    print(response.body);
+
+  }
+  postData(String ho, String ten_dem, String ten) async {
+    var response = await http.post(
+      Uri.parse("http://184.169.213.180:3000/it4788/user/set_user_info/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'token':
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTVUMDk6MjU6MzMuMjExWiIsImlhdCI6MTY3Mzc3NDczMywiZXhwIjoxNjgzNzc0NzMyfQ.j8P2ZexzzoA1rfF6jbax1siP9cpodnv0NHM_RzH4l7E",
+        "username": ho + " " + ten_dem + " " + ten 
+      }),
+    );
+    print(response.body);
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -199,7 +260,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             // print(first_name_field.getText());
             print(ho);
             print(ten_dem);
-            print(ten);
+            // print(ten);
+            // print(Change_name(ho, ten_dem, ten));
+            login();
+            postData(ho, ten_dem, ten);
           },
           child: const Text('Xác nhận',
               style: const TextStyle(fontSize: 18, color: Colors.white)),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:student_net/settings/block.dart';
+import 'package:student_net/settings/profile.dart';
 import 'auth/login.dart';
 import "search/search_bar.dart";
 import "search/saved_search.dart";
@@ -9,7 +11,10 @@ import 'package:flutter/material.dart';
 
 void main() {
   // runApp(MyApp());
+  // runApp(FbCloneProfileStless());
   runApp(const Example());
+  // runApp(BlockPage());
+  
 }
 
 class MyApp extends StatelessWidget {
