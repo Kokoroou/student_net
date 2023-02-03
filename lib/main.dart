@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_net/pages/homepage.dart';
+import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/auth/login.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:student_net/models/new_feed.dart';
+import 'package:student_net/models/newfeed_model.dart';
 import 'package:student_net/testData/post_json.dart';
 import 'package:student_net/theme/colors.dart';
+import 'package:student_net/pages/main_app/root_app.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +13,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
+
+  static List cleanPostList = [];
+  Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
+
+  cleanData() async  { 
+      cleanPostList = await a.PostList;
+  }
+
+  _HomePageState(){
+    cleanData();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Feed",
+                  "News Feed",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -75,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               height: 30,
             ),
             Column(
-              children: List.generate(postsList.length, (index) {
+              children: List.generate(cleanPostList.length, (index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 25),
                   child: Stack(
@@ -93,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                             ],
                             image: DecorationImage(
                                 image:
-                                    NetworkImage(postsList[index]['postImg']),
+                                    NetworkImage(cleanPostList[index]['image'][0]['url']),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(20)),
                       ),
@@ -122,7 +137,8 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       CircleAvatar(
                                         backgroundImage: NetworkImage(
-                                            postsList[index]['img']),
+                                            (cleanPostList[index]['author']['avatar'] == null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600": 'https://firebasestorage.googleapis.com/v0/b/facebook-24888.appspot.com/o/2023-02-02T15:33:51.384ZFB_IMG_1675211211916.jpg?alt=media'
+                                            ),
                                       ),
                                       SizedBox(
                                         width: 12,
@@ -132,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            postsList[index]['name'],
+                                            (cleanPostList[index]['author']['username'] == null) ? 'người dùng': cleanPostList[index]['author']['username'],
                                             style: TextStyle(
                                                 fontSize: 15, color: white),
                                           ),
@@ -140,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                                             height: 3,
                                           ),
                                           Text(
-                                            postsList[index]['time'],
+                                            '1 hour ago',
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 color: white.withOpacity(0.8)),
@@ -177,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                                           size: 17,
                                         ),
                                         Text(
-                                          postsList[index]['like'],
+                                          cleanPostList[index]['like'],
                                           style: TextStyle(
                                               fontSize: 17, color: white),
                                         )
@@ -201,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                                           size: 17,
                                         ),
                                         Text(
-                                          postsList[index]['comment'],
+                                          cleanPostList[index]['comment'],
                                           style: TextStyle(
                                               fontSize: 17, color: white),
                                         )
