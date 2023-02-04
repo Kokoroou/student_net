@@ -10,8 +10,8 @@ import 'package:student_net/services/shared_service.dart';
 
 class APIService {
   static var client = http.Client();
-  static Future<bool> change_name(ChangeNameRequestModel model) async{
-    Map <String, String> requestHeaders= {
+  static Future<bool> change_name(ChangeNameRequestModel model) async {
+    Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
@@ -19,15 +19,15 @@ class APIService {
     var url = Uri.http(Config.apiURL, Config.setUserInforAPI, body);
 
     var response = await client.post(url, headers: requestHeaders);
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
-  static Future<int> change_password(ChangePassRequestModel model) async{
-    Map <String, String> requestHeaders= {
+
+  static Future<int> change_password(ChangePassRequestModel model) async {
+    Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
@@ -37,8 +37,9 @@ class APIService {
     var response = await client.post(url, headers: requestHeaders);
     return response.statusCode;
   }
-  static Future<int> logout(LogoutRequestModel model) async{
-    Map <String, String> requestHeaders= {
+
+  static Future<int> logout(LogoutRequestModel model) async {
+    Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
