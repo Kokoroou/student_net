@@ -25,7 +25,7 @@ class APIService {
     else {
       return false;
     }
-  } 
+  }
   static Future<int> change_password(ChangePassRequestModel model) async{
     Map <String, String> requestHeaders= {
       'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ class APIService {
 
     var response = await client.post(url, headers: requestHeaders);
     return response.statusCode;
-  } 
+  }
   static Future<int> logout(LogoutRequestModel model) async{
     Map <String, String> requestHeaders= {
       'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ class APIService {
 
     var response = await client.post(url, headers: requestHeaders);
     return response.statusCode;
-  } 
+  }
 
   static Future<bool> login(LoginRequestModel model) async {
     Map<String, String> requestHeaders = {

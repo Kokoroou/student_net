@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
 import 'package:student_net/search/search_bar.dart';
 
 void main() => runApp(const HistorySearch());

@@ -42,6 +42,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   var gender = ['Male', 'FeMale', 'other'];
   String dropdownvalue = 'Male';  
   Image icon = const Image(
+  Image icon = Image(
     image: AssetImage('favicon.png'),
     width: 100,
     height: 100,

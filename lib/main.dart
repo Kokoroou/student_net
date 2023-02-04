@@ -8,21 +8,38 @@ import "pages/search/search_bar.dart";
 import 'pages/settings/main_menu.dart';
 import 'package:flutter/material.dart';
 
+import 'package:student_net/settings/block.dart';
+import 'package:student_net/settings/profile.dart';
 import 'auth/login.dart';
 import "search/search_bar.dart";
 import "search/saved_search.dart";
+import 'settings/main_home.dart';
+import 'settings/main_menu.dart';
+import 'package:flutter/material.dart';
+
 
 void main() {
+  // runApp(MyApp());
+  // runApp(FbCloneProfileStless());
   // runApp(MyApp());
   // runApp(FbCloneProfileStless());
   runApp(const Example());
   // runApp(BlockPage());
 
   runApp(const Example());
-  // runApp(const LogIn());
-  // runApp(const HistorySearch());
-
+  // runApp(BlockPage());
 }
+
+// import 'package:student_net/pages/main_app/home_page.dart';
+// import 'package:student_net/pages/auth/login.dart';
+// import 'package:student_net/pages/main_app/root_app.dart';
+
+// void main() {
+//   runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     home: RootApp(),
+//   ));
+// }
 
 
 // import 'package:flutter/material.dart';
@@ -32,6 +49,22 @@ void main() {
 // void main() {
 //   // runApp(const LogIn());
 //   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Facebook',
+//       theme: ThemeData(
+//         primaryColor: Colors.white,
+//       ),
+//       debugShowCheckedModeBanner: false,
+//       home: MainTab(),
+//     );
+//   }
 // }
 
 // class MyApp extends StatelessWidget {
@@ -58,6 +91,17 @@ void main() {
 //         '/': (context) => const LoginPage(),
 //         '/home': (context) => const HomePage(),
 //         '/login': (context) => const LoginPage(),
+//         // '/register': (context) => const RegisterPage(),
+//       },
+//       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
+//       routes: {
+//         '/': (context) => const LoginPage(),
+//         '/home': (context) => const HomePage(),
+//         '/login': (context) => const LoginPage(),
+//         '/app': (context) => const RootApp()
 //         // '/register': (context) => const RegisterPage(),
 //       },
 //       // home: const MyHomePage(title: 'Flutter Demo Home Page'),

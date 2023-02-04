@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:student_net/friend/list_friend.dart';
+import 'package:student_net/settings/main_menu.dart';
+import 'package:student_net/settings/settings.dart';
 import 'utils.dart';
 import 'saved_search.dart';
+import 'package:student_net/settings/block.dart';
 /* 
 This file only contain the search bar 
 */
@@ -259,7 +263,7 @@ class Search extends SearchDelegate {
                         child: InkWell(
                       onTap: () {
                         print('hiện thị lịch sử tìm kiếm ');
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HistorySearch()));
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ListFriends()));
                       },
                       child: const Padding(
                           padding: const EdgeInsets.all(10),
