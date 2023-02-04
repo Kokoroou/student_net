@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_net/pages/main_app/root_app.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'register.dart';
@@ -93,6 +94,7 @@ class _LoginBodyState extends State<LoginBody> {
                 // Work with API Login
                 var loginController = _LogIn(nameController.text, passwordController.text);
                 print(loginController.toString());
+                _navigateToHomePage(context);
               },
             ),
           ),
@@ -125,6 +127,11 @@ class _LoginBodyState extends State<LoginBody> {
   void _navigateToSignUp(BuildContext context) {
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const SignUp()));
+  }
+
+  void _navigateToHomePage(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const RootApp()));
   }
 
   Future<http.Response> _LogIn(String phoneNumber, String password) {

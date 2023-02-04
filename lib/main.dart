@@ -14,24 +14,34 @@ void main() {
   // runApp(FbCloneProfileStless());
   runApp(const Example());
   // runApp(BlockPage());
+}
   
-}
+// import 'package:student_net/pages/main_app/home_page.dart';
+// import 'package:student_net/pages/auth/login.dart';
+// import 'package:student_net/pages/main_app/root_app.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// void main() {
+//   runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     home: RootApp(),
+//   ));
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Facebook',
-      theme: ThemeData(
-        primaryColor: Colors.white,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: MainTab(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Facebook',
+//       theme: ThemeData(
+//         primaryColor: Colors.white,
+//       ),
+//       debugShowCheckedModeBanner: false,
+//       home: MainTab(),
+//     );
+//   }
+// }
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});
@@ -54,6 +64,17 @@ class MyApp extends StatelessWidget {
 //         primarySwatch: Colors.blue,
 //       ),
 //       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
+//       routes: {
+//         '/': (context) => const LoginPage(),
+//         '/home': (context) => const HomePage(),
+//         '/login': (context) => const LoginPage(),
+//         '/app': (context) => const RootApp()
+//         // '/register': (context) => const RegisterPage(),
+//       },
+//       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
 //     );
 //   }
 // }
