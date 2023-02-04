@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_net/testData/post_json.dart';
+import 'package:student_net/pages/testData/post_json.dart';
 import 'package:student_net/theme/colors.dart';
 
 class SavedPage extends StatefulWidget {
@@ -26,5 +26,4 @@ class _SavedPageState extends State<SavedPage> {
       elevation: 0,
     );
   }
-
 }

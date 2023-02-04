@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:student_net/testData/me_post_json.dart';
+import 'package:student_net/pages/testData/me_post_json.dart';
 import 'package:student_net/theme/colors.dart';
 import 'package:video_player/video_player.dart';
 
@@ -158,8 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: black,
                   )),
               IconButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   icon: Icon(
                     Foundation.address_book,
                     size: 30,
@@ -171,25 +170,22 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 30,
           ),
           Wrap(
-                  spacing: 15,
-                  runSpacing: 15,
-                  children: List.generate(mePostList.length, (index) {
-                    return Container(
-                      width: (size.width - 60) / 2,
-                      height: (size.width - 60) / 2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: NetworkImage(mePostList[index]),
-                              fit: BoxFit.cover)),
-                    );
-                  }),
-                )
-              
+            spacing: 15,
+            runSpacing: 15,
+            children: List.generate(mePostList.length, (index) {
+              return Container(
+                width: (size.width - 60) / 2,
+                height: (size.width - 60) / 2,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                        image: NetworkImage(mePostList[index]),
+                        fit: BoxFit.cover)),
+              );
+            }),
+          )
         ],
       ),
     );
   }
-
-
 }

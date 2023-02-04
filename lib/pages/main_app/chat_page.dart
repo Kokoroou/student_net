@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:student_net/testData/user_json.dart';
+import 'package:student_net/pages/testData/user_json.dart';
 import 'package:student_net/theme/colors.dart';
 
 class ChatPage extends StatefulWidget {

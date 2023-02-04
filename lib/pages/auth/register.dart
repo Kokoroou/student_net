@@ -14,7 +14,6 @@ class SignUp extends StatelessWidget {
     return const MaterialApp(
       title: _title,
       home: Scaffold(
-        
         // appBar: AppBar(
         //     title: const Text(_title),
         //     backgroundColor: primaryColor,
@@ -40,15 +39,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController RepasswordController = TextEditingController();
   TextEditingController dateInput = TextEditingController();
   var gender = ['Male', 'FeMale', 'other'];
-  String dropdownvalue = 'Male';  
-  Image icon = const Image(
+  String dropdownvalue = 'Male';
   Image icon = Image(
-    image: AssetImage('favicon.png'),
-    width: 100,
-    height: 100,
-    fit: BoxFit.fill
-  );
-
+      image: AssetImage('favicon.png'),
+      width: 100,
+      height: 100,
+      fit: BoxFit.fill);
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +55,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
-                child: icon
-            ),
+                child: icon),
 
             Container(
                 alignment: Alignment.center,
@@ -91,7 +86,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'User Name',
-                  
                 ),
               ),
             ),
@@ -144,48 +138,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   labelText: 'RePassword',
                 ),
               ),
-            ),           
+            ),
             Container(
-              padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
-              
-              child: Center(
-                heightFactor: 0.5,
-                child: TextField(
-                style: TextStyle(fontSize: 14),
-                controller: dateInput,
-                //editing controller of this TextField
-                decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_today), //icon of text field
-                    labelText: "Birth Date" //label text of field
-                    ),
-                readOnly: true,
-                //set it true, so that user will not able to edit text
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1950),
-                      //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2100));
-  
-                  if (pickedDate != null) {
-                    setState(() {
-                      dateInput.text =
-                          pickedDate.toString(); //set output date to TextField value.
-                    });
-                  } else {}
-                },
-              ))),
+                padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
+                child: Center(
+                    heightFactor: 0.5,
+                    child: TextField(
+                      style: TextStyle(fontSize: 14),
+                      controller: dateInput,
+                      //editing controller of this TextField
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.calendar_today), //icon of text field
+                          labelText: "Birth Date" //label text of field
+                          ),
+                      readOnly: true,
+                      //set it true, so that user will not able to edit text
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1950),
+                            //DateTime.now() - not to allow to choose before today.
+                            lastDate: DateTime(2100));
+
+                        if (pickedDate != null) {
+                          setState(() {
+                            dateInput.text = pickedDate
+                                .toString(); //set output date to TextField value.
+                          });
+                        } else {}
+                      },
+                    ))),
             Row(
               children: <Widget>[
                 const Text('Gender: '),
-                  Container(
+                Container(
                   padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
                   child: Column(
                     children: [
                       DropdownButton(
                         value: dropdownvalue,
-                        icon: const Icon(Icons.keyboard_arrow_down),   
+                        icon: const Icon(Icons.keyboard_arrow_down),
                         items: gender.map((String items) {
                           return DropdownMenuItem(
                             value: items,
@@ -222,10 +215,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     print(dropdownvalue);
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 132, 167),),
-                    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20, color: Colors.white,))),
-                )
-            ),
+                      backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 255, 132, 167),
+                      ),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ))),
+                )),
             Row(
               children: <Widget>[
                 const Text('Does have account?'),

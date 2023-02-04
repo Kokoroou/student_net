@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:student_net/models/newfeed_model.dart';
-import 'package:student_net/testData/post_json.dart';
-import 'package:student_net/theme/colors.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
+import 'package:student_net/pages/testData/post_json.dart';
+import 'package:student_net/theme/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,23 +17,24 @@ class _HomePageState extends State<HomePage> {
   // Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
 
   static List cleanPostList = [];
-  Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
+  Postfeed a = Postfeed(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E',
+      50);
 
-  cleanData() async  { 
-      cleanPostList = await a.PostList;
+  cleanData() async {
+    cleanPostList = await a.PostList;
   }
 
-  _HomePageState(){
+  _HomePageState() {
     cleanData();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      appBar:
-          PreferredSize(child: getAppBar(), preferredSize: Size.fromHeight(60)),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60), child: getAppBar()),
       body: getBody(),
     );
   }
@@ -46,14 +48,14 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               "Student Net",
               style: TextStyle(
                   fontSize: 18, color: black, fontWeight: FontWeight.bold),
             ),
             IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Feather.bell,
                   color: black,
                   size: 25,
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Column(
@@ -81,12 +83,12 @@ class _HomePageState extends State<HomePage> {
                   "News Feed",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Column(
@@ -104,11 +106,11 @@ class _HomePageState extends State<HomePage> {
                                   color: grey.withOpacity(0.4),
                                   spreadRadius: 2,
                                   blurRadius: 15,
-                                  offset: Offset(0, 1))
+                                  offset: const Offset(0, 1))
                             ],
                             image: DecorationImage(
-                                image:
-                                    NetworkImage(cleanPostList[index]['image'][0]['url']),
+                                image: NetworkImage(
+                                    cleanPostList[index]['image'][0]['url']),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(20)),
                       ),
@@ -136,11 +138,14 @@ class _HomePageState extends State<HomePage> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                            (cleanPostList[index]['author']['avatar'] == null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600": 'https://firebasestorage.googleapis.com/v0/b/facebook-24888.appspot.com/o/2023-02-02T15:33:51.384ZFB_IMG_1675211211916.jpg?alt=media'
-                                            ),
+                                        backgroundImage: NetworkImage((cleanPostList[
+                                                        index]['author']
+                                                    ['avatar'] ==
+                                                null)
+                                            ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600"
+                                            : 'https://firebasestorage.googleapis.com/v0/b/facebook-24888.appspot.com/o/2023-02-02T15:33:51.384ZFB_IMG_1675211211916.jpg?alt=media'),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 12,
                                       ),
                                       Column(
@@ -148,11 +153,16 @@ class _HomePageState extends State<HomePage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            (cleanPostList[index]['author']['username'] == null) ? 'người dùng': cleanPostList[index]['author']['username'],
-                                            style: TextStyle(
+                                            (cleanPostList[index]['author']
+                                                        ['username'] ==
+                                                    null)
+                                                ? 'người dùng'
+                                                : cleanPostList[index]['author']
+                                                    ['username'],
+                                            style: const TextStyle(
                                                 fontSize: 15, color: white),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 3,
                                           ),
                                           Text(
@@ -165,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                                       )
                                     ],
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Entypo.dots_three_vertical,
                                     color: white,
                                     size: 20,
@@ -181,20 +191,20 @@ class _HomePageState extends State<HomePage> {
                                     height: 35,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(27),
-                                        color:
-                                            Color(0xFFE5E5E5).withOpacity(0.5)),
+                                        color: const Color(0xFFE5E5E5)
+                                            .withOpacity(0.5)),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Feather.heart,
                                           color: white,
                                           size: 17,
                                         ),
                                         Text(
                                           cleanPostList[index]['like'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 17, color: white),
                                         )
                                       ],
@@ -205,26 +215,25 @@ class _HomePageState extends State<HomePage> {
                                     height: 35,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(27),
-                                        color:
-                                            Color(0xFFE5E5E5).withOpacity(0.5)),
+                                        color: const Color(0xFFE5E5E5)
+                                            .withOpacity(0.5)),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           MaterialIcons.chat_bubble_outline,
                                           color: white,
                                           size: 17,
                                         ),
                                         Text(
                                           cleanPostList[index]['comment'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 17, color: white),
                                         )
                                       ],
                                     ),
                                   ),
-                              
                                 ],
                               )
                             ],

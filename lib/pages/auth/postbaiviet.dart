@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'register.dart';
+import 'package:student_net/pages/auth/register.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
-
 
 void main() => runApp(const PostBaiViet());
 
@@ -20,8 +19,7 @@ class PostBaiViet extends StatelessWidget {
           // appBar: AppBar(title: const Text(_title),),
           //body: LoginBody(),
           body: PostBody(),
-        )
-    );
+        ));
   }
 }
 
@@ -37,14 +35,12 @@ class _PostBodyState extends State<PostBody> {
   // QuillController _controller = QuillController.basic();
   TextEditingController passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: ListView(
         children: <Widget>[
-
           // Container(
           //   alignment: Alignment.center,
           //   padding: const EdgeInsets.all(10),
@@ -67,7 +63,8 @@ class _PostBodyState extends State<PostBody> {
                     Text('Create Post'),
                     Spacer(),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey),
                       onPressed: () {},
                       child: Text('Post'),
                     )
@@ -145,15 +142,14 @@ class _PostBodyState extends State<PostBody> {
               ],
             ),
           ),
-
         ],
       ),
     );
   }
 
   void _navigateToSignUp(BuildContext context) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const SignUp()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const SignUp()));
   }
 
   Future<http.Response> _createPost(String phoneNumber, String password) {
