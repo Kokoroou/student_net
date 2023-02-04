@@ -7,6 +7,9 @@ class Config {
   // API Address
   static const String apiURL = "184.169.213.180:3000";
   static const String loginAPI = "/it4788/auth/login";
+  static const String setUserInforAPI = "/it4788/user/set_user_info";
+  static const String changePasswordAPI = "/it4788/auth/change_password";
+  static const String logoutAPI = "/it4788/auth/logout";
 
   // // Color palette
   // static const String hexColor1 = "#2B2B2B"; // 2b or not 2b?
