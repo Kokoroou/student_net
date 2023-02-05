@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:student_net/pages/settings/main_menu.dart';
-import 'package:student_net/pages/testData/me_post_json.dart';
+import 'package:student_net/pages/data/me_post_json.dart';
 import 'package:student_net/theme/colors.dart';
 import 'package:video_player/video_player.dart';
 
@@ -14,12 +14,22 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isPhoto = true;
+  bool nothing = false;
 
   late VideoPlayerController _controller;
+
 
   @override
   void initState() {
     super.initState();
+    _controller = VideoPlayerController.network(meVideoList[0]['videoUrl']);
+
+    _controller.addListener(() {
+      setState(() {});
+    });
+    _controller.setLooping(true);
+    _controller.initialize().then((_) => setState(() {}));
+    _controller.play();
   }
 
   @override
@@ -172,42 +182,106 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     setState(() {
                       isPhoto = true;
+                      nothing = false;
                     });
                   },
                   icon: Icon(
                     Foundation.photo,
                     size: 25,
-                    color: black,
+                    color: (isPhoto && !nothing ) ? primary : black,
                   )),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                      isPhoto = false;
+                      nothing = false;
+                  },
+                  icon: Icon(
+                    Foundation.play_video,
+                    size: 30,
+                    color: (!isPhoto && !nothing )  ? primary : black,
+                  )),
+              IconButton(
+                  onPressed: () {
+                    nothing = true;
+                    isPhoto = false;
+                  },
                   icon: Icon(
                     Foundation.address_book,
                     size: 30,
-                    color: black,
+                    color: nothing ? primary : black,
                   ))
             ],
           ),
           SizedBox(
             height: 30,
           ),
-          Wrap(
-            spacing: 15,
-            runSpacing: 15,
-            children: List.generate(mePostList.length, (index) {
-              return Container(
-                width: (size.width - 60) / 2,
-                height: (size.width - 60) / 2,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: NetworkImage(mePostList[index]),
-                        fit: BoxFit.cover)),
-              );
-            }),
-          )
+          nothing
+            ? Wrap():
+          isPhoto
+              ? Wrap(
+                  spacing: 15,
+                  runSpacing: 15,
+                  children: List.generate(mePostList.length, (index) {
+                    return Container(
+                      width: (size.width - 60) / 2,
+                      height: (size.width - 60) / 2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: NetworkImage(mePostList[index]),
+                              fit: BoxFit.cover)),
+                    );
+                  }),
+                )
+              : Wrap(
+                  spacing: 15,
+                  runSpacing: 15,
+                  children: List.generate(meVideoList.length, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        playVideo(context, meVideoList[index]['videoUrl']);
+                      },
+                      child: Container(
+                        width: (size.width - 60) / 2,
+                        height: (size.width - 60) / 2,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: NetworkImage(meVideoList[index]['img']),
+                                fit: BoxFit.cover)),
+                        child: Center(
+                          child: Icon(
+                            AntDesign.playcircleo,
+                            size: 40,
+                            color: white,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                )
         ],
       ),
     );
+  }
+
+  playVideo(BuildContext context, videoUrl) {
+    _controller = VideoPlayerController.network(videoUrl);
+
+    _controller.addListener(() {
+      setState(() {});
+    });
+    _controller.setLooping(true);
+    _controller.initialize().then((_) => setState(() {}));
+    _controller.play();
+
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            content: AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            )));
   }
 }

@@ -8,7 +8,7 @@ import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
-import 'package:student_net/pages/main_app/saved_page.dart';
+import 'package:student_net/pages/main_app/video_page.dart';
 import 'package:student_net/pages/search/saved_search.dart';
 import "package:student_net/pages/search/search_bar.dart";
 import 'package:student_net/pages/settings/main_menu.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         '/root': (context) => const RootApp(),
         '/chat': (context) => const ChatPage(),
         '/profile': (context) => const ProfilePage(),
-        '/saved': (context) => const SavedPage(),
+        '/video': (context) => const VideoPage(),
         '/post': (context) => const PostBaiViet(),
         '/search':(context) => Example(),
       },
