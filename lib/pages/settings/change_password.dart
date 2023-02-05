@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -217,13 +217,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   ],
                 ),
               );
-            }
-            else if (mk_moi == mk_hientai) {
+            } else if (mk_moi == mk_hientai) {
               showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: const Text('Thông báo'),
-                  content: const Text('Mật khẩu mới trùng với mật khẩu hiện tại'),
+                  content:
+                      const Text('Mật khẩu mới trùng với mật khẩu hiện tại'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -236,57 +236,53 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   ],
                 ),
               );
-            }
-
-            else{
+            } else {
               ChangePassRequestModel requestModel = ChangePassRequestModel(
-                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDI6Mjg6MTAuMDI0WiIsImlhdCI6MTY3NTQ3NzY5MCwiZXhwIjoxNjg1NDc3Njg5fQ.m5-TFsgCleDtuZEapE_ovS3WgjxQmH8mT29mQtRUcSE",
+                token:
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDI6Mjg6MTAuMDI0WiIsImlhdCI6MTY3NTQ3NzY5MCwiZXhwIjoxNjg1NDc3Njg5fQ.m5-TFsgCleDtuZEapE_ovS3WgjxQmH8mT29mQtRUcSE",
                 password: mk_hientai,
                 new_password: mk_moi,
               );
 
-              APIService.change_password(requestModel).then((reponse){
-                if (reponse == 200){
+              APIService.change_password(requestModel).then((reponse) {
+                if (reponse == 200) {
                   showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Thông báo'),
-                          content: const Text('Thay đổi mật khẩu thành công'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, 'OK');
-                                Navigator.pop(context);
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ));
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Thông báo'),
+                            content: const Text('Thay đổi mật khẩu thành công'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ));
+                } else if (reponse == 400) {
+                  showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Thông báo'),
+                            content: const Text(
+                                'Thay đổi mật khẩu không thành công. Xin thử lại'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ));
+                } else {
+                  print(reponse);
                 }
-                else if (reponse == 400){
-                   showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Thông báo'),
-                          content: const Text(
-                              'Thay đổi mật khẩu không thành công. Xin thử lại'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, 'OK');
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ));
-                }
-              else{
-                print(reponse);
-              };
+                ;
               });
             }
-
-
           },
           child: const Text('Xác nhận',
               style: const TextStyle(fontSize: 18, color: Colors.white)),
