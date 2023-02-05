@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       // Define routes to pages
       routes: {
         '/': (context) => const LoginPage(),
+        // '/': (context) => const ProfilePage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         // '/register': (context) => const RegisterPage(),
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/saved': (context) => const SavedPage(),
         '/post': (context) => const PostBaiViet(),
+        '/search':(context) => Example(),
       },
     );
   }

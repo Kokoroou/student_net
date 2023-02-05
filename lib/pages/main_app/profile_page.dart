@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:student_net/pages/settings/main_menu.dart';
 import 'package:student_net/pages/testData/me_post_json.dart';
 import 'package:student_net/theme/colors.dart';
 import 'package:video_player/video_player.dart';
@@ -45,24 +46,45 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  border: Border.all(color: black)),
-              child: Center(
-                child: Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://images.pexels.com/photos/69932/tabby-cat-close-up-portrait-69932.jpeg?auto=compress&cs=tinysrgb&w=600"),
-                          fit: BoxFit.cover)),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(),
                 ),
-              ),
+                Container(
+                  width: 75,
+                  height: 75,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(color: black)),
+                  child: Center(
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  "https://images.pexels.com/photos/69932/tabby-cat-close-up-portrait-69932.jpeg?auto=compress&cs=tinysrgb&w=600"),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                ),
+                Expanded(
+                    child: Container(
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.settings),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Settings()));
+                          },
+                        ),
+                      )),
+                )),
+              ],
             ),
             SizedBox(
               height: 10,

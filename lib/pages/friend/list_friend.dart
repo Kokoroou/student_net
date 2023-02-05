@@ -104,7 +104,6 @@ class _MyListPageState extends State<MyListPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("Log out Tapped");
     GetListFriendsRequestModel model = GetListFriendsRequestModel(
       token:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGE2MjhkMjUzNzVlYzg2NDg2ZGE0NiIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDg6MjA6MzQuOTM1WiIsImlhdCI6MTY3NTQ5ODgzNSwiZXhwIjoxNjg1NDk4ODM0fQ.RW0E7KrsCz03JCSSr9ioPEkjD8zbuHTf2biZK8eTCrM",
@@ -119,8 +118,7 @@ class _MyListPageState extends State<MyListPage> {
           GetListFriendsResponseModel.fromJson(json.decode(value.body));
       // print(response.toJson()['data']['total']);
       // print(response.getFriends()?.length);
-
-      if (data!.length == 0) {
+      if (this.mounted) {
         setState(() {
           this.data = response.getFriends();
         });

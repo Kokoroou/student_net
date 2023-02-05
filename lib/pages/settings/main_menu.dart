@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/logout_model.dart';
+import 'package:student_net/pages/auth/login.dart';
 import 'package:student_net/pages/settings/settings.dart';
 import 'package:student_net/services/api_service.dart';
 
@@ -127,6 +129,8 @@ class Settings extends StatelessWidget {
                       }
                       ;
                     });
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                 ),
                 ListTile(
@@ -139,7 +143,8 @@ class Settings extends StatelessWidget {
                     style: TextStyle(fontSize: 14),
                   ),
                   onTap: () {
-
+                    SystemNavigator.pop();
+                    exit(0);
                   },
                 ),
               ],
