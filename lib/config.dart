@@ -12,6 +12,7 @@ class Config {
   static const String logoutAPI = "/it4788/auth/logout";
   static const String getListFriendsAPI = "/it4788/friend/get_user_friends";
   static const String setBlockAPI = "/it4788/friend/set_block";
+  static const String getSavedSearchAPI = "/it4788/search/get_saved_search";
   // // Color palette
   // static const String hexColor1 = "#2B2B2B"; // 2b or not 2b?
   // static const String hexColor2 = "#33516E"; // Tumblr

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:student_net/models/search/saved_search_model.dart';
 import 'package:student_net/pages/friend/list_friend.dart';
 import 'package:student_net/pages/settings/main_menu.dart';
 import 'package:student_net/pages/settings/settings.dart';
+import 'package:student_net/services/api_service.dart';
 import 'utils.dart';
 import 'saved_search.dart';
 import 'package:student_net/pages/settings/block.dart';
@@ -36,7 +40,9 @@ class ExampleBody extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: Search());
+                showSearch(
+                    context: context,
+                    delegate: Search(saved_search: take_recentSearch()));
               })
         ],
       ),
@@ -45,32 +51,33 @@ class ExampleBody extends StatelessWidget {
   }
 }
 
+List? take_recentSearch() {
+  GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
+    token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTM6MzM6MTMuNjE0WiIsImlhdCI6MTY3NTYwMzk5MywiZXhwIjoxNjg1NjAzOTkyfQ.CZgztk66_euGrhBTC5RjLgtvN6eJDxoZ56bpBByrPkM",
+    index: "0",
+    count: "20",
+  );
+
+  APIService.get_ls_keywords(model).then((value) {
+    // print(value.body);
+    GetSavedSearchResponseModel response =
+        GetSavedSearchResponseModel.fromJson(json.decode(value.body));
+
+    // if (recentQuery.isEmpty){
+    print(response.getKeywords());
+    print("helllo");
+    return response.getKeywords();
+  });
+}
+
 class Search extends SearchDelegate {
   final int historyLength = 5;
-  final cities = [
-    "abcd",
-    "edge",
-    "acba",
-    "adkamb",
-    "mvalf",
-    "avmalf",
-    "kaieo",
-    "mawf",
-    "wekf",
-    "mwlf",
-    "awvm",
-    "amwof",
-    "pafwmf",
-    "vmaww",
-    "amwofj",
-    "wmfow",
-    "mmwcoam",
-    "mcowfj",
-    "mcownf",
-    "owrqr"
-  ];
+  List<dynamic> ls_keywords = ["hello", "wasup"];
+  List<dynamic> recentQuery = ["hello", "wasup"];
+  List? saved_search;
+  Search({this.saved_search}) : super();
 
-  List<String> recentQuery = ["abcd", "edge", "acba"];
   void removeQuery(String term) {
     if (recentQuery.contains(term)) {
       recentQuery.remove(term);
@@ -185,7 +192,6 @@ class Search extends SearchDelegate {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: 50,
-
                     child: Column(
                       children: [
                         Icon(Icons.cloud_off),
@@ -201,37 +207,61 @@ class Search extends SearchDelegate {
                 ),
               ),
               Expanded(
-                child: 
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: TextButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                  ),
-                  onPressed: () {},
-                  child: Text('Thử lại'),
-                )),
+                child: Align(
+                    alignment: Alignment.topCenter,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                      ),
+                      onPressed: () {},
+                      child: Text('Thử lại'),
+                    )),
               ),
             ],
           ));
     }
   }
 
+  void update(List<dynamic> recent, List<dynamic> keywords) {
+    recentQuery = recent;
+    ls_keywords = keywords;
+  }
+
   @override
   Widget buildSuggestions(BuildContext context) {
     //show when someone searched for something
+
+    print(recentQuery);
+
     var icon = Icon(Icons.history);
     if (query.isEmpty) {
       icon = Icon(Icons.history);
     } else
       icon = Icon(Icons.build);
-    var suggestionList = recentQuery;
+    List suggestionList = recentQuery;
     if (query.isEmpty || query.length == 0) {
       suggestionList = recentQuery;
     } else {
-      suggestionList = cities.where((p) => p.startsWith(query)).toList();
+      suggestionList = ls_keywords.where((p) => p.startsWith(query)).toList();
     }
+
+    GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
+      token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTM6MzM6MTMuNjE0WiIsImlhdCI6MTY3NTYwMzk5MywiZXhwIjoxNjg1NjAzOTkyfQ.CZgztk66_euGrhBTC5RjLgtvN6eJDxoZ56bpBByrPkM",
+      index: "0",
+      count: "20",
+    );
+    if (recentQuery.length == 0) {
+      APIService.get_ls_keywords(model).then((value) {
+        // print(value.body);
+        GetSavedSearchResponseModel response =
+            GetSavedSearchResponseModel.fromJson(json.decode(value.body));
+        this.recentQuery = response.getKeywords()!;
+        this.ls_keywords = response.getKeywords()!;
+      });
+    }
+    print("query lenght");
 
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
@@ -263,7 +293,8 @@ class Search extends SearchDelegate {
                         child: InkWell(
                       onTap: () {
                         print('hiện thị lịch sử tìm kiếm ');
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ListFriends()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ListFriends()));
                       },
                       child: const Padding(
                           padding: const EdgeInsets.all(10),
@@ -289,7 +320,7 @@ class Search extends SearchDelegate {
                         color: Colors.black, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
-                          text: suggestionList[index]..substring(query.length),
+                          text: suggestionList[index].substring(query.length),
                           style: const TextStyle(color: Colors.grey))
                     ]),
               ),

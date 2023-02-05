@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
 
       // Define routes to pages
       routes: {
-        '/': (context) => const LoginPage(),
-        // '/': (context) => const ProfilePage(),
+        // '/': (context) => const LoginPage(),
+        '/': (context) => const ProfilePage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         // '/register': (context) => const RegisterPage(),

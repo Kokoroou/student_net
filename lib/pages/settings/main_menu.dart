@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class Settings extends StatelessWidget {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: () {
-                          print('Search Clicked');
+
                           showSearch(context: context, delegate: Search());
                         }),
                     decoration: BoxDecoration(
