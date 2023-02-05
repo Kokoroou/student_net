@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/logout_model.dart';
 import 'package:student_net/pages/auth/login.dart';
+import 'package:student_net/pages/main_app/profile_page.dart';
+import 'package:student_net/pages/search/search_bar.dart';
 import 'package:student_net/pages/settings/settings.dart';
 import 'package:student_net/services/api_service.dart';
 
@@ -47,6 +49,7 @@ class Settings extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onPressed: () {
                           print('Search Clicked');
+                          showSearch(context: context, delegate: Search());
                         }),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.grey[300]),
@@ -73,7 +76,7 @@ class Settings extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SettingsPage(),
+                        builder: (context) => ProfilePage(),
                       ),
                     ),
                   },
