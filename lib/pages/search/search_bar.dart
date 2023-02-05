@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -77,8 +78,8 @@ List? take_recentSearch() {
 
 class Search extends SearchDelegate {
   final int historyLength = 5;
-  List<dynamic> ls_keywords = ["hello", "wasup"];
-  List<dynamic> recentQuery = ["hello", "wasup"];
+  List<dynamic> ls_keywords = [];
+  List<dynamic> recentQuery = [];
   List? saved_search;
   Search({this.saved_search}) : super();
 
@@ -322,6 +323,7 @@ class Search extends SearchDelegate {
         ));
   }
 
+  StreamController controller = new StreamController();
   @override
   Widget buildResults(BuildContext context) {
     //show some result based on selection
@@ -335,7 +337,7 @@ class Search extends SearchDelegate {
         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
       ));
     }
-    
+
     int hasResult = 1;
     if (hasResult == 1) {
       SearchPostfeed a = SearchPostfeed(
@@ -414,7 +416,7 @@ class Search extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     //show when someone searched for something
 
-    print(recentQuery);
+    // print(recentQuery);
 
     var icon = Icon(Icons.history);
     if (query.isEmpty) {
@@ -430,90 +432,121 @@ class Search extends SearchDelegate {
 
     GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
       token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTM6MzM6MTMuNjE0WiIsImlhdCI6MTY3NTYwMzk5MywiZXhwIjoxNjg1NjAzOTkyfQ.CZgztk66_euGrhBTC5RjLgtvN6eJDxoZ56bpBByrPkM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTU6MDE6MTYuNTEwWiIsImlhdCI6MTY3NTYwOTI3NiwiZXhwIjoxNjg1NjA5Mjc1fQ.2W1PVqZt4ZHwpkW5uYNdIxNkBKhnDFmVy73CE6e4Rik",
       index: "0",
       count: "20",
     );
-    if (recentQuery.length == 0) {
-      APIService.get_ls_keywords(model).then((value) {
-        // print(value.body);
-        GetSavedSearchResponseModel response =
-            GetSavedSearchResponseModel.fromJson(json.decode(value.body));
-        this.recentQuery = response.getKeywords()!;
-        this.ls_keywords = response.getKeywords()!;
-      });
-    }
-    print("query lenght");
+    // if (recentQuery.length == 0) {
+    //   APIService.get_ls_keywords(model).then((value) {
+    //     // print(value.body);
+    //     GetSavedSearchResponseModel response =
+    //         GetSavedSearchResponseModel.fromJson(json.decode(value.body));
+    //     this.recentQuery = response.getKeywords()!;
+    //     this.ls_keywords = response.getKeywords()!;
+    //   });
+    // }
+    // print("query lenght");
 
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        return Column(
-          children: [
-            Container(
-                height: index > 0 ? 0 : 50,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: const Text('Tìm kiếm gần đây',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14)))),
-                    // Expanded(
-                    //   child: Padding(
-                    //       padding: const EdgeInsets.all(10),
-                    //       child: Text('Lịch sử tìm kiếm',
-                    //           textAlign: TextAlign.right,
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 14,
-                    //               color: Colors.grey))),
-                    // ),
+    return FutureBuilder(
+        future: APIService.get_ls_keywords(model),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            GetSavedSearchResponseModel response =
+                GetSavedSearchResponseModel.fromJson(
+                    json.decode(snapshot.data.body));
+            print("ahiahihi");
+            recentQuery = response.getKeywords()!;
+            print(recentQuery);
+            ls_keywords = response.getKeywords()!;
+            var icon = Icon(Icons.history);
+            if (query.isEmpty) {
+              icon = Icon(Icons.history);
+            } else
+              icon = Icon(Icons.build);
+            List suggestionList = recentQuery;
+            if (query.isEmpty || query.length == 0) {
+              suggestionList = recentQuery;
+            } else {
+              suggestionList =
+                  ls_keywords.where((p) => p.startsWith(query)).toList();
+            }
+            return ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
                     Container(
-                        child: InkWell(
+                        height: index > 0 ? 0 : 50,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: const Text('Tìm kiếm gần đây',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14)))),
+                            // Expanded(
+                            //   child: Padding(
+                            //       padding: const EdgeInsets.all(10),
+                            //       child: Text('Lịch sử tìm kiếm',
+                            //           textAlign: TextAlign.right,
+                            //           style: TextStyle(
+                            //               fontWeight: FontWeight.bold,
+                            //               fontSize: 14,
+                            //               color: Colors.grey))),
+                            // ),
+                            Container(
+                                child: InkWell(
+                              onTap: () {
+                                print('hiện thị lịch sử tìm kiếm ');
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ListFriends()));
+                              },
+                              child: const Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text('Lịch sử tìm kiếm',
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.grey))),
+                            )),
+                          ],
+                        )),
+                    ListTile(
                       onTap: () {
-                        print('hiện thị lịch sử tìm kiếm ');
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ListFriends()));
+                        if (query.isEmpty) {
+                          query = suggestionList[index].toString();
+                        }
+                        showResults(context);
+                        addFirst(query);
                       },
-                      child: const Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text('Lịch sử tìm kiếm',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: Colors.grey))),
-                    )),
+                      leading: icon,
+                      title: RichText(
+                        text: TextSpan(
+                            text: suggestionList[index]
+                                .substring(0, query.length),
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            children: [
+                              TextSpan(
+                                  text: suggestionList[index]
+                                      .substring(query.length),
+                                  style: const TextStyle(color: Colors.grey))
+                            ]),
+                      ),
+                    ),
                   ],
-                )),
-            ListTile(
-              onTap: () {
-                if (query.isEmpty) {
-                  query = suggestionList[index].toString();
-                }
-                showResults(context);
-                addFirst(query);
+                );
               },
-              leading: icon,
-              title: RichText(
-                text: TextSpan(
-                    text: suggestionList[index].substring(0, query.length),
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                    children: [
-                      TextSpan(
-                          text: suggestionList[index].substring(query.length),
-                          style: const TextStyle(color: Colors.grey))
-                    ]),
-              ),
-            ),
-          ],
-        );
-      },
-      itemCount: suggestionList.length,
-    );
+              itemCount: suggestionList.length,
+            );
+          } else {
+            buildSuggestions(context);
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
