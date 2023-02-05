@@ -38,14 +38,19 @@ class MyApp extends StatelessWidget {
 
       // Define routes to pages
       routes: {
+        // First page in app
         '/': (context) => const LoginPage(),
-        '/home': (context) => const HomePage(),
-        '/login': (context) => const LoginPage(),
-        '/register': (context) => const SignUp(),
+
+        // Main pages in app
         '/root': (context) => const RootApp(),
+        '/home': (context) => const HomePage(),
         '/chat': (context) => const ChatPage(),
         '/profile': (context) => const ProfilePage(),
         '/saved': (context) => const SavedPage(),
+
+        // Pages for functions
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const SignUp(),
         '/post': (context) => const PostBaiViet(),
       },
     );

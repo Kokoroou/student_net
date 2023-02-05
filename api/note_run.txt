@@ -1,0 +1,5 @@
+# Run on main device
+flutter run --no-sound-null-safety
+
+# Run on Chrome
+flutter run --no-sound-null-safety -d chrome --web-renderer html
