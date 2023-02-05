@@ -190,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         if (response) {
                           Navigator.pushNamedAndRemoveUntil(
-                              context, '/home', (route) => false);
+                              context, '/root', (route) => false);
                         } else {
                           FormHelper.showSimpleAlertDialog(
                               context,
