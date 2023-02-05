@@ -207,12 +207,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: const Text('Commit'),
                   onPressed: () {
                     print(UsernameController.text);
-                    print(RealnameController.text);
-                    print(EmailController.text);
-                    print(passwordController.text);
-                    print(RepasswordController.text);
-                    print(dateInput.text);
-                    print(dropdownvalue);
+                    // print(RealnameController.text);
+                    // print(EmailController.text);
+                    // print(passwordController.text);
+                    // print(RepasswordController.text);
+                    // print(dateInput.text);
+                    // print(dropdownvalue);
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
