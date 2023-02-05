@@ -3,7 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
-import 'package:student_net/pages/main_app/saved_page.dart';
+import 'package:student_net/pages/main_app/video_page.dart';
 import 'package:student_net/theme/colors.dart';
 import 'dart:math' as math;
 
@@ -32,11 +32,11 @@ class _RootAppState extends State<RootApp> {
       index: activeTab,
       children: [
         HomePage(),
-        ChatPage(),
+        VideoPage(),
         Center(
           child: Text("Upload"),
         ),
-        SavedPage(),
+        ChatPage(),
         ProfilePage()
       ],
     );
@@ -87,7 +87,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    MaterialIcons.chat_bubble_outline,
+                    Foundation.play_video,
                     size: 25,
                     color: activeTab == 1 ? primary : black,
                   ),
