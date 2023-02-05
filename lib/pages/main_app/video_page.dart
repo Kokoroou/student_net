@@ -1,60 +1,49 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:http/http.dart';
 
 import 'package:student_net/models/newfeed_model.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
 import 'package:student_net/pages/testData/post_json.dart';
 import 'package:student_net/theme/colors.dart';
+import 'package:video_player/video_player.dart';
+import 'package:student_net/pages/data/me_post_json.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class VideoPage extends StatefulWidget {
+  const VideoPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _VideoPageState createState() => _VideoPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _VideoPageState extends State<VideoPage> {
   // Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
 
-  static List cleanPostList = [];
-  static const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E';
-  Postfeed a = Postfeed(
-  token,
+  late VideoPlayerController _controller_vp;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller_vp = VideoPlayerController.network(meVideoList[0]['videoUrl']);
+
+    _controller_vp.addListener(() {
+      setState(() {});
+    });
+    _controller_vp.setLooping(true);
+    _controller_vp.initialize().then((_) => setState(() {}));
+    _controller_vp.play();
+  }
+
+  @override
+  void dispose() {
+    _controller_vp.dispose();
+    super.dispose();
+  }
+  static Postfeed b = Postfeed(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E',
       50);
 
+  List cleanPostList = b.PostList;
 
-  likePost(id, token) async {
-    print("tesst like");
-    String url = 'http://184.169.213.180:3000/it4788/like/like?token=' + token.toString() + '&id=' + id.toString();
-    final uri = Uri.parse(url);
-    final headers = {'Content-Type': 'application/json'};
-    Map<String, dynamic> body = {
-      'token': token,
-      'id': id.toString(),
-    };
-
-    String jsonBody = json.encode(body);
-    final encoding = Encoding.getByName('utf-8');
-    Response response = await post(
-      uri,
-      headers: headers,
-      body: jsonBody,
-      encoding: encoding,
-    );
-
-
-  }
-
-  cleanData() async {
-    cleanPostList = await a.PostList;
-  }
-
-  _HomePageState() {
-    cleanData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,13 +109,17 @@ class _HomePageState extends State<HomePage> {
             ),
             Column(
               children: List.generate(cleanPostList.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 25),
+                return GestureDetector(
+                  onTap: () {
+                        playVideo(context, meVideoList[0]['videoUrl']);
+                      },
+              
                   child: Stack(
                     children: [
                       Container(
+                        margin: const EdgeInsets.all(15),
                         width: double.infinity,
-                        height: 288,
+                        height: 300,
                         decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -139,20 +132,18 @@ class _HomePageState extends State<HomePage> {
                                 image: NetworkImage(
                                     cleanPostList[index]['image'][0]['url']),
                                 fit: BoxFit.cover),
-                            borderRadius: BorderRadius.circular(20)),
+                            borderRadius: BorderRadius.circular(0)),
                       ),
                       Container(
                           width: double.infinity,
-                          height: 288,
+                          height: 300,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: black.withOpacity(0.25))),
+                              color: white.withOpacity(0))),
                       Container(
                         width: double.infinity,
-                        height: 288,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        margin: const EdgeInsets.all(15),
+                        height: 300,
+                        decoration: BoxDecoration(),
                         child: Padding(
                           padding: const EdgeInsets.all(15),
                           child: Column(
@@ -210,41 +201,29 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Row(
-
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-
                                   Container(
                                     width: 90,
                                     height: 35,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(27),
                                         color: const Color(0xFFE5E5E5)
                                             .withOpacity(0.5)),
                                     child: Row(
-                                      
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-
-                                         IconButton(
-                                           icon: const Icon(
-                                             Feather.heart,
-                                             color: white,
-                                             size: 17,),
-                                           onPressed: () {
-                                             likePost(cleanPostList[index]['id'],token);
-
-                                         },
-
+                                        const Icon(
+                                          Feather.heart,
+                                          color: white,
+                                          size: 17,
                                         ),
                                         Text(
                                           cleanPostList[index]['like'],
                                           style: const TextStyle(
                                               fontSize: 17, color: white),
-                                        ),
-
+                                        )
                                       ],
                                     ),
                                   ),
@@ -252,7 +231,6 @@ class _HomePageState extends State<HomePage> {
                                     width: 90,
                                     height: 35,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(27),
                                         color: const Color(0xFFE5E5E5)
                                             .withOpacity(0.5)),
                                     child: Row(
@@ -288,4 +266,25 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  
+  playVideo(BuildContext context, videoUrl) {
+    _controller_vp = VideoPlayerController.network(videoUrl);
+
+    _controller_vp.addListener(() {
+      setState(() {});
+    });
+    _controller_vp.setLooping(true);
+    _controller_vp.initialize().then((_) => setState(() {}));
+    _controller_vp.play();
+
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            content: AspectRatio(
+              aspectRatio: _controller_vp.value.aspectRatio,
+              child: VideoPlayer(_controller_vp),
+            )));
+  }
 }
+

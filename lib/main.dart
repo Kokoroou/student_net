@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 // import 'package:student_net/pages/homepage.dart';
 
 import 'package:student_net/pages/auth/login.dart';
-import 'package:student_net/pages/auth/postbaiviet.dart';
+import 'package:student_net/pages/postbaiviet/postbaiviet.dart';
+import 'package:student_net/pages/auth/register.dart';
 import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
-import 'package:student_net/pages/main_app/saved_page.dart';
+import 'package:student_net/pages/main_app/video_page.dart';
 import 'package:student_net/pages/search/saved_search.dart';
 import "package:student_net/pages/search/search_bar.dart";
 import 'package:student_net/pages/settings/main_menu.dart';
@@ -37,15 +38,21 @@ class MyApp extends StatelessWidget {
 
       // Define routes to pages
       routes: {
+        // First page in app
         '/': (context) => const LoginPage(),
-        '/home': (context) => const HomePage(),
-        '/login': (context) => const LoginPage(),
-        // '/register': (context) => const RegisterPage(),
+
+        // Main pages in app
         '/root': (context) => const RootApp(),
+        '/home': (context) => const HomePage(),
         '/chat': (context) => const ChatPage(),
         '/profile': (context) => const ProfilePage(),
-        '/saved': (context) => const SavedPage(),
+        '/video': (context) => const VideoPage(),
+
+        // Pages for functions
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const SignUp(),
         '/post': (context) => const PostBaiViet(),
+        '/search': (context) => Example(),
       },
     );
   }
