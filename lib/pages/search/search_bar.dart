@@ -263,7 +263,7 @@ class Search extends SearchDelegate {
                         child: InkWell(
                       onTap: () {
                         print('hiện thị lịch sử tìm kiếm ');
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Settings()));
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ListFriends()));
                       },
                       child: const Padding(
                           padding: const EdgeInsets.all(10),

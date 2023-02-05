@@ -5,7 +5,9 @@ import 'package:student_net/config.dart';
 import 'package:student_net/models/auth/login_model.dart';
 import 'package:student_net/models/settings/change_name_model.dart';
 import 'package:student_net/models/settings/change_pass_model.dart';
+import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/logout_model.dart';
+import 'package:student_net/models/settings/set_block.model.dart';
 import 'package:student_net/services/shared_service.dart';
 
 class APIService {
@@ -36,10 +38,32 @@ class APIService {
 
     var response = await client.post(url, headers: requestHeaders);
     return response.statusCode;
-  }
 
-  static Future<int> logout(LogoutRequestModel model) async {
-    Map<String, String> requestHeaders = {
+  } 
+  static Future<int> set_block(SetBlockRequestModel model) async{
+    Map <String, String> requestHeaders= {
+      'Content-Type': 'application/json',
+    };
+
+    var body = model.toJson();
+    var url = Uri.http(Config.apiURL, Config.setBlockAPI, body);
+
+    var response = await client.post(url, headers: requestHeaders);
+    return response.statusCode;
+  } 
+  static Future get_ls_friends(GetListFriendsRequestModel model) async{
+    Map <String, String> requestHeaders= {
+      'Content-Type': 'application/json',
+    };
+
+    var body = model.toJson();
+    var url = Uri.http(Config.apiURL, Config.getListFriendsAPI, body);
+
+    var response = await client.post(url, headers: requestHeaders);
+    return response;
+  } 
+  static Future<int> logout(LogoutRequestModel model) async{
+    Map <String, String> requestHeaders= {
       'Content-Type': 'application/json',
     };
 

@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/logout_model.dart';
 import 'package:student_net/pages/settings/settings.dart';
 import 'package:student_net/services/api_service.dart';
 
 import '../search/saved_search.dart';
-
 
 void main() => runApp(const Settings());
 
@@ -139,7 +139,7 @@ class Settings extends StatelessWidget {
                     style: TextStyle(fontSize: 14),
                   ),
                   onTap: () {
-                    print("Log out Tapped");
+
                   },
                 ),
               ],
