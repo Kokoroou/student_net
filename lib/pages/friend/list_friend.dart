@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/set_block.model.dart';
+import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/search/search_bar.dart';
 import 'package:student_net/services/api_service.dart';
 
@@ -106,7 +107,7 @@ class _MyListPageState extends State<MyListPage> {
   Widget build(BuildContext context) {
     GetListFriendsRequestModel model = GetListFriendsRequestModel(
       token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGE2MjhkMjUzNzVlYzg2NDg2ZGE0NiIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDg6MjA6MzQuOTM1WiIsImlhdCI6MTY3NTQ5ODgzNSwiZXhwIjoxNjg1NDk4ODM0fQ.RW0E7KrsCz03JCSSr9ioPEkjD8zbuHTf2biZK8eTCrM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTU6MDE6MTYuNTEwWiIsImlhdCI6MTY3NTYwOTI3NiwiZXhwIjoxNjg1NjA5Mjc1fQ.2W1PVqZt4ZHwpkW5uYNdIxNkBKhnDFmVy73CE6e4Rik",
       user_id: "63da628d25375ec86486da46",
       count: "10",
       index: "0",
@@ -251,7 +252,9 @@ class _MyListPageState extends State<MyListPage> {
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.all(10.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ChatPage()));
+                        },
                         child: Row(
                           children: <Widget>[
                             Icon(

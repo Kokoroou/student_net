@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:student_net/pages/friend/list_friend.dart';
 import 'package:student_net/pages/settings/main_menu.dart';
 import 'package:student_net/pages/data/me_post_json.dart';
 import 'package:student_net/theme/colors.dart';
@@ -204,6 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     nothing = true;
                     isPhoto = false;
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ListFriends()));
                   },
                   icon: Icon(
                     Foundation.address_book,
