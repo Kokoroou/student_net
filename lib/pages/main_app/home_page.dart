@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:http/http.dart';
 
 import 'package:student_net/models/newfeed_model.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
@@ -19,34 +16,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
 
-  static List cleanPostList = [];
-  static const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E';
-  Postfeed a = Postfeed(
-  token,
+  static Postfeed a = Postfeed(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E',
       50);
-
-
-  likePost(id, token) async {
-    print("tesst like");
-    String url = 'http://184.169.213.180:3000/it4788/like/like?token=' + token.toString() + '&id=' + id.toString();
-    final uri = Uri.parse(url);
-    final headers = {'Content-Type': 'application/json'};
-    Map<String, dynamic> body = {
-      'token': token,
-      'id': id.toString(),
-    };
-
-    String jsonBody = json.encode(body);
-    final encoding = Encoding.getByName('utf-8');
-    Response response = await post(
-      uri,
-      headers: headers,
-      body: jsonBody,
-      encoding: encoding,
-    );
-
-
-  }
+  
+  List cleanPostList = a.PostList;
 
   cleanData() async {
     cleanPostList = await a.PostList;
@@ -210,11 +184,9 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Row(
-
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-
                                   Container(
                                     width: 90,
                                     height: 35,
@@ -223,28 +195,19 @@ class _HomePageState extends State<HomePage> {
                                         color: const Color(0xFFE5E5E5)
                                             .withOpacity(0.5)),
                                     child: Row(
-                                      
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-
-                                         IconButton(
-                                           icon: const Icon(
-                                             Feather.heart,
-                                             color: white,
-                                             size: 17,),
-                                           onPressed: () {
-                                             likePost(cleanPostList[index]['id'],token);
-
-                                         },
-
+                                        const Icon(
+                                          Feather.heart,
+                                          color: white,
+                                          size: 17,
                                         ),
                                         Text(
                                           cleanPostList[index]['like'],
                                           style: const TextStyle(
                                               fontSize: 17, color: white),
-                                        ),
-
+                                        )
                                       ],
                                     ),
                                   ),

@@ -5,48 +5,67 @@ import 'package:student_net/pages/settings/main_menu.dart';
 import 'package:student_net/pages/data/me_post_json.dart';
 import 'package:student_net/theme/colors.dart';
 import 'package:video_player/video_player.dart';
+import 'package:student_net/models/info_user_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+  
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  static Profile b =  Profile('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMTU6MDE6MDkuNDM5WiIsImlhdCI6MTY3NTUyMjg2OSwiZXhwIjoxNjg1NTIyODY4fQ.-WUAe-idXMeAXzOAn879grosYBYz0c-pR9mt20cPlPc', '63c564bc98152ff53b260813');
+
+  Map<String, dynamic> profile = {};
+  createInfo() async {
+    profile = await b.Info;
+  }
+
+  _ProfilePageState(){
+    createInfo();
+  }
+
   bool isPhoto = true;
   bool nothing = false;
 
-  late VideoPlayerController _controller;
-
+  static late VideoPlayerController _controller_pf;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(meVideoList[0]['videoUrl']);
+    _controller_pf = VideoPlayerController.network(meVideoList[0]['videoUrl']);
 
-    _controller.addListener(() {
+    _controller_pf.addListener(() {
       setState(() {});
     });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
+    _controller_pf.setLooping(true);
+    _controller_pf.initialize().then((_) => setState(() {}));
+    _controller_pf.play();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller_pf.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    try{
+      try{
+    print(profile);
+      }catch(e){print('profile still null');}
     return Scaffold(
       backgroundColor: white,
       appBar: PreferredSize(
           child: getAppBar(), preferredSize: Size.fromHeight(180)),
       body: getBody(),
     );
+    }catch(e){return const Scaffold(
+      backgroundColor: white
+    );}
   }
 
   Widget getAppBar() {
@@ -101,14 +120,14 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 10,
             ),
             Text(
-              "Nguyen Linh",
+              (profile != {}) ? profile['username'] : 'null',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              "@ljisoo1012",
+              (profile != {}) ? profile['description'] : 'please reload page',
               style: TextStyle(fontSize: 15),
             ),
           ],
@@ -136,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 8,
                   ),
                   Text(
-                    "35",
+                    mePostList.length.toString(),
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -151,26 +170,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 8,
                   ),
                   Text(
-                    "1,552",
+                    (profile != {}) ? profile['listing'] : 'null',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Text(
-                    "Follow",
-                    style: TextStyle(fontSize: 15, color: black),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "182",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              )
             ],
           ),
           SizedBox(
@@ -199,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   icon: Icon(
                     Foundation.play_video,
                     size: 30,
-                    color: (!isPhoto && !nothing )  ? primary : black,
+                    color: (!isPhoto && !nothing)  ? primary : black,
                   )),
               IconButton(
                   onPressed: () {
@@ -241,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: List.generate(meVideoList.length, (index) {
                     return GestureDetector(
                       onTap: () {
-                        playVideo(context, meVideoList[index]['videoUrl']);
+                        playVideo_pf(context, meVideoList[index]['videoUrl'], _controller_pf);
                       },
                       child: Container(
                         width: (size.width - 60) / 2,
@@ -267,23 +271,23 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  playVideo(BuildContext context, videoUrl) {
-    _controller = VideoPlayerController.network(videoUrl);
+  playVideo_pf(BuildContext context, videoUrl, controller) {
+    controller = VideoPlayerController.network(videoUrl);
 
-    _controller.addListener(() {
+    controller.addListener(() {
       setState(() {});
     });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
+    controller.setLooping(true);
+    controller.initialize().then((_) => setState(() {}));
+    controller.play();
 
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
+              aspectRatio: controller.value.aspectRatio,
+              child: VideoPlayer(controller),
             )));
   }
 }
