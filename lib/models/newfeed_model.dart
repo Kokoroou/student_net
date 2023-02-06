@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:student_net/models/post/post_model.dart';
 
 
 
@@ -7,6 +8,7 @@ class Postfeed {
   String? token;
   int? count;
   static List cleanPostList = [];
+  static List<PostModel> postListModel = [];
   Postfeed(this.token, this.count) {
     post_postList();
   }
@@ -40,7 +42,8 @@ class Postfeed {
     for (var each in (jsonDecode(responseBody.toString())['data']['posts'])){
           if (each['image'] != null){
             cleanPostList.add(each);
-          } 
+          }
+
       }
 
     // print(cleanPostList);
@@ -48,7 +51,6 @@ class Postfeed {
   }
 
   List get PostList => cleanPostList;
-
   // Future<List> get response => post_postList(this.token, this.count);
 
 }
