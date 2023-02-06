@@ -2,10 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import 'package:snippet_coder_utils/hex_color.dart';
 import 'package:student_net/config.dart';
 import 'package:student_net/models/auth/login_model.dart';
 import 'package:student_net/services/api_service.dart';
+import 'package:api_cache_manager/api_cache_manager.dart';
+import 'package:api_cache_manager/models/cache_db_model.dart';
+import 'package:api_cache_manager/utils/cache_db_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -68,11 +70,11 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: (screenHeight - 270) / 2,
+                  top: (screenHeight - 350) / 2,
                 ),
                 child: const Center(
                   child: Text(
-                    "Student Network",
+                    "Đăng nhập",
                     style: TextStyle(
                       color: Config.textColor1,
                       fontSize: 35,
@@ -103,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: 10,
                   showPrefixIcon: true,
                   prefixIcon: const Icon(Icons.phone),
+                  isNumeric: true,
                 ),
               ),
               Padding(
@@ -175,67 +178,61 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: FormHelper.submitButton(
-                  'Đăng nhập',
-                  () {
-                    if (validateAndSave()) {
-                      setState(() {
-                        isAPICallProcess = true;
-                      });
-
-                      LoginRequestModel model = LoginRequestModel(
-                          phonenumber: phonenumber!, password: password!);
-
-                      APIService.login(model).then((response) {
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Center(
+                  child: FormHelper.submitButton(
+                    'Đăng nhập',
+                    () {
+                      if (validateAndSave()) {
                         setState(() {
-                          isAPICallProcess = false;
+                          isAPICallProcess = true;
                         });
 
-                        if (response) {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/root', (route) => false);
-                        } else {
-                          FormHelper.showSimpleAlertDialog(
-                              context,
-                              Config.appName,
-                              "Số điện thoại hoặc mật khẩu không hợp lệ!",
-                              "OK", () {
-                            Navigator.pop(context);
+                        LoginRequestModel model = LoginRequestModel(
+                            phonenumber: phonenumber!, password: password!);
+
+                        APIService.login(model).then((response) {
+                          setState(() {
+                            isAPICallProcess = false;
                           });
-                        }
-                      });
-                    }
-                  },
-                  btnColor: Colors.white,
-                  borderColor: Colors.white,
-                  txtColor: Config.textColor2,
-                  borderRadius: 10,
+
+                          print("--------------body: ${response}");
+
+                          if (response["code"] == "1000") {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/root', (route) => false);
+                          } else if (response["code"] == "9995") {
+                            FormHelper.showSimpleAlertDialog(
+                                context,
+                                Config.appName,
+                                "Tài khoản chưa xác thực!",
+                                "Xác thực ngay", () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/verify');
+                            });
+                          } else {
+                            FormHelper.showSimpleAlertDialog(
+                                context,
+                                Config.appName,
+                                "Số điện thoại hoặc mật khẩu không hợp lệ!",
+                                "OK", () {
+                              Navigator.pop(context);
+                            });
+                          }
+                        });
+                      }
+                    },
+                    btnColor: Colors.white,
+                    borderColor: Colors.white,
+                    txtColor: Config.textColor2,
+                    borderRadius: 10,
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              // const Center(
-              //   child: Text(
-              //     'Hoặc',
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 18,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-              const SizedBox(
-                height: 20,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 25, top: 10),
+              Padding(
+                padding: EdgeInsets.only(top: (screenHeight - 350) / 2),
+                child: Center(
                   child: RichText(
                     text: TextSpan(
                       style: const TextStyle(
@@ -248,11 +245,10 @@ class _LoginPageState extends State<LoginPage> {
                           text: 'Đăng ký ngay',
                           style: const TextStyle(
                             color: Colors.white,
-                            decoration: TextDecoration.underline,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.pushNamed(context, '/register');
+                              Navigator.pushNamed(context, '/signup');
                             },
                         ),
                       ],
