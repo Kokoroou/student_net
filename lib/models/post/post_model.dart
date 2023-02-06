@@ -19,6 +19,7 @@ class PostModel {
   String? canEdit;
   String? status;
   PosterModel? author;
+  String? token;
   set setComment(String? comment) {
     this.comment = comment;
   }
@@ -37,7 +38,9 @@ class PostModel {
         this.canComment,
         this.canEdit,
         this.status,
-        this.author});
+        this.author,
+        this.token,
+      });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     // print(DateTime.fromMillisecondsSinceEpoch(int.parse(json['created'])));
@@ -46,6 +49,7 @@ class PostModel {
     // print(json['author']);
     return PostModel(
       id: json['id'],
+      token: json['token'],
       image: json['image'] != null ? (json['image'] as List).map((i) => ImageModel.fromJson(i)).toList() : null,
       video: json['video'] != null ? VideoModel.fromJson(json['video']) : null,
       described: json['described'],
@@ -72,6 +76,7 @@ class PostModel {
       data['video'] = this.video!.toJson();
     }
     data['described'] = this.described;
+    data['token'] = this.token;
     data['created'] = this.created;
     data['modified'] = this.modified;
     data['like'] = this.like;
@@ -100,6 +105,7 @@ class PostModel {
     String? canEdit,
     String? status,
     PosterModel? author,
+    String? token,
   }) {
     return PostModel(
       id: id ?? this.id,
@@ -115,6 +121,7 @@ class PostModel {
       canComment: canComment ?? this.canComment,
       canEdit: canEdit ?? this.canEdit,
       status: status ?? this.status,
+      token: token ?? this.token,
     );
   }
 }

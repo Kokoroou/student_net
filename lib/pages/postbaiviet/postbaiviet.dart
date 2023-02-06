@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:snippet_coder_utils/FormHelper.dart';
 import 'dart:convert';
 import 'package:student_net/pages/auth/signup.dart';
+import 'package:student_net/pages/main_app/home_page.dart';
+
+import '../../models/post/post_model.dart';
+import '../../services/api_service.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
 
 void main() => runApp(const PostBaiViet());
@@ -31,9 +36,13 @@ class PostBody extends StatefulWidget {
 }
 
 class _PostBodyState extends State<PostBody> {
-  TextEditingController nameController = TextEditingController();
-  // QuillController _controller = QuillController.basic();
-  TextEditingController passwordController = TextEditingController();
+  bool isAPICallProcess = false;
+  TextEditingController describeController = TextEditingController();
+  // bool hidePassword = true;
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  String? described;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +67,45 @@ class _PostBodyState extends State<PostBody> {
                   children: [
                     Icon(Icons.arrow_back),
                     const SizedBox(
-                      width: 20,
+                      width: 15,
                     ),
                     Text('Create Post'),
                     Spacer(),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey),
-                      onPressed: () {},
-                      child: Text('Post'),
-                    )
+                    Center(
+                      child: FormHelper.submitButton(
+                        'Đăng tải',
+                        () {
+                          PostModel model = PostModel(
+                              described: describeController.text, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGY2YjcwMjUzNzVlYzg2NDg2ZGE2MCIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMDg6NDU6NDguNjYzWiIsImlhdCI6MTY3NTU4Njc0OCwiZXhwIjoxNjg1NTg2NzQ3fQ.AmD_LLe6M_h-yr1cECTIwMetvLU4rtY6IZ9s7VPeBt0');
+                          //print(describeController.text);
+                          APIService.create_post(model).then((response) {
+                            setState(() {
+                              isAPICallProcess = false;
+                            });
+                            Navigator.pushNamed(context, '/home');
+                          });
+                        }
+                      ),
+                    ),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.grey),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       isAPICallProcess = true;
+                    //     });
+                    //     PostModel model = PostModel(
+                    //         described: described!, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGY2YjcwMjUzNzVlYzg2NDg2ZGE2MCIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMDg6NDU6NDguNjYzWiIsImlhdCI6MTY3NTU4Njc0OCwiZXhwIjoxNjg1NTg2NzQ3fQ.AmD_LLe6M_h-yr1cECTIwMetvLU4rtY6IZ9s7VPeBt0');
+                    //     APIService.create_post(model).then((response) {
+                    //       setState(() {
+                    //         isAPICallProcess = false;
+                    //       });
+                    //       Navigator.pushNamedAndRemoveUntil(
+                    //           context, '/home', (route) => false);
+                    //     });
+                    //     },
+                    //
+                    //  child: Text('Post'),)
                   ],
                 ),
                 Divider(
@@ -80,7 +118,7 @@ class _PostBodyState extends State<PostBody> {
                   contentPadding: EdgeInsets.zero,
                   leading: Image.network(
                       'https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png'),
-                  title: Text("Huân đẹp trai"),
+                  title: Text("Đinh Ngọc Huân"),
                   subtitle: Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Row(
@@ -133,6 +171,7 @@ class _PostBodyState extends State<PostBody> {
                 ),
                 TextFormField(
                   maxLines: 5,
+                  controller: describeController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'What\'s on your Mind?',
@@ -149,19 +188,19 @@ class _PostBodyState extends State<PostBody> {
 
   void _navigateToSignUp(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const SignUpPage()));
+        .push(MaterialPageRoute(builder: (context) => const HomePage()));
   }
 
-  Future<http.Response> _createPost(String phoneNumber, String password) {
-    return http.post(
-      Uri.parse('http://184.169.213.180:3000/it4788/auth/login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'post': phoneNumber,
-        'password': password,
-      }),
-    );
-  }
+  // Future<http.Response> _createPost(String phoneNumber, String password) {
+  //   return http.post(
+  //     Uri.parse('http://184.169.213.180:3000/it4788/auth/login'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'post': phoneNumber,
+  //       'password': password,
+  //     }),
+  //   );
+  // }
 }

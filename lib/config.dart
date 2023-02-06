@@ -8,6 +8,7 @@ class Config {
   static const String apiURL = "184.169.213.180:3000";
   static const String loginAPI = "/it4788/auth/login";
   static const String signupAPI = "/it4788/auth/signup";
+  static const String postAPI = "/it4788/post/add_post";
   // static const String api_name = "api_path";
   static const String getVerifyCodeAPI = "/it4788/auth/get_verify_code";
   static const String checkVerifyCodeAPI = "/it4788/auth/check_verify_code";
