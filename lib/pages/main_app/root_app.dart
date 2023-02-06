@@ -87,7 +87,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    Foundation.play_video,
+                    Icons.ondemand_video_outlined,
                     size: 25,
                     color: activeTab == 1 ? primary : black,
                   ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:http/http.dart';
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
 
     String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');
-    Response response = await post(
+    var response = await post(
       uri,
       headers: headers,
       body: jsonBody,

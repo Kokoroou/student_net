@@ -18,31 +18,31 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   // Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
 
-  late VideoPlayerController _controller_vp;
+  static late VideoPlayerController _controller_vp2;
 
   @override
   void initState() {
     super.initState();
-    _controller_vp = VideoPlayerController.network(meVideoList[0]['videoUrl']);
+    _controller_vp2 = VideoPlayerController.network(meVideoList[0]['videoUrl']);
 
-    _controller_vp.addListener(() {
-      setState(() {});
-    });
-    _controller_vp.setLooping(true);
-    _controller_vp.initialize().then((_) => setState(() {}));
-    _controller_vp.play();
+    // _controller_vp2.addListener(() {
+    //   setState(() {});
+    // });
+    _controller_vp2.setLooping(true);
+    _controller_vp2.initialize().then((_) => setState(() {}));
+    _controller_vp2.play();
   }
 
   @override
   void dispose() {
-    _controller_vp.dispose();
+    _controller_vp2.dispose();
     super.dispose();
   }
   static Postfeed b = Postfeed(
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E',
       50);
 
-  List cleanPostList = b.PostList;
+  List cleanVideoList = b.PostList;
 
 
   @override
@@ -108,10 +108,10 @@ class _VideoPageState extends State<VideoPage> {
               height: 30,
             ),
             Column(
-              children: List.generate(cleanPostList.length, (index) {
+              children: List.generate(cleanVideoList.length, (index) {
                 return GestureDetector(
                   onTap: () {
-                        playVideo(context, meVideoList[0]['videoUrl']);
+                        playVideo_vp2(context, meVideoList[0]['videoUrl'], _controller_vp2);
                       },
               
                   child: Stack(
@@ -130,7 +130,7 @@ class _VideoPageState extends State<VideoPage> {
                             ],
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    cleanPostList[index]['image'][0]['url']),
+                                    cleanVideoList[index]['image'][0]['url']),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(0)),
                       ),
@@ -156,7 +156,7 @@ class _VideoPageState extends State<VideoPage> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundImage: NetworkImage((cleanPostList[
+                                        backgroundImage: NetworkImage((cleanVideoList[
                                                         index]['author']
                                                     ['avatar'] ==
                                                 null)
@@ -171,11 +171,11 @@ class _VideoPageState extends State<VideoPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            (cleanPostList[index]['author']
+                                            (cleanVideoList[index]['author']
                                                         ['username'] ==
                                                     null)
                                                 ? 'người dùng'
-                                                : cleanPostList[index]['author']
+                                                : cleanVideoList[index]['author']
                                                     ['username'],
                                             style: const TextStyle(
                                                 fontSize: 15, color: white),
@@ -220,7 +220,7 @@ class _VideoPageState extends State<VideoPage> {
                                           size: 17,
                                         ),
                                         Text(
-                                          cleanPostList[index]['like'],
+                                          cleanVideoList[index]['like'],
                                           style: const TextStyle(
                                               fontSize: 17, color: white),
                                         )
@@ -243,7 +243,7 @@ class _VideoPageState extends State<VideoPage> {
                                           size: 17,
                                         ),
                                         Text(
-                                          cleanPostList[index]['comment'],
+                                          cleanVideoList[index]['comment'],
                                           style: const TextStyle(
                                               fontSize: 17, color: white),
                                         )
@@ -267,23 +267,23 @@ class _VideoPageState extends State<VideoPage> {
     );
   }
   
-  playVideo(BuildContext context, videoUrl) {
-    _controller_vp = VideoPlayerController.network(videoUrl);
+  playVideo_vp2(BuildContext context, videoUrl, controller) {
+    controller = VideoPlayerController.network(videoUrl);
 
-    _controller_vp.addListener(() {
+    controller.addListener(() {
       setState(() {});
     });
-    _controller_vp.setLooping(true);
-    _controller_vp.initialize().then((_) => setState(() {}));
-    _controller_vp.play();
+    controller.setLooping(true);
+    controller.initialize().then((_) => setState(() {}));
+    controller.play();
 
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: AspectRatio(
-              aspectRatio: _controller_vp.value.aspectRatio,
-              child: VideoPlayer(_controller_vp),
+              aspectRatio: controller.value.aspectRatio,
+              child: VideoPlayer(controller),
             )));
   }
 }
