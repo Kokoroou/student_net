@@ -238,7 +238,7 @@ class _MyListPageState extends State<MyListPage> {
                     onPressed: () {
                       SetBlockRequestModel model = SetBlockRequestModel(
                           token: UserModel.token,
-                          user_id: "63da628d25375ec86486da46",
+                          user_id: UserModel.id,
                           type: "1");
 
                       APIService.set_block(model).then((value) {
