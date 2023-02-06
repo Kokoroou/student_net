@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 // import 'package:student_net/pages/homepage.dart';
 
 import 'package:student_net/pages/auth/login.dart';
-import 'package:student_net/pages/auth/postbaiviet.dart';
+import 'package:student_net/pages/postbaiviet/postbaiviet.dart';
+import 'package:student_net/pages/auth/register.dart';
 import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
@@ -37,17 +38,21 @@ class MyApp extends StatelessWidget {
 
       // Define routes to pages
       routes: {
-        // '/': (context) => const LoginPage(),
-        '/': (context) => const ProfilePage(),
-        '/home': (context) => const HomePage(),
-        '/login': (context) => const LoginPage(),
-        // '/register': (context) => const RegisterPage(),
+        // First page in app
+        '/': (context) => const LoginPage(),
+
+        // Main pages in app
         '/root': (context) => const RootApp(),
+        '/home': (context) => const HomePage(),
         '/chat': (context) => const ChatPage(),
         '/profile': (context) => const ProfilePage(),
         '/video': (context) => const VideoPage(),
+
+        // Pages for functions
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const SignUp(),
         '/post': (context) => const PostBaiViet(),
-        '/search':(context) => Example(),
+        '/search': (context) => Example(),
       },
     );
   }

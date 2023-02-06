@@ -50,14 +50,16 @@ class LoginResponseModel {
 
 class Data {
   String? id;
-  Null? username;
+  String? username;
   String? token;
-  Null? avatar;
-  Null? active;
+  String? avatar;
+  String? active;
 
   Data({this.id, this.username, this.token, this.avatar, this.active});
 
   Data.fromJson(Map<String, dynamic> json) {
+    // print(json);
+
     id = json['id'];
     username = json['username'];
     token = json['token'];
