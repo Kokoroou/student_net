@@ -1,18 +1,10 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:http/http.dart';
 
 import 'package:student_net/models/newfeed_model.dart';
-import 'package:student_net/models/post/post_model.dart';
 import 'package:student_net/pages/main_app/root_app.dart';
 import 'package:student_net/pages/testData/post_json.dart';
 import 'package:student_net/theme/colors.dart';
-
-import '../../theme/bottomsheet_widget.dart';
-import 'comment_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,40 +15,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
-  static List cleanPostList = [];
-  static const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E';
-  Postfeed a = Postfeed(token, 50);
 
-  likePost(id, token, index) async {
-    print("tesst like");
-    String url = 'http://184.169.213.180:3000/it4788/like/like?token=' +
-        token.toString() +
-        '&id=' +
-        id.toString();
-    final uri = Uri.parse(url);
-    final headers = {'Content-Type': 'application/json'};
-    Map<String, dynamic> body = {
-      'token': token,
-      'id': id.toString(),
-    };
-
-    String jsonBody = json.encode(body);
-    final encoding = Encoding.getByName('utf-8');
-    var response = await post(
-      uri,
-      headers: headers,
-      body: jsonBody,
-      encoding: encoding,
-    );
-
-    cleanPostList[index]['like'] =
-        jsonDecode(response.body.toString())['data']['like'];
-    print(cleanPostList[index]['like']);
-    setState(() {
-      cleanPostList = List.from(cleanPostList);
-    });
-  }
+  static Postfeed a = Postfeed(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E',
+      50);
+  
+  List cleanPostList = a.PostList;
 
   cleanData() async {
     cleanPostList = await a.PostList;
@@ -130,9 +94,6 @@ class _HomePageState extends State<HomePage> {
             ),
             Column(
               children: List.generate(cleanPostList.length, (index) {
-                //Map<String, dynamic> map = jsonDecode(cleanPostList[index]);
-                PostModel post = PostModel.fromJson(cleanPostList[index]);
-                //PostModel post = cleanPostList[index];
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 25),
                   child: Stack(
@@ -237,30 +198,16 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        IconButton(
-                                          icon: cleanPostList[index]
-                                                      ['is_liked'] ==
-                                                  "1"
-                                              ? const Icon(
-                                                  Icons.thumb_up,
-                                                  color: Colors.red,
-                                                  size: 24.0,
-                                                )
-                                              : const Icon(
-                                                  Icons.thumb_up,
-                                                  color: white,
-                                                  size: 24.0,
-                                                ),
-                                          onPressed: () {
-                                            likePost(cleanPostList[index]['id'],
-                                                token, index);
-                                          },
+                                        const Icon(
+                                          Feather.heart,
+                                          color: white,
+                                          size: 17,
                                         ),
                                         Text(
                                           cleanPostList[index]['like'],
                                           style: const TextStyle(
                                               fontSize: 17, color: white),
-                                        ),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -275,27 +222,10 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        IconButton(
-                                          icon: const Icon(
-                                            MaterialIcons.chat_bubble_outline,
-                                            color: white,
-                                            size: 24.0,
-                                          ),
-                                          onPressed: () {
-                                            showModalFullSheet(
-                                              context,
-                                              [
-                                                WillPopScope(
-                                                  onWillPop: () async {
-                                                    //postBloc.add(GetPostByIdEvent(id: post.id!));
-                                                    return true;
-                                                  },
-                                                  child:
-                                                      CommentScreen(post: post),
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                        const Icon(
+                                          MaterialIcons.chat_bubble_outline,
+                                          color: white,
+                                          size: 17,
                                         ),
                                         Text(
                                           cleanPostList[index]['comment'],

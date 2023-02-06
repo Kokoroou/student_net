@@ -7,19 +7,12 @@ class Config {
   // API Address
   static const String apiURL = "184.169.213.180:3000";
   static const String loginAPI = "/it4788/auth/login";
-  static const String signupAPI = "/it4788/auth/signup";
-  // static const String api_name = "api_path";
-  static const String getVerifyCodeAPI = "/it4788/auth/get_verify_code";
-  static const String checkVerifyCodeAPI = "/it4788/auth/check_verify_code";
   static const String setUserInforAPI = "/it4788/user/set_user_info";
   static const String changePasswordAPI = "/it4788/auth/change_password";
   static const String logoutAPI = "/it4788/auth/logout";
   static const String getListFriendsAPI = "/it4788/friend/get_user_friends";
   static const String setBlockAPI = "/it4788/friend/set_block";
   static const String getSavedSearchAPI = "/it4788/search/get_saved_search";
-  static const String delSavedSearchAPI = "/it4788/search/del_saved_search";
-  static const String getListBlocksAPI = "/it4788/friend/get_list_blocks";
-  
 
   // Color palette: https://www.colourlovers.com/palette/148733/Baby_Bingo
   static const hexColor1 = Color(0xFFFDD456); // Creamy

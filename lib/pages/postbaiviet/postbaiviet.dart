@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:student_net/pages/auth/signup.dart';
+import 'package:student_net/pages/auth/register.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
 
 void main() => runApp(const PostBaiViet());
@@ -149,7 +149,7 @@ class _PostBodyState extends State<PostBody> {
 
   void _navigateToSignUp(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const SignUpPage()));
+        .push(MaterialPageRoute(builder: (context) => const SignUp()));
   }
 
   Future<http.Response> _createPost(String phoneNumber, String password) {

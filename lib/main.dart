@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:student_net/models/settings/user_model.dart';
 
 // import 'package:student_net/pages/homepage.dart';
 
 import 'package:student_net/pages/auth/login.dart';
-import 'package:student_net/pages/auth/verify.dart';
-import 'package:student_net/pages/auth/welcome.dart';
 import 'package:student_net/pages/postbaiviet/postbaiviet.dart';
-import 'package:student_net/pages/auth/signup.dart';
+import 'package:student_net/pages/auth/register.dart';
 import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
@@ -21,17 +18,14 @@ import 'package:student_net/pages/settings/profile.dart';
 import 'package:student_net/pages/settings/main_home.dart';
 
 void main() {
-  UserModel.readJson();
-  runApp(const FinalApp());
-
-  // runApp(const MyApp());
+  runApp(const MyApp());
   // runApp(FbCloneProfileStless());
   // runApp(Example());
   // runApp(BlockPage());
 }
 
-class FinalApp extends StatelessWidget {
-  const FinalApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -45,7 +39,6 @@ class FinalApp extends StatelessWidget {
       // Define routes to pages
       routes: {
         // First page in app
-        // '/': (context) => const WelcomePage(),
         '/': (context) => const LoginPage(),
 
         // Main pages in app
@@ -57,8 +50,7 @@ class FinalApp extends StatelessWidget {
 
         // Pages for functions
         '/login': (context) => const LoginPage(),
-        '/signup': (context) => const SignUpPage(),
-        '/verify': (context) => const VerifyPage(),
+        '/register': (context) => const SignUp(),
         '/post': (context) => const PostBaiViet(),
         '/search': (context) => Example(),
       },

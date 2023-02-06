@@ -1,10 +1,10 @@
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/logout_model.dart';
-import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/pages/auth/login.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
 import 'package:student_net/pages/search/search_bar.dart';
@@ -49,6 +49,7 @@ class Settings extends StatelessWidget {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: () {
+
                           showSearch(context: context, delegate: Search());
                         }),
                     decoration: BoxDecoration(
@@ -68,7 +69,7 @@ class Settings extends StatelessWidget {
                     // backgroundImage: AssetImage('images/user/sonam.jpg'),
                   ),
                   title: Text(
-                    UserModel.username != null ? UserModel.username! : "",
+                    'Kaito Kuroba',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text('View your Profile'),
@@ -119,7 +120,8 @@ class Settings extends StatelessWidget {
                   ),
                   onTap: () {
                     LogoutRequestModel model = LogoutRequestModel(
-                      token: UserModel.token,
+                      token:
+                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDM6NDc6MjUuMTkxWiIsImlhdCI6MTY3NTQ4MjQ0NSwiZXhwIjoxNjg1NDgyNDQ0fQ.Wyf8YyLdDG39OiXj3_4WeDGb7JkTLMCF7GBNi0iSqV0",
                     );
 
                     APIService.logout(model).then((response) {
