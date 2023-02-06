@@ -2,8 +2,8 @@ import 'dart:convert';
 
 class BlockRequestModel{
   String? token;
-  int? index;
-  int? count;
+  String? index;
+  String? count;
 
   BlockRequestModel({this.token, this.index, this.count});
 
@@ -41,29 +41,59 @@ class BlockResponseModel{
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data= new Map<String, dynamic>();
 
-    data['code'] = this.code;
-    data['message'] = this.message;
-    if (this.data != null){
-      data['data'] = this.data!.toJson();
-    }
+    // data['code'] = this.code;
+    // data['message'] = this.message;
+    // if (this.data != null){
+    //   data['data'] = this.data!.toJson();
+    // }
 
     return data;
   }
+
+  List? getListBlocks(){
+    if (data == null){
+      return [] ;
+    }
+    else{
+      return data!.ls_blocks;
+    }
+  }
+
+
+}
+
+class Data{
+  List? ls_blocks = [];
+
+  Data.fromJson(List? list_json){
+    for (var each in list_json!){
+      ls_blocks!.add(Friends.fromJson(each));
+    }
+  }
+
+
 }
 
 
-
-class Data{
-  String? id; 
+class Friends{
   
-  Data({this.id});
-  Data.fromJson(Map<String, dynamic> json){
-    id = json['id'];
+  String? id; 
+  String? username;
+  String? avatar; 
+
+  
+  Friends({this.id, this.username, this.avatar});
+  Friends.fromJson(Map<String, dynamic> json){
+      // if(each != null){
+        id = json['id'];
+        username= json['username'];
+        avatar = json['avatar'];
+      // }
   }
 
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data= new Map<String, dynamic> ();
-    data['id'] = this.id; 
+    // data['id'] = this.id; 
 
     return data;
   }

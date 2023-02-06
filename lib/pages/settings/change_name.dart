@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:student_net/models/settings/change_name_model.dart';
+import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/services/api_service.dart';
 
 class EditNamePage extends StatefulWidget {
@@ -45,9 +46,9 @@ class _EditNamePageStage extends State<EditNamePage> {
           ),
           TextFieldWidget(
               label: "",
-              ho: "Kuroba",
+              ho: "",
               ten_dem: "",
-              ten: "Kaito",
+              ten: UserModel.username != null ? UserModel.username! : "",
               onChanged: (name) {}),
         ],
       ),
@@ -179,6 +180,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(UserModel.token);
     return Column(
       children: [
         const SizedBox(
@@ -204,11 +206,12 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           ),
           onPressed: () {
             ChangeNameRequestModel request = ChangeNameRequestModel(
-              token:
-                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDE6NDY6NDQuNTM5WiIsImlhdCI6MTY3NTQ3NTIwNCwiZXhwIjoxNjg1NDc1MjAzfQ.hzeJ_C2dtEnbtCZcVxOHvtLXrwqZSnozfE-VOLv4MBE",
+              token: UserModel.token,
               new_username: ho + " " + ten_dem + " " + ten,
             );
+
             APIService.change_name(request).then((response) {
+              UserModel.updateName(ho + " " + ten_dem + " " + ten);
               if (response) {
                 showDialog<String>(
                     context: context,

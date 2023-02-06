@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:student_net/models/settings/block_model.dart';
+import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/pages/search/search_bar.dart';
+import 'package:student_net/pages/search/utils.dart';
+import 'package:student_net/services/api_service.dart';
 
 void main() => runApp(const BlockPage());
 
@@ -39,7 +43,6 @@ class History extends StatelessWidget {
             Container(
               height: 40,
               color: Colors.white,
-           
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
@@ -68,22 +71,22 @@ class History extends StatelessWidget {
                 ),
               ),
             ),
-             Row(
-              children: [Expanded(
-                // padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 40,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      primary: Colors.blue,
+            Row(
+              children: [
+                Expanded(
+                  // padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 40,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        primary: Colors.blue,
+                      ),
+                      onPressed: () {},
+                      child: Text('THÊM VÀO DANH SÁCH CHẶN'),
                     ),
-                    onPressed: () {
-
-                    },
-                    child: Text('THÊM VÀO DANH SÁCH CHẶN'),
                   ),
-                ),
-              )],
+                )
+              ],
             ),
             MyListPage(),
           ],
@@ -101,67 +104,70 @@ class MyListPage extends StatefulWidget {
 }
 
 class _MyListPageState extends State<MyListPage> {
-  List<String> data = ["1", "2", "3", "4"];
-  get_list_blocks() async {
-    var response = await http.post(
-      Uri.parse("http://184.169.213.180:3000/it4788/friend/get_list_blocks/",),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'token':
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDFUMTI6NTc6MTYuODM3WiIsImlhdCI6MTY3NTI1NjIzNywiZXhwIjoxNjg1MjU2MjM2fQ.AafjbzuumSE915Om3JoD1qLuyhJbtVJDD1A9aLVHpBc",
-        "index":"0",
-        "count": "5", 
-      }),
-    );
-    print(response.body);
-  }
+  List? data = [];
+  BlockRequestModel model = new BlockRequestModel(
+    token: UserModel.token, 
+    index: "0",
+    count: "50",
+  );
+
   @override
   Widget build(BuildContext context) {
-    get_list_blocks();
-    return ListView.builder(
-      physics: ScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: data.length,
-      itemBuilder: ((context, index) {
-        return Card(
-            color: Color.fromARGB(255, 230, 227, 227),
-            child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: ListTile(
-                  title: Text(data[index]),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage("assets/favicon.png"),
-                      // backgroundImage: NetworkImage(avatarUrl),
-                      radius: 25.0,
-                      // backgroundColor: Colors.black,
-                    ),
-                    // backgroundColor: Colors.white,
-                  ),
-                  trailing: Container(
-                    width: 80,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 14),
-                            ),
-                            onPressed: () {},
-                            child: const Text(
-                              'Bỏ chặn',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
+    return FutureBuilder(
+      future: APIService.get_ls_blocks(model),
+      builder: (context, snapshot) {
+      if (snapshot.hasData && snapshot.data != null) {
+        BlockResponseModel response = BlockResponseModel.fromJson(json.decode(snapshot.data.body));
+
+        data= response.getListBlocks();
+
+        
+        return ListView.builder(
+          physics: ScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: data!.length,
+          itemBuilder: ((context, index) {
+            return Card(
+                color: Color.fromARGB(255, 230, 227, 227),
+                child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: ListTile(
+                      title: Text(data![index].username),
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: CircleAvatar(
+                          backgroundImage: getAvatar(data![index].avatar),
+                          // backgroundImage: NetworkImage(avatarUrl),
+                          radius: 25.0,
+                          // backgroundColor: Colors.black,
                         ),
-                      ],
-                    ),
-                  ),
-                )));
-      }),
-    );
+                        // backgroundColor: Colors.white,
+                      ),
+                      trailing: Container(
+                        width: 80,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  textStyle: const TextStyle(fontSize: 14),
+                                ),
+                                onPressed: () {},
+                                child: const Text(
+                                  'Bỏ chặn',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )));
+          }),
+        );
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
+    });
   }
 }

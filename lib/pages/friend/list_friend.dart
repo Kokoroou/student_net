@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/set_block.model.dart';
+import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/search/search_bar.dart';
 import 'package:student_net/services/api_service.dart';
@@ -106,68 +107,83 @@ class _MyListPageState extends State<MyListPage> {
   @override
   Widget build(BuildContext context) {
     GetListFriendsRequestModel model = GetListFriendsRequestModel(
-      token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTU6MDE6MTYuNTEwWiIsImlhdCI6MTY3NTYwOTI3NiwiZXhwIjoxNjg1NjA5Mjc1fQ.2W1PVqZt4ZHwpkW5uYNdIxNkBKhnDFmVy73CE6e4Rik",
-      user_id: "63da628d25375ec86486da46",
+      token: UserModel.token,
+      user_id: UserModel.id,
       count: "10",
       index: "0",
       page: "1",
     );
 
-    APIService.get_ls_friends(model).then((value) {
-      GetListFriendsResponseModel response =
-          GetListFriendsResponseModel.fromJson(json.decode(value.body));
-      // print(response.toJson()['data']['total']);
-      // print(response.getFriends()?.length);
-      if (this.mounted) {
-        setState(() {
-          this.data = response.getFriends();
-        });
-      }
-    });
+    // APIService.get_ls_friends(model).then((value) {
+    //   GetListFriendsResponseModel response =
+    //       GetListFriendsResponseModel.fromJson(json.decode(value.body));
+    //   // print(response.toJson()['data']['total']);
+    //   // print(response.getFriends()?.length);
+    //   if (this.mounted) {
+    //     setState(() {
+    //       this.data = response.getFriends();
+    //     });
+    //   }
+    // });
 
-    return ListView.builder(
-      physics: ScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: data?.length,
-      itemBuilder: ((context, index) {
-        return Card(
-            // color: Color.fromARGB(255, 230, 227, 227),
-            child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: ListTile(
-                  title: Text(data!.elementAt(index).getUserName()),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage("assets/favicon.png"),
-                      // backgroundImage: NetworkImage(avatarUrl),
-                      radius: 25.0,
-                      // backgroundColor: Colors.black,
-                    ),
-                    // backgroundColor: Colors.white,
-                  ),
-                  subtitle: Text(
-                      data!.elementAt(index).getSameFriends() + " bạn chung"),
-                  trailing: Container(
-                    width: 20,
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: IconButton(
-                          icon: Icon(Icons.more_horiz),
-                          onPressed: () {
-                            print("show pop up of this friends");
-                            _showMoreOption(context, index,
-                                data!.elementAt(index).getUserId());
-                          },
-                        )),
-                      ],
-                    ),
-                  ),
-                )));
-      }),
-    );
+    return FutureBuilder(
+        future: APIService.get_ls_friends(model),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+                  GetListFriendsResponseModel response =
+          GetListFriendsResponseModel.fromJson(json.decode(snapshot.data.body));
+          data = response.getFriends();
+          
+            return ListView.builder(
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: data?.length,
+              itemBuilder: ((context, index) {
+                return Card(
+                    // color: Color.fromARGB(255, 230, 227, 227),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: ListTile(
+                          title: Text(data!.elementAt(index).getUserName()),
+                          leading: CircleAvatar(
+                            radius: 30,
+                            child: CircleAvatar(
+                              backgroundImage: UserModel.getAvatar(),
+                              // backgroundImage: NetworkImage(avatarUrl),
+                              radius: 25.0,
+                              // backgroundColor: Colors.black,
+                            ),
+                            // backgroundColor: Colors.white,
+                          ),
+                          subtitle: Text(
+                              data!.elementAt(index).getSameFriends() +
+                                  " bạn chung"),
+                          trailing: Container(
+                            width: 20,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: IconButton(
+                                  icon: Icon(Icons.more_horiz),
+                                  onPressed: () {
+                                    print("show pop up of this friends");
+                                    _showMoreOption(context, index,
+                                        data!.elementAt(index).getUserId());
+                                  },
+                                )),
+                              ],
+                            ),
+                          ),
+                        )));
+              }),
+            );
+          } else {
+
+            return Center(child: CircularProgressIndicator());
+          
+          
+          }
+        });
   }
 
   _showMoreOption(context, int index, String user_id) {
@@ -221,8 +237,7 @@ class _MyListPageState extends State<MyListPage> {
                 TextButton(
                     onPressed: () {
                       SetBlockRequestModel model = SetBlockRequestModel(
-                          token:
-                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGE2MjhkMjUzNzVlYzg2NDg2ZGE0NiIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMTA6MTY6MjUuODEzWiIsImlhdCI6MTY3NTUwNTc4NSwiZXhwIjoxNjg1NTA1Nzg0fQ.LCsoDHNb94XxfqpeIIgTtQwn7YaKxJkmYCRE1j6qquI",
+                          token: UserModel.token,
                           user_id: "63da628d25375ec86486da46",
                           type: "1");
 
@@ -253,7 +268,8 @@ class _MyListPageState extends State<MyListPage> {
                       padding: EdgeInsets.all(10.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ChatPage()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ChatPage()));
                         },
                         child: Row(
                           children: <Widget>[

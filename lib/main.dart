@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_net/models/settings/user_model.dart';
 
 // import 'package:student_net/pages/homepage.dart';
 
@@ -18,6 +19,7 @@ import 'package:student_net/pages/settings/profile.dart';
 import 'package:student_net/pages/settings/main_home.dart';
 
 void main() {
+  UserModel.readJson();
   runApp(const MyApp());
   // runApp(FbCloneProfileStless());
   // runApp(Example());
@@ -26,6 +28,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  
 
   // This widget is the root of your application.
   @override
@@ -39,7 +43,8 @@ class MyApp extends StatelessWidget {
       // Define routes to pages
       routes: {
         // First page in app
-        '/': (context) => const LoginPage(),
+        // '/': (context) => const LoginPage(),
+        '/': (context) => const ProfilePage(),
 
         // Main pages in app
         '/root': (context) => const RootApp(),
