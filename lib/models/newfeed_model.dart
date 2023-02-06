@@ -43,7 +43,7 @@ class Postfeed {
           } 
       }
 
-    print(cleanPostList);
+    // print(cleanPostList);
 
   }
 
@@ -53,7 +53,7 @@ class Postfeed {
 
 }
 
-void main()  {
+void main()  async{
   // List cleanPostList = [];
   Postfeed a = Postfeed('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMzFUMTc6MzU6NDUuMjQxWiIsImlhdCI6MTY3NTE4NjU0NSwiZXhwIjoxNjg1MTg2NTQ0fQ.U1LIKoaK7Szczs0cHFZ4STJ9nWqC4jZxO_ZwoEwFW-E', 50);
   print(a.PostList);
