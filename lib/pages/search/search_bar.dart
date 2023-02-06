@@ -143,22 +143,7 @@ class Search extends SearchDelegate {
                 const SizedBox(
                   height: 20,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "News Feed",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
+
                 Column(
                   children: List.generate(cleanPostList.length, (index) {
                     return Padding(
