@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:student_net/pages/homepage.dart';
 
 import 'package:student_net/pages/auth/login.dart';
-import 'package:student_net/pages/auth/postbaiviet.dart';
-import 'package:student_net/pages/auth/register.dart';
+import 'package:student_net/pages/postbaiviet/postbaiviet.dart';
 import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
-        '/register': (context) => const SignUp(),
+        // '/register': (context) => const RegisterPage(),
         '/root': (context) => const RootApp(),
         '/chat': (context) => const ChatPage(),
         '/profile': (context) => const ProfilePage(),
