@@ -48,10 +48,21 @@ class GetSavedSearchResponseModel {
       return data!.ls_keywords;
     }
   }
+
+  List? get_ls_id_searches(){
+    if(data == null){
+      return [];
+    }
+    else{
+      // print(data!.ls_id_searches);
+      return data!.ls_id_searches;
+    }
+  }
 }
 
 class Data {
   List? ls_keywords = [];
+  List? ls_id_searches = [];
 
   Data({this.ls_keywords});
 
@@ -61,6 +72,7 @@ class Data {
         String tmp = each['keyword'].toString();
         if (tmp != null) {
           ls_keywords!.add(tmp);
+          ls_id_searches!.add(each['id'].toString());
         }
         // print(each['keyword']);
       }

@@ -1,7 +1,8 @@
 {
-    "username": null,
-    "id": null,
-    "token": null,
-    "avatar": null,
+    "username": "Kuroba Kaito",
+    "id": "63c3bd5298152ff53b260805",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDZUMDc6MTg6MTUuMjUzWiIsImlhdCI6MTY3NTY2Nzg5NSwiZXhwIjoxNjg1NjY3ODk0fQ.fpVmhYGhNDRe4ArPRO19Byr1rUXSRVTMmyUwCKUrJvY",
+    
+    "avatar": "https://firebasestorage.googleapis.com/v0/b/facebook-24888.appspot.com/o/2023-01-31T12:21:17.249Zbangkok-canh-dep.jpg?alt=media",
     "active": null
 }

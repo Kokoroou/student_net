@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_net/models/settings/user_model.dart';
 
 // import 'package:student_net/pages/homepage.dart';
 
@@ -20,7 +21,10 @@ import 'package:student_net/pages/settings/profile.dart';
 import 'package:student_net/pages/settings/main_home.dart';
 
 void main() {
+  UserModel.readJson();
   runApp(const FinalApp());
+
+  // runApp(const MyApp());
   // runApp(FbCloneProfileStless());
   // runApp(Example());
   // runApp(BlockPage());
@@ -41,7 +45,8 @@ class FinalApp extends StatelessWidget {
       // Define routes to pages
       routes: {
         // First page in app
-        '/': (context) => const WelcomePage(),
+        // '/': (context) => const WelcomePage(),
+        '/': (context) => const LoginPage(),
 
         // Main pages in app
         '/root': (context) => const RootApp(),

@@ -9,21 +9,24 @@ import 'package:student_net/models/info_user_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
-  
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  static Profile b =  Profile('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMTU6MDE6MDkuNDM5WiIsImlhdCI6MTY3NTUyMjg2OSwiZXhwIjoxNjg1NTIyODY4fQ.-WUAe-idXMeAXzOAn879grosYBYz0c-pR9mt20cPlPc', '63c564bc98152ff53b260813');
+  static Profile b = Profile(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU2NGJjOTgxNTJmZjUzYjI2MDgxMyIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMTU6MDE6MDkuNDM5WiIsImlhdCI6MTY3NTUyMjg2OSwiZXhwIjoxNjg1NTIyODY4fQ.-WUAe-idXMeAXzOAn879grosYBYz0c-pR9mt20cPlPc',
+      '63c564bc98152ff53b260813');
 
   Map<String, dynamic> profile = {};
   createInfo() async {
     profile = await b.Info;
+
+    if (!mounted) return;
   }
 
-  _ProfilePageState(){
+  _ProfilePageState() {
     createInfo();
   }
 
@@ -53,19 +56,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    try{
-      try{
-    print(profile);
-      }catch(e){print('profile still null');}
-    return Scaffold(
-      backgroundColor: white,
-      appBar: PreferredSize(
-          child: getAppBar(), preferredSize: Size.fromHeight(180)),
-      body: getBody(),
-    );
-    }catch(e){return const Scaffold(
-      backgroundColor: white
-    );}
+    try {
+      //   try{
+      // print(profile);
+      //   }catch(e){print('profile still null');}
+      return Scaffold(
+        backgroundColor: white,
+        appBar: PreferredSize(
+            child: getAppBar(), preferredSize: Size.fromHeight(180)),
+        body: getBody(),
+      );
+    } catch (e) {
+      return const Scaffold(backgroundColor: white);
+    }
   }
 
   Widget getAppBar() {
@@ -109,7 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: IconButton(
                           icon: Icon(Icons.settings),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Settings()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Settings()));
                           },
                         ),
                       )),
@@ -193,23 +197,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   icon: Icon(
                     Foundation.photo,
                     size: 25,
-                    color: (isPhoto && !nothing ) ? primary : black,
+                    color: (isPhoto && !nothing) ? primary : black,
                   )),
               IconButton(
                   onPressed: () {
-                      isPhoto = false;
-                      nothing = false;
+                    isPhoto = false;
+                    nothing = false;
                   },
                   icon: Icon(
                     Foundation.play_video,
                     size: 30,
-                    color: (!isPhoto && !nothing)  ? primary : black,
+                    color: (!isPhoto && !nothing) ? primary : black,
                   )),
               IconButton(
                   onPressed: () {
                     nothing = true;
                     isPhoto = false;
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ListFriends()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ListFriends()));
                   },
                   icon: Icon(
                     Foundation.address_book,
@@ -222,50 +227,52 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 30,
           ),
           nothing
-            ? Wrap():
-          isPhoto
-              ? Wrap(
-                  spacing: 15,
-                  runSpacing: 15,
-                  children: List.generate(mePostList.length, (index) {
-                    return Container(
-                      width: (size.width - 60) / 2,
-                      height: (size.width - 60) / 2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: NetworkImage(mePostList[index]),
-                              fit: BoxFit.cover)),
-                    );
-                  }),
-                )
-              : Wrap(
-                  spacing: 15,
-                  runSpacing: 15,
-                  children: List.generate(meVideoList.length, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        playVideo_pf(context, meVideoList[index]['videoUrl'], _controller_pf);
-                      },
-                      child: Container(
-                        width: (size.width - 60) / 2,
-                        height: (size.width - 60) / 2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                                image: NetworkImage(meVideoList[index]['img']),
-                                fit: BoxFit.cover)),
-                        child: Center(
-                          child: Icon(
-                            AntDesign.playcircleo,
-                            size: 40,
-                            color: white,
+              ? Wrap()
+              : isPhoto
+                  ? Wrap(
+                      spacing: 15,
+                      runSpacing: 15,
+                      children: List.generate(mePostList.length, (index) {
+                        return Container(
+                          width: (size.width - 60) / 2,
+                          height: (size.width - 60) / 2,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: NetworkImage(mePostList[index]),
+                                  fit: BoxFit.cover)),
+                        );
+                      }),
+                    )
+                  : Wrap(
+                      spacing: 15,
+                      runSpacing: 15,
+                      children: List.generate(meVideoList.length, (index) {
+                        return GestureDetector(
+                          onTap: () {
+                            playVideo_pf(context,
+                                meVideoList[index]['videoUrl'], _controller_pf);
+                          },
+                          child: Container(
+                            width: (size.width - 60) / 2,
+                            height: (size.width - 60) / 2,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image:
+                                        NetworkImage(meVideoList[index]['img']),
+                                    fit: BoxFit.cover)),
+                            child: Center(
+                              child: Icon(
+                                AntDesign.playcircleo,
+                                size: 40,
+                                color: white,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
-                )
+                        );
+                      }),
+                    )
         ],
       ),
     );

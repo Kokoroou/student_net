@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                               FormHelper.showSimpleAlertDialog(
                                   context,
                                   Config.appName,
-                                  "Hiện chưa hỗ trợ đổi mật khẩu!",
+                                  "Hiện chưa hỗ trợ tính năng này!",
                                   "OK", () {
                                 Navigator.pop(context);
                               });
@@ -198,6 +198,10 @@ class _LoginPageState extends State<LoginPage> {
                           });
 
                           print("--------------body: ${response}");
+
+                          APIService.readCached().then((response) {
+                            print("----after read: $response");
+                          });
 
                           if (response["code"] == "1000") {
                             Navigator.pushNamedAndRemoveUntil(

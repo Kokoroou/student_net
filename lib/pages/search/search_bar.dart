@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:student_net/models/newfeed_model.dart';
 import 'package:student_net/models/search/saved_search_model.dart';
+import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/pages/friend/list_friend.dart';
 import 'package:student_net/pages/search/result_search.dart';
 import 'package:student_net/pages/settings/main_menu.dart';
@@ -58,8 +59,7 @@ class ExampleBody extends StatelessWidget {
 
 List? take_recentSearch() {
   GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
-    token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTM6MzM6MTMuNjE0WiIsImlhdCI6MTY3NTYwMzk5MywiZXhwIjoxNjg1NjAzOTkyfQ.CZgztk66_euGrhBTC5RjLgtvN6eJDxoZ56bpBByrPkM",
+    token: UserModel.token,
     index: "0",
     count: "20",
   );
@@ -142,22 +142,6 @@ class Search extends SearchDelegate {
               children: [
                 const SizedBox(
                   height: 20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "News Feed",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
                 ),
                 Column(
                   children: List.generate(cleanPostList.length, (index) {
@@ -431,8 +415,7 @@ class Search extends SearchDelegate {
     }
 
     GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
-      token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTU6MDE6MTYuNTEwWiIsImlhdCI6MTY3NTYwOTI3NiwiZXhwIjoxNjg1NjA5Mjc1fQ.2W1PVqZt4ZHwpkW5uYNdIxNkBKhnDFmVy73CE6e4Rik",
+      token: UserModel.token,
       index: "0",
       count: "20",
     );
@@ -501,7 +484,7 @@ class Search extends SearchDelegate {
                               onTap: () {
                                 print('hiện thị lịch sử tìm kiếm ');
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ListFriends()));
+                                    builder: (context) => HistorySearch()));
                               },
                               child: const Padding(
                                   padding: const EdgeInsets.all(10),
