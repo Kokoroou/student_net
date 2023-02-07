@@ -128,13 +128,3 @@ Widget feedBox(String avatarUrl, String userName, String date,
 void navigateToHistorySearch(BuildContext context){
   // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HistorySearch()));
 }
-
-
-ImageProvider getAvatar(var avatar){
-  if (avatar == null){
-    return const AssetImage("assets/favicon.png");
-  }
-  else{
-    return NetworkImage(avatar);
-  }
-}

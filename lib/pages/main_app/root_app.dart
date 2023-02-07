@@ -11,7 +11,7 @@ class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
 
   @override
-  _RootAppState createState() => _RootAppState();
+  State<RootApp> createState() => _RootAppState();
 }
 
 class _RootAppState extends State<RootApp> {
@@ -32,7 +32,7 @@ class _RootAppState extends State<RootApp> {
       index: activeTab,
       children: [
         HomePage(),
-        VideoPage(),
+        HomePage0(),
         Center(
           child: Text("Upload"),
         ),
@@ -87,7 +87,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    Foundation.play_video,
+                    Icons.ondemand_video_outlined,
                     size: 25,
                     color: activeTab == 1 ? primary : black,
                   ),
@@ -103,7 +103,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    Feather.heart,
+                    Icons.message,
                     size: 25,
                     color: activeTab == 3 ? primary : black,
                   ),

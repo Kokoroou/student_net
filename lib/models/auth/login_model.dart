@@ -19,64 +19,64 @@ class LoginRequestModel {
   }
 }
 
-class LoginResponseModel {
-  String? code;
-  String? message;
-  Data? data;
-  String? details;
+// class LoginResponseModel {
+//   String? code;
+//   String? message;
+//   Data? data;
+//   String? details;
 
-  LoginResponseModel({this.code, this.message, this.data, this.details});
+//   LoginResponseModel({this.code, this.message, this.data, this.details});
 
-  LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    details = json['details'] != null ? json['details'] : null;
-  }
+//   LoginResponseModel.fromJson(Map<String, dynamic> json) {
+//     code = json['code'];
+//     message = json['message'];
+//     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+//     details = json['details'] != null ? json['details'] : null;
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    if (this.details != null) {
-      data['details'] = this.details;
-    }
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['code'] = this.code;
+//     data['message'] = this.message;
+//     if (this.data != null) {
+//       data['data'] = this.data!.toJson();
+//     }
+//     if (this.details != null) {
+//       data['details'] = this.details;
+//     }
+//     return data;
+//   }
+// }
 
-class Data {
-  String? id;
-  String? username;
-  String? token;
-  String? avatar;
-  String? active;
+// class Data {
+//   String? id;
+//   String? username;
+//   String? token;
+//   String? avatar;
+//   String? active;
 
-  Data({this.id, this.username, this.token, this.avatar, this.active});
+//   Data({this.id, this.username, this.token, this.avatar, this.active});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    // print(json);
+//   Data.fromJson(Map<String, dynamic> json) {
+//     // print(json);
 
-    id = json['id'];
-    username = json['username'];
-    token = json['token'];
-    avatar = json['avatar'];
-    active = json['active'];
-  }
+//     id = json['id'];
+//     username = json['username'];
+//     token = json['token'];
+//     avatar = json['avatar'];
+//     active = json['active'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['token'] = this.token;
-    data['avatar'] = this.avatar;
-    data['active'] = this.active;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['username'] = this.username;
+//     data['token'] = this.token;
+//     data['avatar'] = this.avatar;
+//     data['active'] = this.active;
+//     return data;
+//   }
+// }
 
-LoginResponseModel loginResponseJson(String str) =>
-    LoginResponseModel.fromJson(json.decode(str));
+// LoginResponseModel loginResponseJson(String str) =>
+//     LoginResponseModel.fromJson(json.decode(str));
