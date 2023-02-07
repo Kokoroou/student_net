@@ -4,6 +4,7 @@ import 'package:student_net/pages/main_app/chat_page.dart';
 import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/pages/main_app/profile_page.dart';
 import 'package:student_net/pages/main_app/video_page.dart';
+import 'package:student_net/pages/postbaiviet/postbaiviet.dart';
 import 'package:student_net/theme/colors.dart';
 import 'dart:math' as math;
 
@@ -26,16 +27,13 @@ class _RootAppState extends State<RootApp> {
     );
   }
 
-  
   Widget getBody() {
     return IndexedStack(
       index: activeTab,
       children: [
         HomePage(),
         VideoPage(),
-        Center(
-          child: Text("Upload"),
-        ),
+        PostBaiViet(),
         ChatPage(),
         ProfilePage()
       ],

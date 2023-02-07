@@ -22,8 +22,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // Profile? b;
-  // ProfilePostList? c;
   Map? loginData;
   Map? profile;
   List? profilePost = [];
@@ -32,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isPhoto = true;
   bool nothing = false;
 
-  static late VideoPlayerController _controller_pf;
+  static VideoPlayerController? _controller_pf;
 
   getInfo() async {
     // print("-------run:getInfo() in profile_page");
@@ -95,19 +93,19 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _controller_pf = VideoPlayerController.network(meVideoList[0]['videoUrl']);
+    // _controller_pf = VideoPlayerController.network(meVideoList[0]['videoUrl']);
 
-    _controller_pf.addListener(() {
-      setState(() {});
-    });
-    _controller_pf.setLooping(true);
-    _controller_pf.initialize().then((_) => setState(() {}));
-    _controller_pf.play();
+    // _controller_pf.addListener(() {
+    //   setState(() {});
+    // });
+    // _controller_pf.setLooping(false);
+    // _controller_pf.initialize().then((_) => setState(() {}));
+    // _controller_pf.play();
   }
 
   @override
   void dispose() {
-    _controller_pf.dispose();
+    _controller_pf!.dispose();
     super.dispose();
   }
 
@@ -142,8 +140,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 75,
                   height: 75,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(28),
-                      border: Border.all(color: black)),
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(color: black, width: 2)),
                   child: Center(
                     child: Container(
                       width: 70,
@@ -151,9 +149,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           image: DecorationImage(
-                              image: NetworkImage((loginData!["avatar"] != null)
-                                  ? loginData!["avatar"]
-                                  : "https://images.pexels.com/photos/69932/tabby-cat-close-up-portrait-69932.jpeg?auto=compress&cs=tinysrgb&w=600"),
+                              image: (loginData!["avatar"] != null)
+                                  ? NetworkImage(loginData!["avatar"])
+                                  : Image.asset(
+                                          'assets/images/default/avatar.png')
+                                      .image,
                               fit: BoxFit.cover)),
                     ),
                   ),
@@ -179,7 +179,9 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 10,
             ),
             Text(
-              (loginData!["username"] != null) ? loginData!["username"] : '',
+              (loginData!["username"] != null)
+                  ? loginData!["username"]
+                  : 'Username',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -259,8 +261,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   )),
               IconButton(
                   onPressed: () {
-                    isPhoto = false;
-                    nothing = false;
+                    setState(() {
+                      isPhoto = false;
+                      nothing = false;
+                    });
                   },
                   icon: Icon(
                     Foundation.play_video,
@@ -350,7 +354,7 @@ class _ProfilePageState extends State<ProfilePage> {
     controller.addListener(() {
       setState(() {});
     });
-    controller.setLooping(true);
+    controller.setLooping(false);
     controller.initialize().then((_) => setState(() {}));
     controller.play();
 

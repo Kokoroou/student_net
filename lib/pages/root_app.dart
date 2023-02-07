@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:student_net/pages/chat_page.dart';
 import 'package:student_net/pages/home_page.dart';
+import 'package:student_net/pages/postbaiviet/postbaiviet.dart';
 import 'package:student_net/pages/profile_page.dart';
 import 'package:student_net/pages/saved_page.dart';
 import 'package:student_net/theme/colors.dart';
@@ -32,9 +33,7 @@ class _RootAppState extends State<RootApp> {
       children: [
         HomePage(),
         ChatPage(),
-        Center(
-          child: Text("Upload"),
-        ),
+        PostBaiViet(),
         SavedPage(),
         ProfilePage()
       ],

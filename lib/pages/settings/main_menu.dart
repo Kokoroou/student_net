@@ -102,12 +102,16 @@ class _SettingsState extends State<Settings> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           image: DecorationImage(
-                              image: NetworkImage((loginData!["avatar"] != null)
-                                  ? loginData!["avatar"]
-                                  : "https://images.pexels.com/photos/69932/tabby-cat-close-up-portrait-69932.jpeg?auto=compress&cs=tinysrgb&w=600"),
+                              image: (loginData!["avatar"] != null)
+                                  ? NetworkImage(loginData!["avatar"])
+                                  : Image.asset(
+                                          'assets/images/default/avatar.png')
+                                      .image,
                               fit: BoxFit.cover))),
                   title: Text(
-                    (profile!["username"] != null) ? profile!["username"] : '',
+                    (profile!["username"] != null)
+                        ? profile!["username"]
+                        : 'Username',
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
