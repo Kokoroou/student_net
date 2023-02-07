@@ -58,10 +58,24 @@ class _MyListPageState extends State<MyListPage> {
   List? data;
   List? ls_id_searches;
 
+  Map? loginData = {};
+
+  getInfo() async {
+    await APIService.readCached("LoginRequestModel").then((response) {
+      setState(() {
+        loginData = response;
+      });
+    });
+  }
+
+  _MyListPageState() {
+    getInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
-      token: UserModel.token,
+      token: loginData!["token"],
       index: "0",
       count: "50",
     );
@@ -87,7 +101,7 @@ class _MyListPageState extends State<MyListPage> {
                   return Card(
                       color: Color.fromARGB(255, 201, 198, 198),
                       child: Padding(
-                          padding: const EdgeInsets.all(😎,
+                          padding: const EdgeInsets.all(8),
                           child: ListTile(
                             title: Text(data![index]),
                             leading: Icon(Icons.search),
@@ -102,17 +116,15 @@ class _MyListPageState extends State<MyListPage> {
                                             data!.removeAt(index);
                                             DelSearchRequestModel model =
                                                 new DelSearchRequestModel(
-                                                    token: UserModel.token,
+                                                    token: loginData!["token"],
                                                     all: "0",
                                                     search_id:
                                                         ls_id_searches![index]);
                                             print("delete");
                                             APIService.del_saved_search(model)
                                                 .then((value) {
-                                            print(ls_id_searches![index]);
-                                            ls_id_searches!.removeAt(index);
-
-                                                  
+                                              print(ls_id_searches![index]);
+                                              ls_id_searches!.removeAt(index);
                                             });
                                           });
                                         },
@@ -137,7 +149,7 @@ class _MyListPageState extends State<MyListPage> {
           return Card(
               color: Color.fromARGB(255, 201, 198, 198),
               child: Padding(
-                  padding: const EdgeInsets.all(😎,
+                  padding: const EdgeInsets.all(8),
                   child: ListTile(
                     title: Text(data![index]),
                     leading: Icon(Icons.search),
@@ -152,14 +164,12 @@ class _MyListPageState extends State<MyListPage> {
                                     data!.removeAt(index);
                                     DelSearchRequestModel model =
                                         new DelSearchRequestModel(
-                                            token: UserModel.token,
+                                            token: loginData!["token"],
                                             all: "1",
                                             search_id: ls_id_searches![index]);
-                                
+
                                     APIService.del_saved_search(model)
-                                        .then((value) {
-                              
-                                    });
+                                        .then((value) {});
                                     ls_id_searches!.removeAt(index);
                                   });
                                 },

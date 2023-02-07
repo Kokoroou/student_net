@@ -11,6 +11,7 @@ import 'package:student_net/models/auth/signup_model.dart';
 import 'package:student_net/models/auth/verify_model.dart';
 import 'package:student_net/models/post/interact_post_model.dart';
 import 'package:student_net/models/post/list_post_model.dart';
+import 'package:student_net/models/post/post_model.dart';
 import 'package:student_net/models/search/del_search_model.dart';
 import 'package:student_net/models/search/saved_search_model.dart';
 import 'package:student_net/models/settings/change_name_model.dart';
@@ -120,6 +121,32 @@ class APIService {
 
     var response = await client.post(url, headers: requestHeaders);
     return response;
+  }
+
+  static Future<Map> create_post(PostModel model) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.addPostAPI, body);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    // if (response.statusCode == 200) {
+    //   // SHARED
+    //   await SharedService.setLoginDetails(loginResponseJson(response.body));
+    // }
+    return jsonDecode(response.body);
   }
 
   static Future<int> logout(LogoutRequestModel model) async {
@@ -410,5 +437,18 @@ class APIService {
           response.body, model.runtimeType.toString());
     }
     return jsonDecode(response.body);
+  }
+
+  static Future del_saved_search(DelSearchRequestModel model) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var body = model.toJson();
+    var url = Uri.http(Config.apiURL, Config.delSavedSearchAPI, body);
+
+    var response = await client.post(url, headers: requestHeaders);
+
+    return response.statusCode == 200;
   }
 }

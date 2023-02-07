@@ -33,6 +33,7 @@ class Config {
   static const String getListBlocksAPI = "/it4788/friend/get_list_blocks";
 
   static const String getSavedSearchAPI = "/it4788/search/get_saved_search";
+  static const String delSavedSearchAPI = "/it4788/search/del_saved_search";
 
   // Color palette: https://www.colourlovers.com/palette/148733/Baby_Bingo
   static const hexColor1 = Color(0xFFFDD456); // Creamy

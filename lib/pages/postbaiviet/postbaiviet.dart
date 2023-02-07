@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:student_net/config.dart';
+import 'package:student_net/models/post/post_model.dart';
 import 'dart:convert';
 import 'package:student_net/pages/auth/signup.dart';
 import 'package:student_net/services/api_service.dart';
@@ -34,9 +35,10 @@ class PostBaiViet extends StatefulWidget {
 }
 
 class _PostBaiVietState extends State<PostBaiViet> {
-  TextEditingController nameController = TextEditingController();
-  // QuillController _controller = QuillController.basic();
-  TextEditingController passwordController = TextEditingController();
+  bool isAPICallProcess = false;
+  TextEditingController describeController = TextEditingController();
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  String? described;
   Map? loginData = {};
 
   getInfo() async {
@@ -83,7 +85,18 @@ class _PostBaiVietState extends State<PostBaiViet> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey),
-                      onPressed: () {},
+                      onPressed: () {
+                        PostModel model = PostModel(
+                            described: describeController.text,
+                            token: loginData![
+                                "token"]); //print(describeController.text);
+                        APIService.create_post(model).then((response) {
+                          setState(() {
+                            isAPICallProcess = false;
+                          });
+                          Navigator.pushNamed(context, '/root');
+                        });
+                      },
                       child: const Text('Đăng'),
                     )
                   ],
