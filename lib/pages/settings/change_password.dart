@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:student_net/models/settings/change_pass_model.dart';
-import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/services/api_service.dart';
 
 class EditPassPage extends StatefulWidget {
@@ -239,7 +238,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               );
             } else {
               ChangePassRequestModel requestModel = ChangePassRequestModel(
-                token: UserModel.token,
+                token:
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDI6Mjg6MTAuMDI0WiIsImlhdCI6MTY3NTQ3NzY5MCwiZXhwIjoxNjg1NDc3Njg5fQ.m5-TFsgCleDtuZEapE_ovS3WgjxQmH8mT29mQtRUcSE",
                 password: mk_hientai,
                 new_password: mk_moi,
               );

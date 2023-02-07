@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                               FormHelper.showSimpleAlertDialog(
                                   context,
                                   Config.appName,
-                                  "Hiện chưa hỗ trợ tính năng này!",
+                                  "Hiện chưa hỗ trợ đổi mật khẩu!",
                                   "OK", () {
                                 Navigator.pop(context);
                               });

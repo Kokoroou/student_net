@@ -165,7 +165,8 @@ class _SettingsState extends State<Settings> {
                   ),
                   onTap: () {
                     LogoutRequestModel model = LogoutRequestModel(
-                      token: UserModel.token,
+                      token:
+                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDRUMDM6NDc6MjUuMTkxWiIsImlhdCI6MTY3NTQ4MjQ0NSwiZXhwIjoxNjg1NDgyNDQ0fQ.Wyf8YyLdDG39OiXj3_4WeDGb7JkTLMCF7GBNi0iSqV0",
                     );
 
                     APIService.logout(model).then((response) {

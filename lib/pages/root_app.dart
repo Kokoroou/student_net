@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:student_net/pages/main_app/chat_page.dart';
-import 'package:student_net/pages/main_app/home_page.dart';
-import 'package:student_net/pages/main_app/profile_page.dart';
-import 'package:student_net/pages/main_app/video_page.dart';
+import 'package:student_net/pages/chat_page.dart';
+import 'package:student_net/pages/home_page.dart';
+import 'package:student_net/pages/profile_page.dart';
+import 'package:student_net/pages/saved_page.dart';
 import 'package:student_net/theme/colors.dart';
 import 'dart:math' as math;
 
@@ -11,7 +11,7 @@ class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
 
   @override
-  State<RootApp> createState() => _RootAppState();
+  _RootAppState createState() => _RootAppState();
 }
 
 class _RootAppState extends State<RootApp> {
@@ -26,17 +26,16 @@ class _RootAppState extends State<RootApp> {
     );
   }
 
-  
   Widget getBody() {
     return IndexedStack(
       index: activeTab,
       children: [
         HomePage(),
-        VideoPage(),
+        ChatPage(),
         Center(
           child: Text("Upload"),
         ),
-        ChatPage(),
+        SavedPage(),
         ProfilePage()
       ],
     );
@@ -87,7 +86,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    Icons.ondemand_video_outlined,
+                    MaterialIcons.chat_bubble_outline,
                     size: 25,
                     color: activeTab == 1 ? primary : black,
                   ),
@@ -103,7 +102,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    Icons.message,
+                    Feather.heart,
                     size: 25,
                     color: activeTab == 3 ? primary : black,
                   ),

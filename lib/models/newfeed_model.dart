@@ -38,13 +38,14 @@ class Postfeed {
     int statusCode = response.statusCode;
     String responseBody = response.body;
     
+    cleanPostList = jsonDecode(responseBody.toString())['data']['posts'];
     // return jsonDecode(responseBody.toString())['data']['posts'];
-    for (var each in (jsonDecode(responseBody.toString())['data']['posts'])){
-          if (each['image'] != null){
-            cleanPostList.add(each);
-          }
+    // for (var each in (jsonDecode(responseBody.toString())['data']['posts'])){
+    //       if (each['image'] != null){
+    //         cleanPostList.add(each);
+    //       }
 
-      }
+    //   }
 
     // print(cleanPostList);
 
