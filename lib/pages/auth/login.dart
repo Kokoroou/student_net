@@ -199,10 +199,6 @@ class _LoginPageState extends State<LoginPage> {
 
                           print("--------------body: ${response}");
 
-                          APIService.readCached().then((response) {
-                            print("----after read: $response");
-                          });
-
                           if (response["code"] == "1000") {
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/root', (route) => false);
