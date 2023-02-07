@@ -9,23 +9,63 @@ import 'package:student_net/config.dart';
 import 'package:student_net/models/auth/login_model.dart';
 import 'package:student_net/models/auth/signup_model.dart';
 import 'package:student_net/models/auth/verify_model.dart';
+import 'package:student_net/models/post/interact_post_model.dart';
+import 'package:student_net/models/post/list_post_model.dart';
+import 'package:student_net/models/post/post_model.dart';
+import 'package:student_net/models/search/del_search_model.dart';
 import 'package:student_net/models/search/saved_search_model.dart';
 import 'package:student_net/models/settings/change_name_model.dart';
 import 'package:student_net/models/settings/change_pass_model.dart';
 import 'package:student_net/models/settings/list_friend_model.dart';
 import 'package:student_net/models/settings/logout_model.dart';
 import 'package:student_net/models/settings/set_block.model.dart';
+import 'package:student_net/models/user/info_model.dart';
 import 'package:student_net/services/shared_service.dart';
 
 class APIService {
   static var client = http.Client();
+
+  static Future<Map> readCached(String requestModelType) async {
+    // List<Map<String, dynamic>> database = await APICacheDBHelper.rawQuery(
+    //     "select * from ${APICacheDBModel.table}");
+    // print("---database:$database");
+
+    String query =
+        "select syncData from ${APICacheDBModel.table} where key='$requestModelType'";
+    List<Map<String, dynamic>> cachedData =
+        await APICacheDBHelper.rawQuery(query);
+
+    // print("----query: $query");
+    // print("----cachedData:$cachedData");
+
+    Map data = jsonDecode(cachedData[0]["syncData"])["data"];
+
+    return data;
+  }
+
+  // static Future<Map<String, dynamic>> _readFile(String filePath) async {
+  //   final file = File(filePath);
+  //   final jsonStr = await file.readAsString();
+
+  //   return jsonDecode(jsonStr) as Map<String, dynamic>;
+  // }
+
+  // static Future<void> _writeFile(
+  //     Map<String, dynamic> map, String filePath) async {
+  //   final jsonStr = jsonEncode(map);
+
+  //   final file = File(filePath);
+
+  //   await file.writeAsString(jsonStr);
+  // }
+
   static Future<bool> change_name(ChangeNameRequestModel model) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
     var body = model.toJson();
-    var url = Uri.http(Config.apiURL, Config.setUserInforAPI, body);
+    var url = Uri.http(Config.apiURL, Config.setUserInfoAPI, body);
 
     var response = await client.post(url, headers: requestHeaders);
     if (response.statusCode == 200) {
@@ -83,6 +123,32 @@ class APIService {
     return response;
   }
 
+  static Future<Map> create_post(PostModel model) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.addPostAPI, body);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    // if (response.statusCode == 200) {
+    //   // SHARED
+    //   await SharedService.setLoginDetails(loginResponseJson(response.body));
+    // }
+    return jsonDecode(response.body);
+  }
+
   static Future<int> logout(LogoutRequestModel model) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -115,8 +181,8 @@ class APIService {
     // print("--------------response.body: ${response.body}");
 
     if (response.statusCode == 200) {
-      // SHARED
-      await SharedService.setLoginDetails(loginResponseJson(response.body));
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
     }
     return jsonDecode(response.body);
   }
@@ -136,8 +202,8 @@ class APIService {
     // print("--------------response.body: ${response.body}");
 
     if (response.statusCode == 200) {
-      // SHARED
-      await SharedService.setSignupDetails(signupResponseJson(response.body));
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
     }
     return jsonDecode(response.body);
   }
@@ -157,9 +223,8 @@ class APIService {
     // print("--------------response.body: ${response.body}");
 
     if (response.statusCode == 200) {
-      // SHARED
-      await SharedService.setGetVerifyDetails(
-          getVerifyResponseJson(response.body));
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
     }
     return jsonDecode(response.body);
   }
@@ -179,25 +244,211 @@ class APIService {
     // print("--------------response.body: ${response.body}");
 
     if (response.statusCode == 200) {
-      // SHARED
-      await SharedService.setCheckVerifyDetails(
-          checkVerifyResponseJson(response.body));
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
     }
     return jsonDecode(response.body);
   }
 
-  static Future<Map<String, dynamic>> _read(String filePath) async {
-    final file = File(filePath);
-    final jsonStr = await file.readAsString();
+  static Future<Map> getInfo(GetInfoRequestModel model) async {
+    var body = model.toJson();
 
-    return jsonDecode(jsonStr) as Map<String, dynamic>;
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.getUserInfoAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
   }
 
-  static Future<void> _write(Map<String, dynamic> map, String filePath) async {
-    final jsonStr = jsonEncode(map);
+  static Future<Map> setInfo(SetInfoRequestModel model) async {
+    var body = model.toJson();
 
-    final file = File(filePath);
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.setUserInfoAPI, body);
 
-    await file.writeAsString(jsonStr);
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> addPost(AddPostRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.addPostAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> getPost(GetPostRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.getPostAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> editPost(EditPostRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.editPostAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> deletePost(DeletePostRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.deletePostAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> getListPosts(ListPostsRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.getListPostsAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> getListVideos(ListVideosRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.getListVideosAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map> getListInProfile(ListInProfileRequestModel model) async {
+    var body = model.toJson();
+
+    // Add body in url because server do not wait for body [Server error]
+    var url = Uri.http(Config.apiURL, Config.getListPostsInProfileAPI, body);
+
+    var response = await client.post(
+      url,
+    );
+
+    // print("--------------Request: ${response.request}");
+    // print("--------------response.statusCode: ${response.statusCode}");
+    // print("--------------response.body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      await SharedService.cacheResponseDetails(
+          response.body, model.runtimeType.toString());
+    }
+    return jsonDecode(response.body);
+  }
+
+  static Future del_saved_search(DelSearchRequestModel model) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var body = model.toJson();
+    var url = Uri.http(Config.apiURL, Config.delSavedSearchAPI, body);
+
+    var response = await client.post(url, headers: requestHeaders);
+
+    return response.statusCode == 200;
   }
 }

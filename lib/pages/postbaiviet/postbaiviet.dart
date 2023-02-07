@@ -1,39 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:snippet_coder_utils/FormHelper.dart';
+import 'package:student_net/config.dart';
+import 'package:student_net/models/post/post_model.dart';
 import 'dart:convert';
 import 'package:student_net/pages/auth/signup.dart';
+import 'package:student_net/services/api_service.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
 
-void main() => runApp(const PostBaiViet());
+// void main() => runApp(const PostBaiViet());
 
-class PostBaiViet extends StatelessWidget {
+// class PostBaiViet extends StatelessWidget {
+//   const PostBaiViet({Key? key}) : super(key: key);
+
+//   static const String _title = 'StudentNet';
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//         title: _title,
+//         home: Scaffold(
+//           // appBar: AppBar(title: const Text(_title),),
+//           //body: LoginBody(),
+//           body: PostBaiViet(),
+//         ));
+//   }
+// }
+
+class PostBaiViet extends StatefulWidget {
   const PostBaiViet({Key? key}) : super(key: key);
 
-  static const String _title = 'StudentNet';
-
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-        title: _title,
-        home: Scaffold(
-          // appBar: AppBar(title: const Text(_title),),
-          //body: LoginBody(),
-          body: PostBody(),
-        ));
+  State<PostBaiViet> createState() => _PostBaiVietState();
+}
+
+class _PostBaiVietState extends State<PostBaiViet> {
+  bool isAPICallProcess = false;
+  TextEditingController describeController = TextEditingController();
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  String? described;
+  Map? loginData = {};
+
+  getInfo() async {
+    await APIService.readCached("LoginRequestModel").then((response) {
+      setState(() {
+        loginData = response;
+      });
+    });
   }
-}
 
-class PostBody extends StatefulWidget {
-  const PostBody({Key? key}) : super(key: key);
-
-  @override
-  State<PostBody> createState() => _PostBodyState();
-}
-
-class _PostBodyState extends State<PostBody> {
-  TextEditingController nameController = TextEditingController();
-  // QuillController _controller = QuillController.basic();
-  TextEditingController passwordController = TextEditingController();
+  _PostBaiVietState() {
+    getInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +59,6 @@ class _PostBodyState extends State<PostBody> {
       padding: const EdgeInsets.all(10),
       child: ListView(
         children: <Widget>[
-          // Container(
-          //   alignment: Alignment.center,
-          //   padding: const EdgeInsets.all(10),
-          //   child: const Text(
-          //     'Sign in',
-          //     style: TextStyle(fontSize: 20),
-          //   ),
-          // ),
           Container(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -56,21 +66,42 @@ class _PostBodyState extends State<PostBody> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.arrow_back),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                     const SizedBox(
                       width: 20,
                     ),
-                    Text('Create Post'),
-                    Spacer(),
+                    const Text(
+                      'Tạo bài viết',
+                      style: TextStyle(color: Colors.black, fontSize: 24),
+                    ),
+                    const Spacer(),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey),
-                      onPressed: () {},
-                      child: Text('Post'),
+                      onPressed: () {
+                        PostModel model = PostModel(
+                            described: describeController.text,
+                            token: loginData![
+                                "token"]); //print(describeController.text);
+                        APIService.create_post(model).then((response) {
+                          setState(() {
+                            isAPICallProcess = false;
+                          });
+                          Navigator.pushNamed(context, '/root');
+                        });
+                      },
+                      child: const Text('Đăng'),
                     )
                   ],
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                 ),
                 const SizedBox(
@@ -78,23 +109,34 @@ class _PostBodyState extends State<PostBody> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png'),
-                  title: Text("Huân đẹp trai"),
+                  leading: (loginData!["avatar"] != null)
+                      ? Image.network(loginData!["avatar"])
+                      : Image.asset('assets/images/default/avatar.png'),
+                  title: Text((loginData!["username"] != null)
+                      ? loginData!["username"]
+                      : "Username"),
                   subtitle: Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Row(
                       children: [
                         Expanded(
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.grey),
-                            onPressed: () {},
-                            icon: Icon(Icons.group),
+                            onPressed: () {
+                              FormHelper.showSimpleAlertDialog(
+                                  context,
+                                  Config.appName,
+                                  "Hiện tại chỉ có thể đăng bài công khai!",
+                                  "OK", () {
+                                Navigator.pop(context);
+                              });
+                            },
+                            icon: const Icon(Icons.group),
                             label: Row(
                               children: [
-                                Text('Friends'),
-                                Expanded(
+                                const Text('Public'),
+                                const Expanded(
                                   child: Icon(
                                     Icons.arrow_drop_down,
                                   ),
@@ -110,12 +152,20 @@ class _PostBodyState extends State<PostBody> {
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.grey),
-                            onPressed: () {},
-                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              FormHelper.showSimpleAlertDialog(
+                                  context,
+                                  Config.appName,
+                                  "Hiện chưa hỗ trợ tính năng này!",
+                                  "OK", () {
+                                Navigator.pop(context);
+                              });
+                            },
+                            icon: const Icon(Icons.add),
                             label: Row(
                               children: [
-                                Text('Album'),
-                                Expanded(
+                                const Text('Cảm xúc'),
+                                const Expanded(
                                   child: Icon(
                                     Icons.arrow_drop_down,
                                   ),
@@ -133,9 +183,9 @@ class _PostBodyState extends State<PostBody> {
                 ),
                 TextFormField(
                   maxLines: 5,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'What\'s on your Mind?',
+                    hintText: 'Bạn đang nghĩ gì?',
                     hintStyle: TextStyle(fontSize: 20),
                   ),
                 ),

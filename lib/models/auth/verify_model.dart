@@ -16,45 +16,45 @@ class GetVerifyRequestModel {
   }
 }
 
-class GetVerifyResponseModel {
-  String? code;
-  String? message;
-  Data1? data;
+// class GetVerifyResponseModel {
+//   String? code;
+//   String? message;
+//   Data1? data;
 
-  GetVerifyResponseModel({this.code, this.message, this.data});
+//   GetVerifyResponseModel({this.code, this.message, this.data});
 
-  GetVerifyResponseModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-    data = json['data'] != null ? new Data1.fromJson(json['data']) : null;
-  }
+//   GetVerifyResponseModel.fromJson(Map<String, dynamic> json) {
+//     code = json['code'];
+//     message = json['message'];
+//     data = json['data'] != null ? new Data1.fromJson(json['data']) : null;
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['code'] = this.code;
+//     data['message'] = this.message;
+//     if (this.data != null) {
+//       data['data'] = this.data!.toJson();
+//     }
+//     return data;
+//   }
+// }
 
-class Data1 {
-  String? verifyCode;
+// class Data1 {
+//   String? verifyCode;
 
-  Data1({this.verifyCode});
+//   Data1({this.verifyCode});
 
-  Data1.fromJson(Map<String, dynamic> json) {
-    verifyCode = json['verifyCode'];
-  }
+//   Data1.fromJson(Map<String, dynamic> json) {
+//     verifyCode = json['verifyCode'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['verifyCode'] = this.verifyCode;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['verifyCode'] = this.verifyCode;
+//     return data;
+//   }
+// }
 
 class CheckVerifyRequestModel {
   String? phonenumber;
@@ -75,54 +75,54 @@ class CheckVerifyRequestModel {
   }
 }
 
-class CheckVerifyResponseModel {
-  String? code;
-  String? message;
-  Data2? data;
+// class CheckVerifyResponseModel {
+//   String? code;
+//   String? message;
+//   Data2? data;
 
-  CheckVerifyResponseModel({this.code, this.message, this.data});
+//   CheckVerifyResponseModel({this.code, this.message, this.data});
 
-  CheckVerifyResponseModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-    data = json['data'] != null ? new Data2.fromJson(json['data']) : null;
-  }
+//   CheckVerifyResponseModel.fromJson(Map<String, dynamic> json) {
+//     code = json['code'];
+//     message = json['message'];
+//     data = json['data'] != null ? new Data2.fromJson(json['data']) : null;
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['code'] = this.code;
+//     data['message'] = this.message;
+//     if (this.data != null) {
+//       data['data'] = this.data!.toJson();
+//     }
+//     return data;
+//   }
+// }
 
-class Data2 {
-  String? token;
-  String? id;
-  Null? active;
+// class Data2 {
+//   String? token;
+//   String? id;
+//   Null? active;
 
-  Data2({this.token, this.id, this.active});
+//   Data2({this.token, this.id, this.active});
 
-  Data2.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
-    id = json['id'];
-    active = json['active'];
-  }
+//   Data2.fromJson(Map<String, dynamic> json) {
+//     token = json['token'];
+//     id = json['id'];
+//     active = json['active'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token'] = this.token;
-    data['id'] = this.id;
-    data['active'] = this.active;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['token'] = this.token;
+//     data['id'] = this.id;
+//     data['active'] = this.active;
+//     return data;
+//   }
+// }
 
-GetVerifyResponseModel getVerifyResponseJson(String str) =>
-    GetVerifyResponseModel.fromJson(json.decode(str));
+// GetVerifyResponseModel getVerifyResponseJson(String str) =>
+//     GetVerifyResponseModel.fromJson(json.decode(str));
 
-CheckVerifyResponseModel checkVerifyResponseJson(String str) =>
-    CheckVerifyResponseModel.fromJson(json.decode(str));
+// CheckVerifyResponseModel checkVerifyResponseJson(String str) =>
+//     CheckVerifyResponseModel.fromJson(json.decode(str));
