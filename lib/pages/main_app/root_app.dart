@@ -31,8 +31,8 @@ class _RootAppState extends State<RootApp> {
     return IndexedStack(
       index: activeTab,
       children: [
-        HomePage(),
-        VideoPage(),
+        HomePage0(),
+        HomePage0(),
         PostBaiViet(),
         ChatPage(),
         ProfilePage()

@@ -84,7 +84,8 @@ class _SettingsState extends State<Settings> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: () {
-                          showSearch(context: context, delegate: Search());
+                          showSearch(
+                              context: context, delegate: Search(loginData));
                         }),
                   ),
                 ],

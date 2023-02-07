@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:student_net/models/search/del_search_model.dart';
+import 'package:student_net/models/search/saved_search_model.dart';
+import 'package:student_net/models/settings/user_model.dart';
 
 import 'package:student_net/pages/search/search_bar.dart';
+import 'package:student_net/services/api_service.dart';
 
 void main() => runApp(const HistorySearch());
 
@@ -20,7 +26,6 @@ class HistorySearch extends StatelessWidget {
           children: <Widget>[
             Column(children: <Widget>[
               History(),
-              History(),
             ]),
           ],
         )));
@@ -34,20 +39,6 @@ class History extends StatelessWidget {
       children: <Widget>[
         Column(
           children: <Widget>[
-            Container(
-              height: 40,
-              color: Colors.white,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Ngày 7 tháng 8 năm 2020',
-                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
             MyListPage(),
           ],
         )
@@ -64,40 +55,122 @@ class MyListPage extends StatefulWidget {
 }
 
 class _MyListPageState extends State<MyListPage> {
-  List<String> data = ["1", "2", "3", "4"];
+  List? data;
+  List? ls_id_searches;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: ScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: data.length,
-      itemBuilder: ((context, index) {
-        return Card(
-            color: Color.fromARGB(255, 201, 198, 198),
-            child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: ListTile(
-                  title: Text(data[index]),
-                  leading: Icon(Icons.search),
-                  trailing: Container(
-                    width: 20,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  data.removeAt(index);
-                                });
-                              },
-                              icon: Icon(Icons.delete)),
-                        ),
-                      ],
-                    ),
-                  ),
-                )));
-      }),
+    GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
+      token: UserModel.token,
+      index: "0",
+      count: "50",
     );
+    if (data == null || data!.length == 0) {
+      return FutureBuilder(
+          future: APIService.get_ls_keywords(model),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data != null) {
+              GetSavedSearchResponseModel response =
+                  GetSavedSearchResponseModel.fromJson(
+                      json.decode(snapshot.data.body));
+              data = response.getKeywords()!;
+              ls_id_searches = response.get_ls_id_searches()!;
+              print("data");
+              print(data);
+              print(ls_id_searches);
+
+              return ListView.builder(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data!.length,
+                itemBuilder: ((context, index) {
+                  return Card(
+                      color: Color.fromARGB(255, 201, 198, 198),
+                      child: Padding(
+                          padding: const EdgeInsets.all(😎,
+                          child: ListTile(
+                            title: Text(data![index]),
+                            leading: Icon(Icons.search),
+                            trailing: Container(
+                              width: 20,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            data!.removeAt(index);
+                                            DelSearchRequestModel model =
+                                                new DelSearchRequestModel(
+                                                    token: UserModel.token,
+                                                    all: "0",
+                                                    search_id:
+                                                        ls_id_searches![index]);
+                                            print("delete");
+                                            APIService.del_saved_search(model)
+                                                .then((value) {
+                                            print(ls_id_searches![index]);
+                                            ls_id_searches!.removeAt(index);
+
+                                                  
+                                            });
+                                          });
+                                        },
+                                        icon: Icon(Icons.delete)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )));
+                }),
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          });
+    } else {
+      return ListView.builder(
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: data!.length,
+        itemBuilder: ((context, index) {
+          return Card(
+              color: Color.fromARGB(255, 201, 198, 198),
+              child: Padding(
+                  padding: const EdgeInsets.all(😎,
+                  child: ListTile(
+                    title: Text(data![index]),
+                    leading: Icon(Icons.search),
+                    trailing: Container(
+                      width: 20,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    data!.removeAt(index);
+                                    DelSearchRequestModel model =
+                                        new DelSearchRequestModel(
+                                            token: UserModel.token,
+                                            all: "1",
+                                            search_id: ls_id_searches![index]);
+                                
+                                    APIService.del_saved_search(model)
+                                        .then((value) {
+                              
+                                    });
+                                    ls_id_searches!.removeAt(index);
+                                  });
+                                },
+                                icon: Icon(Icons.delete)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )));
+        }),
+      );
+    }
   }
 }

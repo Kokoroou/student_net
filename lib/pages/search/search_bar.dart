@@ -18,23 +18,40 @@ import 'package:student_net/pages/settings/block.dart';
 This file only contain the search bar 
 */
 
-void main() => runApp(const Example());
+// void main() => runApp(const SearchPage());
 
-class Example extends StatelessWidget {
-  const Example({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-        title: "Search Bar",
-        home: Scaffold(
-          body: ExampleBody(),
-        ));
-  }
+  State<SearchPage> createState() => _SearchPageState();
+
+  // Widget build(BuildContext context) {
+  //   return const MaterialApp(
+  //       title: "Search Bar",
+  //       home: Scaffold(
+  //         body: ExampleBody(),
+  //       ));
+  // }
 }
 
-class ExampleBody extends StatelessWidget {
-  const ExampleBody({super.key});
+class _SearchPageState extends State<SearchPage> {
+  // const ExampleBody({super.key});
+  Map? loginData = {};
+
+  getInfo() async {
+    await APIService.readCached("LoginRequestModel").then((response) {
+      setState(() {
+        loginData = response;
+      });
+    });
+  }
+
+  _SearchPageState() {
+    getInfo();
+  }
+
+  // ExampleBody
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +62,7 @@ class ExampleBody extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: Search(saved_search: take_recentSearch()));
+                showSearch(context: context, delegate: Search(loginData));
               })
         ],
       ),
@@ -56,32 +71,39 @@ class ExampleBody extends StatelessWidget {
   }
 }
 
-List? take_recentSearch() {
-  GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
-    token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTM6MzM6MTMuNjE0WiIsImlhdCI6MTY3NTYwMzk5MywiZXhwIjoxNjg1NjAzOTkyfQ.CZgztk66_euGrhBTC5RjLgtvN6eJDxoZ56bpBByrPkM",
-    index: "0",
-    count: "20",
-  );
+// List? take_recentSearch() {
 
-  APIService.get_ls_keywords(model).then((value) {
-    // print(value.body);
-    GetSavedSearchResponseModel response =
-        GetSavedSearchResponseModel.fromJson(json.decode(value.body));
+//   GetSavedSearchRequestModel model = GetSavedSearchRequestModel(
+//     token: loginData!["token"],
+//     index: "0",
+//     count: "20",
+//   );
 
-    // if (recentQuery.isEmpty){
-    print(response.getKeywords());
-    print("helllo");
-    return response.getKeywords();
-  });
-}
+//   APIService.get_ls_keywords(model).then((value) {
+//     // print(value.body);
+//     GetSavedSearchResponseModel response =
+//         GetSavedSearchResponseModel.fromJson(json.decode(value.body));
+
+//     // if (recentQuery.isEmpty){
+//     print(response.getKeywords());
+//     print("helllo");
+//     return response.getKeywords();
+//   });
+// }
 
 class Search extends SearchDelegate {
   final int historyLength = 5;
   List<dynamic> ls_keywords = [];
   List<dynamic> recentQuery = [];
   List? saved_search;
-  Search({this.saved_search}) : super();
+  // Search({this.saved_search}) : super();
+
+  // Map? loginData = {};
+  Map? loginData;
+
+  Search(Map? loginData) {
+    this.loginData = loginData;
+  }
 
   void removeQuery(String term) {
     if (recentQuery.contains(term)) {
@@ -340,10 +362,7 @@ class Search extends SearchDelegate {
 
     int hasResult = 1;
     if (hasResult == 1) {
-      SearchPostfeed a = SearchPostfeed(
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTU6MDE6MTYuNTEwWiIsImlhdCI6MTY3NTYwOTI3NiwiZXhwIjoxNjg1NjA5Mjc1fQ.2W1PVqZt4ZHwpkW5uYNdIxNkBKhnDFmVy73CE6e4Rik',
-          50,
-          query);
+      SearchPostfeed a = SearchPostfeed(loginData!["token"], 50, query);
       // cleanData(a);
       return FutureBuilder(
           future: a.post_postList(),
@@ -454,7 +473,6 @@ class Search extends SearchDelegate {
             GetSavedSearchResponseModel response =
                 GetSavedSearchResponseModel.fromJson(
                     json.decode(snapshot.data.body));
-            print("ahiahihi");
             recentQuery = response.getKeywords()!;
             print(recentQuery);
             ls_keywords = response.getKeywords()!;
@@ -462,7 +480,7 @@ class Search extends SearchDelegate {
             if (query.isEmpty) {
               icon = Icon(Icons.history);
             } else
-              icon = Icon(Icons.build);
+              icon = Icon(Icons.history);
             List suggestionList = recentQuery;
             if (query.isEmpty || query.length == 0) {
               suggestionList = recentQuery;
@@ -499,9 +517,9 @@ class Search extends SearchDelegate {
                             Container(
                                 child: InkWell(
                               onTap: () {
-                                print('hiện thị lịch sử tìm kiếm ');
+                                print('Hiện thị lịch sử tìm kiếm ');
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ListFriends()));
+                                    builder: (context) => HistorySearch()));
                               },
                               child: const Padding(
                                   padding: const EdgeInsets.all(10),

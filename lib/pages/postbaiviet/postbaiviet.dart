@@ -64,11 +64,21 @@ class _PostBaiVietState extends State<PostBaiViet> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.arrow_back),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                     const SizedBox(
                       width: 20,
                     ),
-                    const Text('Tạo bài viết'),
+                    const Text(
+                      'Tạo bài viết',
+                      style: TextStyle(color: Colors.black, fontSize: 24),
+                    ),
                     const Spacer(),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(

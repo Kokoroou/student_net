@@ -45,17 +45,17 @@ class FinalApp extends StatelessWidget {
 
         // Main pages in app
         '/root': (context) => const RootApp(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) => const HomePage0(),
         '/chat': (context) => const ChatPage(),
         '/profile': (context) => const ProfilePage(),
-        '/video': (context) => const VideoPage(),
+        '/video': (context) => const HomePage0(),
 
         // Pages for functions
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignUpPage(),
         '/verify': (context) => const VerifyPage(),
         '/post': (context) => const PostBaiViet(),
-        '/search': (context) => Example(),
+        '/search': (context) => SearchPage(),
       },
     );
   }
