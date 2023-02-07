@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:student_net/models/settings/block_model.dart';
+import 'package:student_net/models/settings/set_block.model.dart';
+import 'package:student_net/models/settings/user_model.dart';
 import 'package:student_net/pages/search/search_bar.dart';
 
 void main() => runApp(const BlockPage());
@@ -101,6 +104,105 @@ class MyListPage extends StatefulWidget {
 }
 
 class _MyListPageState extends State<MyListPage> {
+  // List? data = [];
+  // BlockRequestModel model = new BlockRequestModel(
+  //   token: UserModel.token,
+  //   index: "0",
+  //   count: "50",
+  // );
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return FutureBuilder(
+  //       future: APIService.get_ls_blocks(model),
+  //       builder: (context, snapshot) {
+  //         if (snapshot.hasData && snapshot.data != null) {
+  //           BlockResponseModel response =
+  //               BlockResponseModel.fromJson(json.decode(snapshot.data.body));
+
+  //           data = response.getListBlocks();
+
+  //           return ListView.builder(
+  //             physics: ScrollPhysics(),
+  //             shrinkWrap: true,
+  //             itemCount: data!.length,
+  //             itemBuilder: ((context, index) {
+  //               return Card(
+  //                   color: Color.fromARGB(255, 230, 227, 227),
+  //                   child: Padding(
+  //                       padding: const EdgeInsets.all(8),
+  //                       child: ListTile(
+  //                         title: Text(data![index].username),
+  //                         leading: CircleAvatar(
+  //                           radius: 30,
+  //                           child: CircleAvatar(
+  //                             backgroundImage: getAvatar(data![index].avatar),
+  //                             // backgroundImage: NetworkImage(avatarUrl),
+  //                             radius: 25.0,
+  //                             // backgroundColor: Colors.black,
+  //                           ),
+  //                           // backgroundColor: Colors.white,
+  //                         ),
+  //                         trailing: Container(
+  //                           width: 80,
+  //                           child: Row(
+  //                             children: [
+  //                               Expanded(
+  //                                 child: TextButton(
+  //                                   style: TextButton.styleFrom(
+  //                                     textStyle: const TextStyle(fontSize: 14),
+  //                                   ),
+  //                                   onPressed: () {
+                                      
+  //                                     SetBlockRequestModel model =
+  //                                         SetBlockRequestModel(
+  //                                             token: UserModel.token,
+  //                                             user_id: data![index].id,
+  //                                             type: "1");
+
+  //                                     APIService.set_block(model).then((value) {
+  //                                       print(value);
+  //                                       if (value == 200) {
+  //                                         data!.removeAt(index);
+  //                                         showDialog<String>(
+  //                                             context: context,
+  //                                             builder: (BuildContext context) =>
+  //                                                 AlertDialog(
+  //                                                   title:
+  //                                                       const Text('Thông báo'),
+  //                                                   content: const Text(
+  //                                                       'Đã bõ chặn thành công'),
+  //                                                   actions: <Widget>[
+  //                                                     TextButton(
+  //                                                       onPressed: () {
+  //                                                         Navigator.pop(
+  //                                                             context, 'OK');
+  //                                                         Navigator.pop(
+  //                                                             context);
+  //                                                       },
+  //                                                       child: const Text('OK'),
+  //                                                     ),
+  //                                                   ],
+  //                                                 ));
+  //                                       }
+  //                                     });
+  //                                   },
+  //                                   child: const Text(
+  //                                     'Bỏ chặn',
+  //                                     style: TextStyle(color: Colors.grey),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       )));
+  //             }),
+  //           );
+  //         } else {
+  //           return Center(child: CircularProgressIndicator());
+  //         }
+  //       });
   List<String> data = ["1", "2", "3", "4"];
   get_list_blocks() async {
     var response = await http.post(
