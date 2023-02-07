@@ -32,7 +32,7 @@ class _RootAppState extends State<RootApp> {
       index: activeTab,
       children: [
         HomePage(),
-        VideoPage(),
+        HomePage0(),
         Center(
           child: Text("Upload"),
         ),
