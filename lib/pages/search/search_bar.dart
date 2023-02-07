@@ -324,10 +324,7 @@ class Search extends SearchDelegate {
 
     int hasResult = 1;
     if (hasResult == 1) {
-      SearchPostfeed a = SearchPostfeed(
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzNiZDUyOTgxNTJmZjUzYjI2MDgwNSIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMTU6MDE6MTYuNTEwWiIsImlhdCI6MTY3NTYwOTI3NiwiZXhwIjoxNjg1NjA5Mjc1fQ.2W1PVqZt4ZHwpkW5uYNdIxNkBKhnDFmVy73CE6e4Rik',
-          50,
-          query);
+      SearchPostfeed a = SearchPostfeed(UserModel.token, 50, query);
       // cleanData(a);
       return FutureBuilder(
           future: a.post_postList(),
@@ -445,7 +442,7 @@ class Search extends SearchDelegate {
             if (query.isEmpty) {
               icon = Icon(Icons.history);
             } else
-              icon = Icon(Icons.build);
+              icon = Icon(Icons.history);
             List suggestionList = recentQuery;
             if (query.isEmpty || query.length == 0) {
               suggestionList = recentQuery;
@@ -482,7 +479,7 @@ class Search extends SearchDelegate {
                             Container(
                                 child: InkWell(
                               onTap: () {
-                                print('hiện thị lịch sử tìm kiếm ');
+                                print('Hiện thị lịch sử tìm kiếm ');
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => HistorySearch()));
                               },

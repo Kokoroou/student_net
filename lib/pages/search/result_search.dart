@@ -12,7 +12,7 @@ class SearchPostfeed {
   }
   Future post_postList() async {
     // List cleanPostList = [];
-
+    cleanPostList = [];
     String url = 'http://184.169.213.180:3000/it4788/search/search?token=' + token.toString() +  '&index=0&count=' + count.toString() + '&keyword=' + keyword.toString() ;
     print(url);
     // return [];
