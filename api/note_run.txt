@@ -3,3 +3,6 @@ flutter run --no-sound-null-safety
 
 # Run on Chrome
 flutter run --no-sound-null-safety -d chrome --web-renderer html
+
+# Build APK
+flutter build apk --release --no-sound-null-safety
