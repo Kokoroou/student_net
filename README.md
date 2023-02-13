@@ -1,7 +1,7 @@
 <h1 align="center">
-  <br>
+  <!-- <br>
   <img src="#" alt="Logo" width="20%"/>
-  <br>
+  <br> -->
   <i>Student Net</i>
   <br>
 </h1>
@@ -23,15 +23,18 @@ A simple social network app based on Facebook.
 ## Key features
 - [x] Đăng ký
 - [x] Đăng nhập
-- [ ] Đăng bài viết
-- [ ] Hiển thị bài viết
+- [x] Xác thực tài khoản
+- [x] Đăng bài viết
+- [x] Hiển thị bài viết
 - [ ] Bình luận bài viết
 - [ ] Sửa, xóa bài viết
-- [ ] Thích bài viết
+- [x] Thích bài viết
 - [ ] Báo cáo bài viết
-- [ ] Tìm kiếm bài viết
-- [ ] Tìm kiếm người khác
-- [ ] Cài đặt tài khoản
+- [x] Tìm kiếm bài viết
+- [ ] Tìm kiếm người dùng
+- [x] Lưu, xóa lịch sử tìm kiếm
+- [x] Chặn người dùng
+- [x] Cài đặt tài khoản
 - [ ] Nhắn tin
 
 ## How to use
