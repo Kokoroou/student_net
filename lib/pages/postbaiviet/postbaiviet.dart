@@ -5,6 +5,7 @@ import 'package:student_net/config.dart';
 import 'package:student_net/models/post/post_model.dart';
 import 'dart:convert';
 import 'package:student_net/pages/auth/signup.dart';
+import 'package:student_net/pages/main_app/home_page.dart';
 import 'package:student_net/services/api_service.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
 
@@ -75,30 +76,44 @@ class _PostBaiVietState extends State<PostBaiViet> {
                       },
                     ),
                     const SizedBox(
-                      width: 20,
+                      width: 15,
                     ),
-                    const Text(
-                      'Tạo bài viết',
-                      style: TextStyle(color: Colors.black, fontSize: 24),
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey),
-                      onPressed: () {
+                    Text('Create Post'),
+                    Spacer(),
+                    Center(
+                      child: FormHelper.submitButton('Đăng tải', () {
                         PostModel model = PostModel(
                             described: describeController.text,
-                            token: loginData![
-                                "token"]); //print(describeController.text);
+                            token:
+                                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGY2YjcwMjUzNzVlYzg2NDg2ZGE2MCIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMDg6NDU6NDguNjYzWiIsImlhdCI6MTY3NTU4Njc0OCwiZXhwIjoxNjg1NTg2NzQ3fQ.AmD_LLe6M_h-yr1cECTIwMetvLU4rtY6IZ9s7VPeBt0');
+                        //print(describeController.text);
                         APIService.create_post(model).then((response) {
                           setState(() {
                             isAPICallProcess = false;
                           });
-                          Navigator.pushNamed(context, '/root');
+                          Navigator.pushNamed(context, '/home');
                         });
-                      },
-                      child: const Text('Đăng'),
-                    )
+                      }),
+                    ),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.grey),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       isAPICallProcess = true;
+                    //     });
+                    //     PostModel model = PostModel(
+                    //         described: described!, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGY2YjcwMjUzNzVlYzg2NDg2ZGE2MCIsImRhdGVMb2dpbiI6IjIwMjMtMDItMDVUMDg6NDU6NDguNjYzWiIsImlhdCI6MTY3NTU4Njc0OCwiZXhwIjoxNjg1NTg2NzQ3fQ.AmD_LLe6M_h-yr1cECTIwMetvLU4rtY6IZ9s7VPeBt0');
+                    //     APIService.create_post(model).then((response) {
+                    //       setState(() {
+                    //         isAPICallProcess = false;
+                    //       });
+                    //       Navigator.pushNamedAndRemoveUntil(
+                    //           context, '/home', (route) => false);
+                    //     });
+                    //     },
+                    //
+                    //  child: Text('Post'),)
                   ],
                 ),
                 const Divider(
@@ -183,7 +198,8 @@ class _PostBaiVietState extends State<PostBaiViet> {
                 ),
                 TextFormField(
                   maxLines: 5,
-                  decoration: const InputDecoration(
+                  controller: describeController,
+                  decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Bạn đang nghĩ gì?',
                     hintStyle: TextStyle(fontSize: 20),
@@ -199,19 +215,19 @@ class _PostBaiVietState extends State<PostBaiViet> {
 
   void _navigateToSignUp(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const SignUpPage()));
+        .push(MaterialPageRoute(builder: (context) => const HomePage()));
   }
 
-  Future<http.Response> _createPost(String phoneNumber, String password) {
-    return http.post(
-      Uri.parse('http://184.169.213.180:3000/it4788/auth/login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'post': phoneNumber,
-        'password': password,
-      }),
-    );
-  }
+  // Future<http.Response> _createPost(String phoneNumber, String password) {
+  //   return http.post(
+  //     Uri.parse('http://184.169.213.180:3000/it4788/auth/login'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'post': phoneNumber,
+  //       'password': password,
+  //     }),
+  //   );
+  // }
 }
